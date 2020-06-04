@@ -4,11 +4,11 @@
 
 # Site
 title: iaosee
-subtitle: A poet's soul attached to the craftsman's body.
-description: Web Developer, Focus on Front-end, JavaScript, Graphics. A poet's soul attached to the craftsman's body.
+subtitle: The soul of a poet attached to the craftsman's body.
+description: Web Developer, Focus on Front-end, JavaScript, Graphics. The soul of a poet attached to the craftsman's body.
 keywords: iaosee, iaosee's blog, Web, Front-end, JavaScript, TypeScript, Graphics, 2D/3D, Canvas, WebGL
 author: iaosee
-language: en
+language: zh-cn
 timezone: ''
 
 # URL
@@ -93,7 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: minos
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
