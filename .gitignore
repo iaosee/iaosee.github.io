@@ -7,3 +7,5 @@ public/
 .deploy*/
 
 themes/
+
+source/examples/*
