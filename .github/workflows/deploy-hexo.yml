@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [source]
 
-
 env:
   GIT_USER: iaosee
   GIT_EMAIL: iaosee@outlook.com
@@ -25,7 +24,7 @@ jobs:
     steps:
       - name: Checkout blog repo
         uses: actions/checkout@v2
-        with: 
+        with:
           ref: source
 
       - name: Checkout theme repo
