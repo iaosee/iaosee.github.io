@@ -9,3 +9,6 @@ public/
 themes/
 
 source/examples/*
+
+github-deploy-key
+github-deploy-key.pub
