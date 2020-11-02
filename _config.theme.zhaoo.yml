@@ -164,7 +164,7 @@ lazyload:
 
 # LeanCloud
 leancloud:
-  enable: true
+  enable: false
   appId: QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz
   appKey: 1ygwFPYG8IbvlgnrnNXrNeNe
   serverURLs:
