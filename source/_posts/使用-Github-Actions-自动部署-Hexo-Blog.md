@@ -37,13 +37,89 @@ ssh-keygen -f github-deploy-key
 
 将创建好的 `github-deploy-key.pub` 文件中的内容复制添加到对应仓库的 Deploy keys 中， **Settings** / **Deploy keys** / **Add deploy key**， 取名为 `HEXO_DEPLOY_KEY_PUB`。
 
-![HEXO_DEPLOY_KEY_PUB](./屏幕截图 2020-11-02 161201.png)
+<!-- ![HEXO_DEPLOY_KEY_PUB](./屏幕截图 2020-11-02 161201.png) -->
 
 将创建好的 `github-deploy-key` 文件中的内容复制添加到对应仓库的 Secrets 中， **Settings** / **Secrets** / **New Secret**，取名为 `HEXO_DEPLOY_KEY_PRI`。
 
-![HEXO_DEPLOY_KEY_PRI](./屏幕截图 2020-11-02 161302.png)
+<!-- ![HEXO_DEPLOY_KEY_PRI](./屏幕截图 2020-11-02 161302.png) -->
 
 
-### Test Actions
+## Github Actions 脚本编写 
+
+在仓库的 `.github/workflows/` 目录下创建一个 `hexo-auto-deploy-ci.yml` 文件，这个名字是可以随意取得。
+
+我的 Actions 脚本如下：
+
+``` yml
+name: Hexo Auto Deploy CI
+
+on:
+  push:
+    branches: [source]
+  pull_request:
+    branches: [source]
+
+env:
+  GIT_USER: iaosee
+  GIT_EMAIL: iaosee@outlook.com
+  THEME_REPO: izhaoo/hexo-theme-zhaoo
+  THEME_BRANCH: master
+
+jobs:
+  build:
+    name: Build on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [12.x]
+
+    steps:
+      - name: Checkout blog repo
+        uses: actions/checkout@v2
+        with:
+          ref: source
+
+      - name: Checkout blog static resource
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          path: .deploy_git
+
+      - name: Checkout theme repo
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.THEME_REPO }}
+          ref: ${{ env.THEME_BRANCH }}
+          path: themes/zhaoo
+
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Configuration environment
+        env:
+          HEXO_DEPLOY_KEY_PRI: ${{secrets.HEXO_DEPLOY_KEY_PRI}}
+        run: |
+          sudo timedatectl set-timezone "Asia/Shanghai"
+          mkdir -p ~/.ssh/
+          echo "$HEXO_DEPLOY_KEY_PRI" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name $GIT_USER
+          git config --global user.email $GIT_EMAIL
+          cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml
+
+
+      - name: Install dependencies
+        run: |
+          npm i
+
+      - name: Deploy blog
+        run: |
+          npm run clean
+          npm run deploy
+```
 
 
