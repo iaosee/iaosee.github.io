@@ -57,9 +57,11 @@ jobs:
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
           cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml
-          ls .deploy_git -a
+          git clone --depth 1 --branch=master git@github.com:iaosee/iaosee.github.io.git .deploy_git
           cd .deploy_git
+          find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
           git log
+          cd ../
 
       # - name: Install dependencies
       #   run: |
