@@ -152,7 +152,7 @@ leancloud:
 fancybox: true
 
 # Pjax
-pjax: true
+pjax: false
 
 # HighLight
 highlight:
