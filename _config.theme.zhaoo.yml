@@ -1,33 +1,7 @@
 # --------------------------------------------------
-# Site settings
+# Site Settings
 # --------------------------------------------------
-
-# Color
-color:
-  default: "#33333D"
-  link: "#FFBE5B"
-
-# Background Image
-background_image:
-
-# Favicon
-favicon:
-  small: /images/icons/favicon-16x16.ico
-  medium: /images/icons/favicon-32x32.ico
-  apple_touch_icon: /images/icons/apple-touch-icon.png
-  safari_pinned_tab: /images/icons/stun-logo.svg
-  msapplication: /images/icons/favicon-144x144.png
-
-# Preview
-preview:
-  enable: true
-  model: wave  # wave | cloud
-  welcome_image: /images/theme/welcome-image.jpg
-  motto:
-    default: 当我抬起头，它已不知去向
-    color: '#ffffff'
-    api:  # http://localhost:3000/api/motto
-
+  
 # Menu
 menu:
   home: / || 首页
@@ -37,44 +11,91 @@ menu:
   categories: /categories || 分类
   about: /about || 关于
 
+# Color
+color:
+  text: "#33333D"
+  text-secondary: "#4e4e4e"
+  text-third: "#999999"
+  background: "#ffffff"
+  background-secondary: "#f6f8fa"
+  text-dark: "#dddddd"
+  text-secondary-dark: "#9899ab"
+  text-third-dark: "#7d8594"
+  background-dark: "#1e2128"
+  background-secondary-dark: "#1a1d22"
+  link: "#FF3B00"
+
+# Favicon
+favicon:
+  small: /images/icons/favicon-16x16.png
+  medium: /images/icons/favicon-32x32.png
+  apple_touch_icon: /images/icons/apple-touch-icon.png
+  safari_pinned_tab: /images/icons/stun-logo.svg
+  msapplication: /images/icons/favicon-144x144.png
+
+# Font
+font:
+  size: 14px
+  family:
+
+# Background Image
+background_image:
+
+# Loading
+loading: /images/theme/loading.gif
+
+# Preview
+preview:
+  enable: true
+  model: wave  # cloud
+  welcome_image: /images/theme/welcome-image.jpg
+  motto:
+    default: 当我抬起头，它已不知去向
+    color: '#000000'
+    api:  # http://localhost:3000/api/motto
+
 # Copyright
 copyright: <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p>
 
 # Social
 social:
+  # qq: tencent://message/?Menu=yes&uin=894519210 || iconQQ || '#12B7F5'
+  # wechat: javascript:; || iconwechat-fill || '#09BB07'
+  # instagram: https://www.instagram.com/izhaoo/ || iconinstagram || '#DA2E76'
   github: https://github.com/iaosee || icongithub-fill || '#24292E'
   email: mailto:iaosee@outlook.com || iconmail
 
-# Loading
-loading: /images/theme/loading.gif
-
-# Fab (FloatActionButton)
+# Fab (Float Action Button)
 fab:
   enable: true
-  alwaysShow: false
-
-# Gray (Mourning Mode)
-gray:
-  enable: false
+  always_show: false
 
 # Color Mode
 color_mode:
   enable: true
 
+# Gray (Mourning Mode)
+gray:
+  enable: false
+
 # --------------------------------------------------
-# Post settings
+# Post Settings
 # --------------------------------------------------
 
-# Post image
+# Post Image
 post_image:
   random: local # galleries
   default: /images/theme/post-image.jpg
 
+# Page Size
+post_page_size:
+  width: 1200px
+
 # Donate
 donate:
   enable: false
-  alipay:
-  wechat:
+  alipay: https://pic.izhaoo.com/alipay.jpg
+  wechat: https://pic.izhaoo.com/wechat.jpg
 
 # Copyright
 post_copyright:
@@ -86,7 +107,7 @@ carrier:
   type: html # markdown text
 
 # --------------------------------------------------
-# Page settings
+# Page Settings
 # --------------------------------------------------
 
 # Galleries
@@ -96,7 +117,7 @@ galleries:
   subtitle: Photography
 
 # --------------------------------------------------
-# Comment settings
+# Comment Settings
 # --------------------------------------------------
 
 comments:
@@ -138,12 +159,12 @@ daovoice:
 # Lazyload
 lazyload:
   enable: true
-  onlyPost: false
+  only_post: false
   loading: /images/theme/loading.gif
 
 # LeanCloud
 leancloud:
-  enable: false
+  enable: true
   appId: QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz
   appKey: 1ygwFPYG8IbvlgnrnNXrNeNe
   serverURLs:
@@ -162,7 +183,7 @@ highlight:
     dark: Solarized Dark
 
 # --------------------------------------------------
-# Script settings
+# Script Settings
 # --------------------------------------------------
 
 # CDN
