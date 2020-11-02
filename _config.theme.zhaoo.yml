@@ -27,11 +27,11 @@ color:
 
 # Favicon
 favicon:
-  small: /images/icons/favicon-16x16.png
-  medium: /images/icons/favicon-32x32.png
-  apple_touch_icon: /images/icons/apple-touch-icon.png
-  safari_pinned_tab: /images/icons/stun-logo.svg
-  msapplication: /images/icons/favicon-144x144.png
+  small: /images/icons/favicon-16x16.ico
+  medium: /images/icons/favicon-32x32.ico
+  # apple_touch_icon: /images/icons/apple-touch-icon.png
+  # safari_pinned_tab: /images/icons/stun-logo.svg
+  # msapplication: /images/icons/favicon-144x144.png
 
 # Font
 font:
