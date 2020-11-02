@@ -27,6 +27,12 @@ jobs:
         with:
           ref: source
 
+      - name: Checkout blog static resource
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          path: .deploy_git
+
       - name: Checkout theme repo
         uses: actions/checkout@v2
         with:
