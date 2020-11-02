@@ -29,10 +29,14 @@ GitHub Actions 中的术语:
 
 ### GitHub 秘钥配置
 
+使用命令生成秘钥：
 
-[创建个人访问令牌:](https://docs.github.com/cn/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) 打开 GitHub 账户设置 **Settings** / **Developer settings** / **Personal access tokens**
+``` bash
+ssh-keygen -f github-deploy-key
+```
 
-将创建好的 Personal Access Token 添加到对应仓库的 Secrets  中， **Settings** / **Secrets**。
+将创建好的 `github-deploy-key` 文件中的内容复制添加到对应仓库的 Secrets 中， **Settings** / **Secrets** / **New Secret**，取名 `HEXO_DEPLOY_KEY_PRI`。
+将创建好的 `github-deploy-key.pub` 文件中的内容复制添加到对应仓库的 Deploy keys 中， **Settings** / **Deploy keys** / **Add deploy key** 取名 `HEXO_DEPLOY_KEY_PUB`。
 
 
 

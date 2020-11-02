@@ -99,5 +99,5 @@ theme: zhaoo
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/iaosee/iaosee.github.io.git
+  repo: git@github.com:iaosee/iaosee.github.io.git
   branch: master
