@@ -38,11 +38,11 @@ ssh-keygen -f github-deploy-key
 
 将创建好的 `github-deploy-key.pub` 文件中的内容复制添加到对应仓库的 Deploy keys 中， **Settings** / **Deploy keys** / **Add deploy key**， 取名为 `HEXO_DEPLOY_KEY_PUB`。
 
-![HEXO_DEPLOY_KEY_PUB](./images/icons/article/2020-11-02/屏幕截图 2020-11-02 161302.png)
+![HEXO_DEPLOY_KEY_PUB](../images/article/2020-11-02/2020-11-02-161302.png)
 
 将创建好的 `github-deploy-key` 文件中的内容复制添加到对应仓库的 Secrets 中， **Settings** / **Secrets** / **New Secret**，取名为 `HEXO_DEPLOY_KEY_PRI`。
 
-![HEXO_DEPLOY_KEY_PRI](./images/icons/article/2020-11-02/屏幕截图 2020-11-02 161201.png)
+![HEXO_DEPLOY_KEY_PRI](../images/article/2020-11-02/2020-11-02-161201.png)
 
 需要注意的是，这里取的名字在 Actions 脚本中通过 `${{secrets.HEXO_DEPLOY_KEY_PRI}}` 获取时需要一致。
 
