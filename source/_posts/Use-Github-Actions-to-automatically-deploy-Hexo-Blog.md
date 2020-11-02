@@ -1,6 +1,6 @@
 ---
 title: 使用 Github Actions 自动部署 Hexo Blog
-date: 2020-11-02 13:55:27
+date: 2020-11-02 21:36:50
 tags: 
   - CI/CD
   - GitHub Actions
@@ -37,16 +37,16 @@ ssh-keygen -f github-deploy-key
 
 将创建好的 `github-deploy-key.pub` 文件中的内容复制添加到对应仓库的 Deploy keys 中， **Settings** / **Deploy keys** / **Add deploy key**， 取名为 `HEXO_DEPLOY_KEY_PUB`。
 
-<!-- ![HEXO_DEPLOY_KEY_PUB](./屏幕截图 2020-11-02 161201.png) -->
 
 将创建好的 `github-deploy-key` 文件中的内容复制添加到对应仓库的 Secrets 中， **Settings** / **Secrets** / **New Secret**，取名为 `HEXO_DEPLOY_KEY_PRI`。
 
-<!-- ![HEXO_DEPLOY_KEY_PRI](./屏幕截图 2020-11-02 161302.png) -->
+
+需要注意的是，这里取的名字在 Actions 脚本中通过 `${{secrets.HEXO_DEPLOY_KEY_PRI}}` 获取时需要一致。
 
 
 ## Github Actions 脚本编写 
 
-在仓库的 `.github/workflows/` 目录下创建一个 `hexo-auto-deploy-ci.yml` 文件，这个名字是可以随意取得。
+在仓库的 `.github/workflows/` 目录下创建一个 `hexo-auto-deploy-ci.yml` 文件，这个文件名字可以是随意取得。
 
 我的 Actions 脚本如下：
 
@@ -113,7 +113,6 @@ jobs:
         run: |
           npm run clean
           npm run deploy
-
 ```
 
 

@@ -89,7 +89,7 @@ post_image:
 
 # Page Size
 post_page_size:
-  width: 1200px
+  width: 900px
 
 # Donate
 donate:
@@ -178,6 +178,8 @@ pjax: false
 # HighLight
 highlight:
   enable: true
+  line_number: true
+  auto_detect: true
   style: # https://highlightjs.org/static/demo/
     light: Xcode
     dark: Solarized Dark
