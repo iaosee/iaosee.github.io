@@ -39,4 +39,6 @@ ssh-keygen -f github-deploy-key
 将创建好的 `github-deploy-key.pub` 文件中的内容复制添加到对应仓库的 Deploy keys 中， **Settings** / **Deploy keys** / **Add deploy key** 取名 `HEXO_DEPLOY_KEY_PUB`。
 
 
+### Test
+
 
