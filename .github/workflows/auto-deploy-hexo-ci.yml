@@ -57,7 +57,7 @@ jobs:
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
           cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml
-          ll
+          ls -a
 
       # - name: Install dependencies
       #   run: |
