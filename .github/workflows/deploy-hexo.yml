@@ -41,11 +41,11 @@ jobs:
 
       - name: Configuration environment
         env:
-          HEXO_DEPLOY_KEY_PRI: ${{secrets.HEXO_DEPLOY_KEY_PRI}}
+          HEXO_DEPLOY_KEY_PUB: ${{secrets.HEXO_DEPLOY_KEY_PUB}}
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
           mkdir -p ~/.ssh/
-          echo "$HEXO_DEPLOY_KEY_PRI" > ~/.ssh/id_rsa
+          echo "$HEXO_DEPLOY_KEY_PUB" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name $GIT_USER
