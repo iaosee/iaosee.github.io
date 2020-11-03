@@ -6,13 +6,8 @@ layout: "about"
 copyright: false
 ---
 
-# 诗人的灵魂附着于工匠之身
-
-
-
 ## Me
 
-iaosee
 一个 Web 开发者，喜欢玩，顺便写点代码。
 
 ## Contact
