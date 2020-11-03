@@ -5,7 +5,7 @@
 # Menu
 menu:
   home: / || 首页
-  galleries: /galleries || 画廊
+  galleries: /galleries || 相册
   archives: /archives || 归档
   tags: /tags || 标签
   categories: /categories || 分类
@@ -113,7 +113,7 @@ carrier:
 # Galleries
 galleries:
   enable: true
-  title: 画廊
+  title: 相册
   subtitle: Photography
 
 # --------------------------------------------------
