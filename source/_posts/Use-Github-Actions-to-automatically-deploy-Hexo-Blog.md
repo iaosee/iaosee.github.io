@@ -1,5 +1,5 @@
 ---
-title: 使用 Github Actions 自动部署 Hexo Blog
+title: 使用 Github Actions 自动构建部署 Hexo 博客
 keywords: Github Actions, Hexo 自动部署, Hexo CI/CD
 date: 2020-11-02 21:36:50
 tags: 
