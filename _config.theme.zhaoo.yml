@@ -49,6 +49,8 @@ preview:
   enable: true
   model: wave  # cloud
   welcome_image: /images/theme/welcome-background.jpg
+  background-size: cover   # css value
+  background-position: center center # css value
   motto:
     default: 菡萏香销翠叶残，西风愁起绿波间。
     color: '#000000'
