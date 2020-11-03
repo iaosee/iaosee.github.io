@@ -214,6 +214,6 @@ analytics:
 # Custom
 custom:
   head:
-  foot: <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();</script>
+  foot:
   css:
   js:
