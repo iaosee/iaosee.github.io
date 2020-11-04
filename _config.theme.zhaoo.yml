@@ -56,6 +56,9 @@ preview:
     color: '#000000'
     api:  # http://localhost:3000/api/motto
 
+jinrishici:
+  enable: true
+
 # Copyright
 copyright: <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p>
 
