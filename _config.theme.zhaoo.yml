@@ -48,16 +48,13 @@ loading: /images/theme/loading.gif
 preview:
   enable: true
   model: wave  # cloud
-  welcome_image: /images/theme/welcome-background.jpg
-  background-size: cover   # css value
-  background-position: center center # css value
+  background: 
+    default: /images/theme/welcome-background.jpg
+    api: # https://source.unsplash.com/random/1920x1080
   motto:
+    color: '#ffffff'
     default: 菡萏香销翠叶残，西风愁起绿波间。
-    color: '#000000'
-    api:  # http://localhost:3000/api/motto
-
-jinrishici:
-  enable: true
+    api:  # https://v1.hitokoto.cn/?encode=text&c=d
 
 # Copyright
 copyright: <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p>
@@ -74,6 +71,11 @@ social:
 fab:
   enable: true
   always_show: false
+
+# QR Code
+qrcode:
+  enable: false
+  image: https://pic.izhaoo.com/weapp-code.jpg
 
 # Color Mode
 color_mode:
@@ -201,7 +203,7 @@ vendors:
   lazyload_js: https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js
   fancybox_css: https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css
   highlight_css: https://cdn.bootcss.com/highlight.js/9.18.1/styles/
-  iconfont_css: //at.alicdn.com/t/font_1445822_onl0g0h21np.css
+  iconfont_css: //at.alicdn.com/t/font_1445822_s6x2xcokxrl.css
 
 # SEO
 seo:
@@ -217,6 +219,6 @@ analytics:
 # Custom
 custom:
   head:
-  foot:
+  foot: <script src="//code.tidio.co/0lsap9qzw3koor7fwowzwupvksb0tosb.js" async></script>
   css:
   js:
