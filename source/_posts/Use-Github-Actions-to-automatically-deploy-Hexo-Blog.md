@@ -67,7 +67,7 @@ on:
 env:
   GIT_USER: iaosee
   GIT_EMAIL: iaosee@outlook.com
-  THEME_REPO: izhaoo/hexo-theme-zhaoo
+  THEME_REPO: iaosee/hexo-theme-zhaoo
   THEME_BRANCH: master
 
 jobs:

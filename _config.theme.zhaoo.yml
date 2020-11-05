@@ -56,7 +56,8 @@ preview:
   motto:
     color: '#ffffff'
     default: 菡萏香销翠叶残，西风愁起绿波间。
-    api:  # https://v1.hitokoto.cn/?encode=text&c=d
+    jinrishici: true
+    api:  https://v1.hitokoto.cn/?encode=text&c=i
 
 # Copyright
 copyright: <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p>
@@ -221,6 +222,6 @@ analytics:
 # Custom
 custom:
   head:
-  foot: <script src="//code.tidio.co/0lsap9qzw3koor7fwowzwupvksb0tosb.js" async></script>
+  foot: # <script src="//code.tidio.co/0lsap9qzw3koor7fwowzwupvksb0tosb.js" async></script>
   css:
   js:
