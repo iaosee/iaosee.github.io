@@ -51,8 +51,8 @@ preview:
   background:
     default: /images/theme/welcome-background.jpg
     api: # https://source.unsplash.com/random/1920x1080
-    size:  # css value
-    position: # css value
+    size: cover # css value
+    position: center # css value
   motto:
     color: '#ffffff'
     default: 菡萏香销翠叶残，西风愁起绿波间。
