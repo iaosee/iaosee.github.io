@@ -54,7 +54,7 @@ preview:
     size: cover # css value
     position: center # css value
   motto:
-    color: '#ffffff'
+    color: '#000555'
     default: 菡萏香销翠叶残，西风愁起绿波间。
     jinrishici: true
     api:  https://v1.hitokoto.cn/?encode=text&c=i
