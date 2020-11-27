@@ -1,5 +1,5 @@
 ---
-title:  Canvas 核心：概念汇总 — 基础、绘制、坐标
+title:  Canvas 核心：重点概念汇总 — 基础、绘制、坐标
 subTitle: canvas-core-01-concept-of-summary
 
 tags: 
@@ -85,64 +85,102 @@ const context = canvas.getContext('2d');
 
 ###  2D 绘图 API
 
-通过 `getContext('2d')` 获取到的 [`CanvasRenderingContext2D`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D) 对象，就可以调用该对象上的各种 API 方法来绘制各类图形。
+通过 `getContext('2d')` 获取到的 [`CanvasRenderingContext2D`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D) 对象，就可以调用该对象上的各种 API 方法来绘制各类图形，Canvas API 中支出绘制的基本图形: 线段、矩形、圆弧、贝塞尔曲线等，可以根据这些基本图形组合成任意需要的图形。。
 
-每个 API 的调用详细记录了，API 的使用参考文档： https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D
+这里每个 API 的调用细节就不详细记录了，API 的使用参考文档： https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D
 
 ### 高清屏绘制模糊问题
 
-在高清屏下，画出的图形就会出现模糊。这是因为逻辑像素与物理像素不一致。
+在高清屏下，画出的图形就会出现模糊。这是因为逻辑像素与物理像素不一致导致的。
 
-**逻辑像素** 也叫设备独立像素，是一种虚拟像素或者抽象像素，一般我们在程序中使用的 `10px`、`20px` 这就是逻辑像素，是一种相对单位，我们平常使用 CSS 写的也属于逻辑像素。
+**逻辑像素** 也叫设备独立像素，是一种虚拟像素或者抽象像素，一般我们在程序中使用的 `10px`、`20px` 这就是逻辑像素，是一种相对单位，我们平常使用 CSS 写的也属于逻辑像素。可以通过 `screen.width` 和 `screen.height` 获取逻辑像素宽高。
 
-**物理像素** 也就是设备像素，是设备显示器上屏幕实际拥有的像素点，在 CSS 中写的逻辑像素最终会被转换为物理像素上显示。
+**物理像素** 也就是设备像素，是设备显示器上屏幕实际拥有的像素点，在 CSS 中写的逻辑像素最终会被转换为物理像素上显示。同样尺寸的非高清与高清屏，在高清屏中物理像素会越多，像素密度越密集。
 
- **设备像素比**  —— `Device Pixel Ratio (DPR)`  是物理像素与逻辑像素之间的比例，逻辑像素到物理像素如何转换，就是根据**设备像素比**进行转换，在非高清屏下这个 `DPR` 的值通常是 1，而在高清品下这个值通常是大于 1 的。比如非高清屏下 `DPR` 为 1，那么 CSS 写 `1px` 那么实际设备实际显示也是 1 个物理像素。而在高清屏下，由于高清屏通常屏幕尺寸一致，但是物理像素密度增加，若高清屏 `1px` 按照 `DPR` 为 1 计算，那么在高清屏下 `1px` 就会看起来很小看不清，所以在高清屏下一般 `DPR` 都会增大， 如果 `DPR` 的值为 2，CSS `1px` 就会被换算为 `(dpr)^2 * 1dp` 也就是等于 4 个设备像素，这样 CSS 中的 `1px` 在高分辨率中显示的大小就和低分辨率差不多，看起来就不会太小。
+ **设备像素比**  —— `Device Pixel Ratio (DPR)`  是物理像素与逻辑像素之间的比例，逻辑像素到物理像素如何转换，就是根据**设备像素比** 进行转换，在非高清屏下这个 `dpr` 的值通常是 1，而在高清品下这个值通常是大于 1 的。比如非高清屏下 `dpr` 为 1，那么 CSS 写 `1px` 那么实际设备实际显示也是 1 个物理像素。而在高清屏下，由于高清屏通常屏幕尺寸一致，但是物理像素密度增加，若高清屏 `1px` 按照 `dpr` 为 1 计算，那么在高清屏下 `1px` 就会看起来很小看不清，所以在高清屏下一般 `dpr` 都会增大， 如果 `dpr` 的值为 2，那么 CSS `1px` 就会被换算为 `(dpr)^2 * 1dp` 也就是等于 4 个设备物理像素，这样 CSS 中的 `1px` 在高分辨率中显示的大小就和低分辨率差不多，看起来就不会太小。
 
+在浏览器中可以通过 `window.devicePixelRatio` 获取到设备像素比 `dpr`, 使用逻辑像素 `screen.width * dpr`、`screen.height * dpr` 就能获取到设备的物理像素。
 
-因为在高清屏下，设备像素比比较大，屏幕上显示的像素点由 1 个变为多个，Canvas 实际尺寸没有变大，而导致画布缩放，因此绘制出来的图形被放大了会变模糊。要使 `Canvas` 适配高清屏，需要将 Canvas 放大到设备像素比后再绘制，最后将 Canvas 压缩成一倍的物理大小来展示。
+我们平常设置宽度是根据逻辑像素来设置，而最终在呈现显示的时候会根据 `dpr` 放大数倍，因为在高清屏下，设备像素比比较大，屏幕上显示的像素点由 1 个变为多个，若下直接使用 `<canvas>` 元素的 `width`、`height` 属性指定大小，那么 `<canvas>` 元素本身的大小和元素绘图表面的大小一样了，Canvas 画布并非矢量图形，而是位图模式，而绘图区域大小被渲染呈现到 `dpr` 倍的高清屏就会被放大，图像被放大，因此绘制出来的图形被放大了会变模糊。
+
+要使 `Canvas` 适配高清屏，需要将 Canvas 绘图表面放大到设备像素比后再绘制，在绘制的时候同样坐标也需要放大到 `dpr` 倍，若不想每次计算坐标，则需要将 Canvas 绘图区域缩放 `dpr` 倍，可以调用 `context.scale(dpr, dpr)` 缩放画布。
+
+**解决方案：**
 
 - [High DPI Canvas](https://www.html5rocks.com/en/tutorials/canvas/hidpi/)
-- [高清屏中绘制模糊](https://www.html.cn/demo/canvas_retina/index.html)
 - [hidpi-canvas-polyfill](https://github.com/jondavidjohn/hidpi-canvas-polyfill)
+- [高清屏中绘制模糊](https://www.html.cn/demo/canvas_retina/index.html)
+
+**主要代码：**
 
 ``` js
-// 适配高清屏
+// 适配高清屏 主要代码
 const dpr = window.devicePixelRatio || 1;
 const boundingRect = canvas.getBoundingClientRect();
 const width = boundingRect.width;
 const height = boundingRect.height;
 
-canvas.style.width = width + 'px';
-canvas.style.height = height + 'px';
-canvas.width = width * dpr;
-canvas.height = height * dpr;
-context.scale(dpr, dpr);
+if ( dpr > 1 )  {
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  context.scale(dpr, dpr);
+}
 ```
 
 
 ### 状态的保存和恢复
 
-在进行绘图操作的时候，需要频繁的设置 context 的属性值，但是有时候只想临时改变这些属性，用完恢复之前的状态。context 提供了两个 `save()` 和 `restore()` 的 API。在开始做临时属性改变之前调用 `save()` 完成临时绘制之后调用 `restore()` 就可以恢复到上一次调用 `save()` 之前的状态了。
+**立即模式** 和 **保留模式** 绘图系统
 
-`save()` 与 `restore()` 方法可以嵌套使用，`save()` 方法会将当前的绘图环境压入栈顶，`restore()` 方法则会从栈顶弹出上次绘图环境。
+`Canvas` 是采用 **立即模式** 的绘图形式, 意思就是它会立即将指定的内容绘制到 canvas 上, 然后就会忘记刚才绘制的内容，意味着 Canvas 中不会包含将要绘制的图像列表。
 
-立即模式 和 保留模式 绘图系统
-Canvas 是采用 立即模式 的绘图形式, 意思就是它会立即将指定的内容绘制到 canvas 上, 然后就会忘记刚才绘制的内容,意味着 canvas 中不会包含将要绘制的图像列表.
+`SVG` 则是基于 DOM 的 **保留模式** 绘图系统， `SVG` 中会维护一份所绘制图形对象的列表。
 
-`SVG` 则是采用 保留模式 的绘图系统, `SVG` 中会维护一份所绘制图形对象的列表.
-
-立即模式 绘图系统不维护所绘制的图形队形列表, 保留模式 绘图系统会维护所绘制的图形对象列表. 立即模式 相对 保留模式 来说, 是一种更加底层的绘图模式, 立即模式更为灵活.
+**立即模式** 绘图系统不维护所绘制的图形队形列表, **保留模式** 绘图系统会维护所绘制的图形对象列表. **立即模式** 相对 **保留模式** 来说，是一种更加底层的绘图模式，立即模式更为灵活。
 
 立即模式 适合制作 "绘画应用程序", 保留模式 适合制作 "画图应用程序".
 
+在进行绘图操作的时候，通常需要频繁的设置 `context` 的属性值，但是有时候只想临时改变这些属性，用完恢复之前的状态，设置了 `context` 属性又设置回去，那代码就会很多重复也不美观。幸运的是 `context` 提供了两个 `save()` 和 `restore()` 的 API。可以认为它是绘制状态的存储管理器，以栈的形式维持着绘制状态。
+
+场景：比如 `context` 已经设置了很多状态属性了，需要临时改变部分属性绘制另一个图形，绘制完后需要恢复刚才的状态在绘制。
+
+这就要在开始做临时属性改变之前调用 `save()` 完成临时绘制之后调用 `restore()` 就可以恢复到上一次调用 `save()` 之前的状态了。`save()` 与 `restore()` 方法可以嵌套使用，每次调用 `save()` 方法会将当前的绘图环境压入栈顶，调用 `restore()` 方法则会从栈顶弹出上次绘图环境，恢复到上一次调用 `save()` 方法之前的状态。
+
+
+```js 
+// 初始绘制状态
+context.lineCap = 'round';
+context.lineWidth = 0.5;
+context.fillStyle = 'red';
+context.strokeStyle = 'red';
+context.shadowOffsetX = 2;
+context.shadowOffsetY = 2;
+context.shadowBlur = 4;
+// ... 绘制图形
+
+// 临时改变属性  改变三个属性其他不变
+context.save();
+context.lineWidth = 2;
+context.fillStyle = 'blue';
+context.strokeStyle = 'blue';
+// 绘制临时图形
+
+// 恢复到上一次调用 save() 之前的状态
+context.restore();
+```
+
 ### 坐标系统
 
+Canvas 的坐标系统默认左上角为原点， X 轴坐标向右延伸， Y 轴坐标向下延伸。坐标系统可进行改变：包括 **平移** **旋转** **缩放** **自定义变换**。
 
 
 
 
-<iframe src="https://codesandbox.io/embed/intelligent-lake-kqvw8?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fdemo%2FDemo.01.ts&theme=dark"
+
+
+<iframe src="https://codesandbox.io/embed/intelligent-lake-kqvw8?fontsize=14&hidenavigation=1&module=%2Fsrc%2FDemo.01.ts&theme=dark"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="intelligent-lake-kqvw8"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
