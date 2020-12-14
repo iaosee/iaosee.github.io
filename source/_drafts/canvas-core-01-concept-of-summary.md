@@ -1,6 +1,7 @@
 ---
 title:  Canvas 核心：重点概念汇总 — 基础、绘制、坐标
 subTitle: canvas-core-01-concept-of-summary
+mathjax: true
 
 tags: 
   - Canvas
@@ -10,8 +11,7 @@ categories:
   - Canvas
 ---
 
-
-## 基本介绍
+## 基本概念介绍
 
 Canvas 是一个 HTML5 新增的东西，[MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API) 的介绍如下：
 
@@ -25,8 +25,7 @@ Canvas 是一个 HTML5 新增的东西，[MDN](https://developer.mozilla.org/zh-
 
 `<canvas>` 元素提供的画布可以绘制 2D，还可以绘制 3D，也就是说还可以用来做各种更炫酷的东西。
 
-
-### **`<canvas>` 元素**
+### Canvas 元素
 
 `<canvas>` 元素的使用，就像使用其他元素一样，直接写在 HTML 文档中，当然也可以使用 `JavaScript` 操作 DOM 一样动态创建。
 
@@ -51,12 +50,11 @@ document.body.insertBefore(canvas, document.body.firstChild);
 
 `<canvas>` 元素实际上有两套尺寸，一个是元素本身的大小，一个是元素绘图表面的大小。当设置元素的 `width`、`height` 属性时，实际上同时修改了该元素本身的大小与绘图表面大小；如果使用 CSS 来设置元素大小，那么只会改变元素本身大小，不会改变绘图表面大小。若这两个尺寸大小不一样，即使比例一致，绘制出来的图像也可能会模糊。还有在高清屏下不做处理绘制出来的图形也会模糊。
 
-- `<canvas> 元素` 默认的大小为 `300x150` 个屏幕像素。
-- 通常使用 `width`和 `height` 属性为 `<canvas>` 元素明确规定宽高
-- 设置`<canvas>` 元素的 `width`和 `height` 属性时，不要使用 `px` 作为后缀，
-- 使用 CSS 设置 `<canvas>` 元素的大小与通过 `<canvas>` 元素属性的 `width`/`height` 设置大小并不一样
-- 若使用 CSS 指定了宽高，要让 `width`、`height` 属性 与 CSS指定的 `width`、`height` 比例一致
-
+- `<canvas> 元素` 默认的大小为`300x150` 个屏幕像素。
+- 通常使用`width`和`height` 属性为`<canvas>` 元素明确规定宽高
+- 设置`<canvas>` 元素的`width`和`height` 属性时，不要使用`px` 作为后缀，
+- 使用 CSS 设置`<canvas>` 元素的大小与通过`<canvas>` 元素属性的`width`/`height` 设置大小并不一样
+- 若使用 CSS 指定了宽高，要让`width`、`height` 属性 与 CSS指定的`width`、`height` 比例一致
 
 ### 渲染上下文
 
@@ -64,10 +62,10 @@ document.body.insertBefore(canvas, document.body.firstChild);
 
 接收的**上下文类型**与获得的**渲染上下文对象**：
 
-- `2d` -> `CanvasRenderingContext2D`  获取 2D 绘制上下文，主要用于 2D 图形绘制
-- `webgl` -> `WebGLRenderingContext`  获取 WebGL 版本1 (OpenGL ES 2.0) 绘制上下文，主要用于 3D 图形绘制
-- `webgl2` -> `WebGL2RenderingContext`  获取 WebGL 版本2 (OpenGL ES 3.0) 绘制上下文，同上
-- `bitmaprenderer` -> `ImageBitmapRenderingContext ` 提供将 `canvas` 内容替换为指定 `ImageBitmap` 功能
+- `2d` ->`CanvasRenderingContext2D`  获取 2D 绘制上下文，主要用于 2D 图形绘制
+- `webgl` ->`WebGLRenderingContext`  获取 WebGL 版本1 (OpenGL ES 2.0) 绘制上下文，主要用于 3D 图形绘制
+- `webgl2` ->`WebGL2RenderingContext`  获取 WebGL 版本2 (OpenGL ES 3.0) 绘制上下文，同上
+- `bitmaprenderer` ->`ImageBitmapRenderingContext ` 提供将`canvas` 内容替换为指定`ImageBitmap` 功能
 
 ```js
 const canvas = document.getElementById('canvasid');
@@ -76,59 +74,11 @@ const context = canvas.getContext('2d');
 
 这里通过 `getContext('2d')` 方法获取到的是一个 2D 绘图环境，是一个 `CanvasRenderingContext2D` 的对象实例，主要用于绘制 2D 图形。
 
-并不是 `CanvasRenderingContext2D` 上下文对象只能绘制 2D 图形，`WebGLRenderingContext` 上下文对象只能绘制 3D，当然也可以使用 `CanvasRenderingContext2D` 上下文去绘制 3D 图形，也可使用 `WebGLRenderingContext` 上下文去绘制 2D 图形，这主要取决于绘制的算法和性能的取舍，只是不同的绘制上下文做自己适合的事情，不管是 2D/3D 最终都是绘制到二维平面上的，将三维坐标投影映射到二维平面，所以 3D 只是一种视觉效果而已。使用 `CanvasRenderingContext2D` 上下文绘制 3D图形，没有 `GLSL` 着色器语言，需要自己实现大量三维图形算法，同时 2D 上下文绘制 3D 图形性能也会不足；使用 `WebGLRenderingContext` 上下文绘制 2D 图形，就得使用 3D 那套算法去绘制，需要编写 `GLSL` 着色器语言，各种矩阵、投影等，虽性能好，但若只想画一个平面的圆，WebGL 上下文是没有直接画圆的 API 的，使用 `WebGLRenderingContext` 上下文就太繁琐，也大材小用，使用 `2D` 上下文一个`arc()` 就可以搞定了。
+并不是 `CanvasRenderingContext2D` 上下文对象只能绘制 2D 图形，`WebGLRenderingContext` 上下文对象只能绘制 3D，当然也可以使用 `CanvasRenderingContext2D` 上下文去绘制 3D 图形，也可使用 `WebGLRenderingContext` 上下文去绘制 2D 图形，这主要取决于绘制的算法和性能的取舍，只是不同的绘制上下文做自己适合的事情，不管是 2D/3D 最终都是绘制到二维平面上的，将三维坐标投影映射到二维平面，所以 3D 只是一种视觉效果而已。使用 `CanvasRenderingContext2D` 上下文绘制 3D图形，没有 `GLSL` 着色器语言，需要自己实现大量三维图形算法，同时 2D 上下文绘制 3D 图形性能也会不足；使用 `WebGLRenderingContext` 上下文绘制 2D 图形，就得使用 3D 那套算法去绘制，需要编写 `GLSL` 着色器语言，各种矩阵、投影等，虽性能好，但若只想画一个平面的圆，WebGL 上下文是没有直接画圆的 API 的，使用 `WebGLRenderingContext` 上下文就太繁琐，也大材小用，使用 `2D` 上下文一个 `arc()` 就可以搞定了。
 
 这里主要记录 2D 绘制，关于 WebGL 3D 的概念不再展开。
 
 ## 绘制
-
-
-###  2D 绘图 API
-
-通过 `getContext('2d')` 获取到的 [`CanvasRenderingContext2D`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D) 对象，就可以调用该对象上的各种 API 方法来绘制各类图形，Canvas API 中支出绘制的基本图形: 线段、矩形、圆弧、贝塞尔曲线等，可以根据这些基本图形组合成任意需要的图形。。
-
-这里每个 API 的调用细节就不详细记录了，API 的使用参考文档： https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D
-
-### 高清屏绘制模糊问题
-
-在高清屏下，画出的图形就会出现模糊。这是因为逻辑像素与物理像素不一致导致的。
-
-**逻辑像素** 也叫设备独立像素，是一种虚拟像素或者抽象像素，一般我们在程序中使用的 `10px`、`20px` 这就是逻辑像素，是一种相对单位，我们平常使用 CSS 写的也属于逻辑像素。可以通过 `screen.width` 和 `screen.height` 获取逻辑像素宽高。
-
-**物理像素** 也就是设备像素，是设备显示器上屏幕实际拥有的像素点，在 CSS 中写的逻辑像素最终会被转换为物理像素上显示。同样尺寸的非高清与高清屏，在高清屏中物理像素会越多，像素密度越密集。
-
- **设备像素比**  —— `Device Pixel Ratio (DPR)`  是物理像素与逻辑像素之间的比例，逻辑像素到物理像素如何转换，就是根据**设备像素比** 进行转换，在非高清屏下这个 `dpr` 的值通常是 1，而在高清品下这个值通常是大于 1 的。比如非高清屏下 `dpr` 为 1，那么 CSS 写 `1px` 那么实际设备实际显示也是 1 个物理像素。而在高清屏下，由于高清屏通常屏幕尺寸一致，但是物理像素密度增加，若高清屏 `1px` 按照 `dpr` 为 1 计算，那么在高清屏下 `1px` 就会看起来很小看不清，所以在高清屏下一般 `dpr` 都会增大， 如果 `dpr` 的值为 2，那么 CSS `1px` 就会被换算为 `(dpr)^2 * 1dp` 也就是等于 4 个设备物理像素，这样 CSS 中的 `1px` 在高分辨率中显示的大小就和低分辨率差不多，看起来就不会太小。
-
-在浏览器中可以通过 `window.devicePixelRatio` 获取到设备像素比 `dpr`, 使用逻辑像素 `screen.width * dpr`、`screen.height * dpr` 就能获取到设备的物理像素。
-
-我们平常设置宽度是根据逻辑像素来设置，而最终在呈现显示的时候会根据 `dpr` 放大数倍，因为在高清屏下，设备像素比比较大，屏幕上显示的像素点由 1 个变为多个，若下直接使用 `<canvas>` 元素的 `width`、`height` 属性指定大小，那么 `<canvas>` 元素本身的大小和元素绘图表面的大小一样了，Canvas 画布并非矢量图形，而是位图模式，而绘图区域大小被渲染呈现到 `dpr` 倍的高清屏就会被放大，图像被放大，因此绘制出来的图形被放大了会变模糊。
-
-要使 `Canvas` 适配高清屏，需要将 Canvas 绘图表面放大到设备像素比后再绘制，在绘制的时候同样坐标也需要放大到 `dpr` 倍，若不想每次计算坐标，则需要将 Canvas 绘图区域缩放 `dpr` 倍，可以调用 `context.scale(dpr, dpr)` 缩放画布。
-
-**解决方案：**
-
-- [High DPI Canvas](https://www.html5rocks.com/en/tutorials/canvas/hidpi/)
-- [hidpi-canvas-polyfill](https://github.com/jondavidjohn/hidpi-canvas-polyfill)
-- [高清屏中绘制模糊](https://www.html.cn/demo/canvas_retina/index.html)
-
-**主要代码：**
-
-``` js
-// 适配高清屏 主要代码
-const dpr = window.devicePixelRatio || 1;
-const boundingRect = canvas.getBoundingClientRect();
-const width = boundingRect.width;
-const height = boundingRect.height;
-
-if ( dpr > 1 )  {
-  canvas.style.width = width + 'px';
-  canvas.style.height = height + 'px';
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  context.scale(dpr, dpr);
-}
-```
-
 
 ### 状态的保存和恢复
 
@@ -148,8 +98,7 @@ if ( dpr > 1 )  {
 
 这就要在开始做临时属性改变之前调用 `save()` 完成临时绘制之后调用 `restore()` 就可以恢复到上一次调用 `save()` 之前的状态了。`save()` 与 `restore()` 方法可以嵌套使用，每次调用 `save()` 方法会将当前的绘图环境压入栈顶，调用 `restore()` 方法则会从栈顶弹出上次绘图环境，恢复到上一次调用 `save()` 方法之前的状态。
 
-
-```js 
+```js
 // 初始绘制状态
 context.lineCap = 'round';
 context.lineWidth = 0.5;
@@ -171,10 +120,45 @@ context.strokeStyle = 'blue';
 context.restore();
 ```
 
-### 坐标系统
+### 高清屏绘制模糊问题
 
-Canvas 的坐标系统默认左上角为原点， X 轴坐标向右延伸， Y 轴坐标向下延伸。但是 Canvas 的坐标系统不是固定的，可以根据需要进行改变坐标系统：包括 **平移** **旋转** **缩放** **自定义变换**。
+在高清屏下，画出的图形就会出现模糊。这是因为逻辑像素与物理像素不一致导致的。
 
+**逻辑像素** 也叫设备独立像素，是一种虚拟像素或者抽象像素，一般我们在程序中使用的 `10px`、`20px` 这就是逻辑像素，是一种相对单位，我们平常使用 CSS 写的也属于逻辑像素。可以通过 `screen.width` 和 `screen.height` 获取逻辑像素宽高。
+
+**物理像素** 也就是设备像素，是设备显示器上屏幕实际拥有的像素点，在 CSS 中写的逻辑像素最终会被转换为物理像素上显示。同样尺寸的非高清与高清屏，在高清屏中物理像素会越多，像素密度越密集。
+
+**设备像素比**  —— `Device Pixel Ratio (DPR)`  是物理像素与逻辑像素之间的比例，逻辑像素到物理像素如何转换，就是根据**设备像素比** 进行转换，在非高清屏下这个 `dpr` 的值通常是 1，而在高清品下这个值通常是大于 1 的。比如非高清屏下 `dpr` 为 1，那么 CSS 写 `1px` 那么实际设备实际显示也是 1 个物理像素。而在高清屏下，由于高清屏通常屏幕尺寸一致，但是物理像素密度增加，若高清屏 `1px` 按照 `dpr` 为 1 计算，那么在高清屏下 `1px` 就会看起来很小看不清，所以在高清屏下一般 `dpr` 都会增大， 如果 `dpr` 的值为 2，那么 CSS `1px` 就会被换算为 `(dpr)^2 * 1dp` 也就是等于 4 个设备物理像素，这样 CSS 中的 `1px` 在高分辨率中显示的大小就和低分辨率差不多，看起来就不会太小。
+
+在浏览器中可以通过 `window.devicePixelRatio` 获取到设备像素比 `dpr`, 使用逻辑像素 `screen.width * dpr`、`screen.height * dpr` 就能获取到设备的物理像素。
+
+我们平常设置宽度是根据逻辑像素来设置，而最终在呈现显示的时候会根据 `dpr` 放大数倍，因为在高清屏下，设备像素比比较大，屏幕上显示的像素点由 1 个变为多个，若下直接使用 `<canvas>` 元素的 `width`、`height` 属性指定大小，那么 `<canvas>` 元素本身的大小和元素绘图表面的大小一样了，Canvas 画布并非矢量图形，而是位图模式，而绘图区域大小被渲染呈现到 `dpr` 倍的高清屏就会被放大，图像被放大，因此绘制出来的图形被放大了会变模糊。
+
+要使 `Canvas` 适配高清屏，需要将 Canvas 绘图表面放大到设备像素比后再绘制，在绘制的时候同样坐标也需要放大到 `dpr` 倍，若不想每次计算坐标，则需要将 Canvas 绘图区域缩放 `dpr` 倍，可以调用 `context.scale(dpr, dpr)` 缩放画布。
+
+**解决方案：**
+
+- [High DPI Canvas](https://www.html5rocks.com/en/tutorials/canvas/hidpi/)
+- [hidpi-canvas-polyfill](https://github.com/jondavidjohn/hidpi-canvas-polyfill)
+- [高清屏中绘制模糊](https://www.html.cn/demo/canvas_retina/index.html)
+
+**主要代码：**
+
+```js
+// 适配高清屏 主要代码
+const dpr = window.devicePixelRatio || 1;
+const boundingRect = canvas.getBoundingClientRect();
+const width = boundingRect.width;
+const height = boundingRect.height;
+
+if ( dpr > 1 )  {
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  context.scale(dpr, dpr);
+}
+```
 
 ### Canvas 绘制模型
 
@@ -184,23 +168,175 @@ Canvas 的坐标系统默认左上角为原点， X 轴坐标向右延伸， Y �
 
 1. 将图形或图像绘制到一个无限大的透明位图中，绘制使用当前绘制环境样式，包括填充、描边、以及线条样式
 2. 将图形或图像的阴影绘制到另一幅位图中，绘制时使用当前绘制环境的阴影样式
-3. 将阴影中每个像素的 `alpha` 分量乘以绘图环境对象的 `globalAlpha` 属性值
-4. 将绘有阴影的位图与经过剪辑区域剪切过的 `canvas` 进行图像合成，使用当前合成模式参数
-5. 将图形或图像每个颜色像素分量，乘以绘图环境对象的 `globalAlpha` 属性值
-6. 将绘有图形或图形的位图，合成到当前经过剪辑区域裁剪过的 `canvas` 位图上，使用当前合成参数
+3. 将阴影中每个像素的`alpha` 分量乘以绘图环境对象的`globalAlpha` 属性值
+4. 将绘有阴影的位图与经过剪辑区域剪切过的`canvas` 进行图像合成，使用当前合成模式参数
+5. 将图形或图像每个颜色像素分量，乘以绘图环境对象的`globalAlpha` 属性值
+6. 将绘有图形或图形的位图，合成到当前经过剪辑区域裁剪过的`canvas` 位图上，使用当前合成参数
 
 只有在启用阴影效果时才会执行 2 ~ 4 的步骤。
 
+### CanvasRenderingContext2D 绘图 API
+
+通过 `getContext('2d')` 获取到的 [`CanvasRenderingContext2D`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D) 对象，就可以调用该对象上的各种 API 方法来绘制各类图形，Canvas API 中支出绘制的基本图形: 线段、矩形、圆弧、贝塞尔曲线等，可以根据这些基本图形组合成任意需要的图形。
+
+这里更多 API 详细的调用细节就不详细记录了，API 的使用参考文档： https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D
+
+### 坐标系统
+
+Canvas 的坐标系统默认在画布左上角为原点， X 轴坐标向右延伸， Y 轴坐标向下延伸。但是 Canvas 的坐标系统不是固定的，可以根据需要进行改变坐标系统：包括 **平移** **旋转** **缩放** **自定义变换**。
+
+简单的说，对坐标进行变换，就是移动 Canvas 坐标的原点，有时候改变坐标的原点，可以极大的简化图形的绘制与操作时所需的坐标计算。
+
+比如可以要在 Canvas 中心画一个矩形：
+
+```js
+const rect_width = 100;
+const rect_height = 100;
+context.strokeRect(
+  canvas.width / 2 - rect_width / 2, 
+  canvas.height / 2 - rect_height / 2, 
+  rect_width, 
+  rect_height
+);
+```
+
+这段代码在绘制时候计算出矩形的坐标，如果将坐标原点移动到这个位置，就可以简化 `strokeRect()` 方法的调用，
+
+```js
+const rect_width = 100;
+const rect_height = 100;
+context.translate(
+  canvas.width / 2 - rect_width / 2,
+  canvas.height / 2 - rect_height / 2
+);
+context.strokeRect(
+  0,
+  0,
+  rect_width, 
+  rect_height
+);
+```
+
+从代码中可以看出了，很显然，这并没有简化代码，以为还是需要计算原点的坐标，后面段代码唯一的差别就是将坐标传给了 `translate()` 方法，不过在当要绘制很多复杂图形的时候，那么移动原点坐标就可以很大的简化接下来在绘制其他图形的计算了。
+
+#### 坐标系统变换
+
+Canvas 2D API 提供了如下方法来变换坐标系统：
+
+- `rotate(radians)` 按给定的角度选择坐标系，这里是弧度 （`π` 弧度 = 180 角度）
+- `scale(x, y)` 在`X` 和`Y` 轴上分别按照给定的数值来缩放坐标系
+- `translate(x, y)` 将坐标系原点平移到给定的坐标处
+
+**坐标变换好处：** 有时在编码过程中对绘坐标变换很有用，对坐标系统的变换可以让我们更方便的控制绘制，比如当你绘制一个较小的图形，可以在绘制之前调用 `scale(2, 2)` 将当前绘制放大 2 倍，这样更容易观察，完成编码时将这句去掉。同样有时也可能调用 `translate()` 方法来移动坐标控制视窗显示的图形。
+
+**镜像绘制：** 坐标系的变换可以实现很多不同的效果，比如在绘制了某个图形之后，可以通过调用 `scale(-1, 1)` 制作该图形的水平镜像，调用 `scale(1, -1)` 制作该图形的垂直镜像，这样就可以省略掉镜像图形的坐标计算，很方便的绘制出对称图形。
+
+#### 自定义坐标变换
+
+上面的 `rotate()` `scale()` `translate()` 这三个方法只是提供了一种简便的方式去操作绘制环境的变换矩阵，然后在绘制的物体上运用变换矩阵，默认情况变换矩阵为 `单位矩阵`，单位矩阵并不会影响绘制，当调用了这三个方法之一后变换矩阵就被修改了，从而影响后面的绘制。
+
+通常情况下，只用这三个方法就已经足够了，不过有时也可能需要自己直接操作变换矩阵。
+
+Canvas 2D API 提供了两个可以直接操作变换矩阵的方法：
+
+- `transform()` 在当前变换矩阵之上叠加运用到另一个变换效果
+- `setTransform()` 重置当前变换矩阵（置位单位矩阵），然后再单位矩阵上运用指定的变换
+
+这两个方法不同的是：多次调用 `transform()` 方法造成的变换效果的叠加累计的，而每次调用 `setTransform()` 方法会将上一次的变换效果彻底清除。
+
+直接使用 `transform()` `setTransform()` 方法操作变换矩阵好处：
+
+- 可以做出更复杂的变换，比如 “错切”，无法通过三个基础方法达到的效果
+- 只需要调用一次`transform()` 或`setTransform()` 就可以同时应用`缩放旋转``平移` 等多种效果
+
+`transform()`/ `setTransform()` 均接收 6 个参数
 
 
 
+行内公式 $x' = x + dx$ 测试：
 
 
+**计算平移后的新坐标：**
 
-<iframe src="https://codesandbox.io/embed/intelligent-lake-kqvw8?fontsize=14&hidenavigation=1&module=%2Fsrc%2FDemo.01.ts&theme=dark"
-  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-  title="intelligent-lake-kqvw8"
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-></iframe>
+$$
+x' = x + dx \\
+y' = y + dy
+$$
 
+**计算缩放后的新坐标：**
+
+$$
+x' = x * sx \\
+y' = y * sy
+$$
+
+**计算旋转后的新坐标：**
+
+$$
+x' = x * cos(angle) - y * sin(angle) \\
+y' = y * cos(angle) + y * sin(angle)
+$$
+
+
+复杂公式测试：
+
+向量：
+
+$$
+\begin{split}
+\vec{a} = \{a_1, b_1, c_1\} 
+\\
+\vec{b} = \{b_1, b_2, b_3\}
+\end{split}
+$$
+
+测试：
+
+$$
+\begin{split} 
+\vec{a} = a_1\vec{i} + a_2\vec{j} + a_3\vec{j} 
+\\
+\vec{b} = b_1\vec{i} + b_2\vec{j} + b_3\vec{k} 
+\end{split}
+$$
+
+测试：
+
+$$
+\begin{align}
+\vec{a} \cdot \vec{b} 
+&= ( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} )
+\cdot
+( b_1\vec{i} + b_2\vec{j} + b_3\vec{k} ) \\
+&= ( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} )
+\cdot (b_1\vec{i}) + 
+( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} ) 
+\cdot (b_2\vec{j}) +
+( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} )
+\cdot (b_3\vec{k}) \\
+&= (a_1b_1) \vec{i} \cdot \vec{i} 
+ + (a_2b_1) \vec{j} \cdot \vec{i} 
+ + (a_3b_1) \vec{k} \cdot \vec{i} \\
+
+&+ (a_1b_2) \vec{i} \cdot \vec{j} 
+ +  (a_2b_2) \vec{j} \cdot \vec{j}   
+ +  (a_3b_2) \vec{k} \cdot \vec{j} \\
+
+&+ (a_1b_3) \vec{i} \cdot \vec{k} 
+ + (a_2b_3) \vec{j} \cdot \vec{k} 
+ + (a_3b_3) \vec{k} \cdot \vec{k} \\
+
+&= a_1b_1 + a_2b_2 + a_3b_3
+
+\end{align}
+$$
+
+根式测试：
+
+\$\$
+\cos\varphi = 
+\frac{\vec{a} \cdot \vec{b}}{|\vec{a}||\vec{b}|}
+= \frac{a_1b_1 + a_2b_2 + a_3b_3}
+       {\sqrt{a_1^2+a_2^2+a_3^2}
+        \sqrt{b_1^2+b_2^2+b_3^2}}
+\$\$
