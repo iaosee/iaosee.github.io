@@ -251,11 +251,6 @@ Canvas 2D API 提供了两个可以直接操作变换矩阵的方法：
 
 `transform()`/ `setTransform()` 均接收 6 个参数
 
-
-
-行内公式 $x' = x + dx$ 测试：
-
-
 **计算平移后的新坐标：**
 
 $$
@@ -274,13 +269,11 @@ $$
 
 $$
 x' = x * cos(angle) - y * sin(angle) \\
-y' = y * cos(angle) + y * sin(angle)
+y' = y * cos(angle) + x * sin(angle)
 $$
 
 
-复杂公式测试：
-
-向量：
+公式测试：
 
 $$
 \begin{split}
@@ -290,7 +283,6 @@ $$
 \end{split}
 $$
 
-测试：
 
 $$
 \begin{split} 
@@ -300,43 +292,11 @@ $$
 \end{split}
 $$
 
-测试：
 
 $$
-\begin{align}
-\vec{a} \cdot \vec{b} 
-&= ( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} )
-\cdot
-( b_1\vec{i} + b_2\vec{j} + b_3\vec{k} ) \\
-&= ( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} )
-\cdot (b_1\vec{i}) + 
-( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} ) 
-\cdot (b_2\vec{j}) +
-( a_1\vec{i} + a_2\vec{j} + a_3\vec{j} )
-\cdot (b_3\vec{k}) \\
-&= (a_1b_1) \vec{i} \cdot \vec{i} 
- + (a_2b_1) \vec{j} \cdot \vec{i} 
- + (a_3b_1) \vec{k} \cdot \vec{i} \\
-
-&+ (a_1b_2) \vec{i} \cdot \vec{j} 
- +  (a_2b_2) \vec{j} \cdot \vec{j}   
- +  (a_3b_2) \vec{k} \cdot \vec{j} \\
-
-&+ (a_1b_3) \vec{i} \cdot \vec{k} 
- + (a_2b_3) \vec{j} \cdot \vec{k} 
- + (a_3b_3) \vec{k} \cdot \vec{k} \\
-
-&= a_1b_1 + a_2b_2 + a_3b_3
-
-\end{align}
-$$
-
-根式测试：
-
-\$\$
 \cos\varphi = 
 \frac{\vec{a} \cdot \vec{b}}{|\vec{a}||\vec{b}|}
 = \frac{a_1b_1 + a_2b_2 + a_3b_3}
        {\sqrt{a_1^2+a_2^2+a_3^2}
         \sqrt{b_1^2+b_2^2+b_3^2}}
-\$\$
+$$
