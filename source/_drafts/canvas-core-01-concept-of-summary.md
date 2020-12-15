@@ -1,5 +1,5 @@
 ---
-title:  Canvas 核心：重点概念汇总 — 基础、绘制、坐标
+title:  Canvas 核心：基础概念 — 基础、绘制、坐标
 subTitle: canvas-core-01-concept-of-summary
 mathjax: true
 
@@ -76,7 +76,7 @@ const context = canvas.getContext('2d');
 
 并不是 `CanvasRenderingContext2D` 上下文对象只能绘制 2D 图形，`WebGLRenderingContext` 上下文对象只能绘制 3D，当然也可以使用 `CanvasRenderingContext2D` 上下文去绘制 3D 图形，也可使用 `WebGLRenderingContext` 上下文去绘制 2D 图形，这主要取决于绘制的算法和性能的取舍，只是不同的绘制上下文做自己适合的事情，不管是 2D/3D 最终都是绘制到二维平面上的，将三维坐标投影映射到二维平面，所以 3D 只是一种视觉效果而已。使用 `CanvasRenderingContext2D` 上下文绘制 3D图形，没有 `GLSL` 着色器语言，需要自己实现大量三维图形算法，同时 2D 上下文绘制 3D 图形性能也会不足；使用 `WebGLRenderingContext` 上下文绘制 2D 图形，就得使用 3D 那套算法去绘制，需要编写 `GLSL` 着色器语言，各种矩阵、投影等，虽性能好，但若只想画一个平面的圆，WebGL 上下文是没有直接画圆的 API 的，使用 `WebGLRenderingContext` 上下文就太繁琐，也大材小用，使用 `2D` 上下文一个 `arc()` 就可以搞定了。
 
-这里主要记录 2D 绘制，关于 WebGL 3D 的概念不再展开。
+这里主要记录 2D 绘制，关于 WebGL 3D 的概念就不再展开。
 
 ## 绘制
 
@@ -217,14 +217,14 @@ context.strokeRect(
 );
 ```
 
-从代码中可以看出了，很显然，这并没有简化代码，以为还是需要计算原点的坐标，后面段代码唯一的差别就是将坐标传给了 `translate()` 方法，不过在当要绘制很多复杂图形的时候，那么移动原点坐标就可以很大的简化接下来在绘制其他图形的计算了。
+从代码中可以看出来，很显然，这并没有简化代码，还是需要计算原点的坐标，后面段代码唯一的差别就是将坐标传给了 `translate()` 方法，不过在当要绘制很多复杂图形的时候，那么移动原点坐标就可以很大的简化接下来在绘制其他图形的计算了。
 
 #### 坐标系统变换
 
 Canvas 2D API 提供了如下方法来变换坐标系统：
 
 - `rotate(radians)` 按给定的角度选择坐标系，这里是弧度 （`π` 弧度 = 180 角度）
-- `scale(x, y)` 在`X` 和`Y` 轴上分别按照给定的数值来缩放坐标系
+- `scale(x, y)` 在 `X` 和`Y` 轴上分别按照给定的数值来缩放坐标系
 - `translate(x, y)` 将坐标系原点平移到给定的坐标处
 
 **坐标变换好处：** 有时在编码过程中对绘坐标变换很有用，对坐标系统的变换可以让我们更方便的控制绘制，比如当你绘制一个较小的图形，可以在绘制之前调用 `scale(2, 2)` 将当前绘制放大 2 倍，这样更容易观察，完成编码时将这句去掉。同样有时也可能调用 `translate()` 方法来移动坐标控制视窗显示的图形。
@@ -242,23 +242,24 @@ Canvas 2D API 提供了两个可以直接操作变换矩阵的方法：
 - `transform()` 在当前变换矩阵之上叠加运用到另一个变换效果
 - `setTransform()` 重置当前变换矩阵（置位单位矩阵），然后再单位矩阵上运用指定的变换
 
+
 这两个方法不同的是：多次调用 `transform()` 方法造成的变换效果的叠加累计的，而每次调用 `setTransform()` 方法会将上一次的变换效果彻底清除。
 
 直接使用 `transform()` `setTransform()` 方法操作变换矩阵好处：
 
 - 可以做出更复杂的变换，比如 “错切”，无法通过三个基础方法达到的效果
-- 只需要调用一次`transform()` 或`setTransform()` 就可以同时应用`缩放旋转``平移` 等多种效果
+- 只需要调用一次`transform()` 或`setTransform()` 就可以同时应用 `缩放` `旋转` `平移` 等多种效果
 
-`transform()`/ `setTransform()` 均接收 6 个参数
+`transform()`/ `setTransform()` 均接收 6 个参数。
 
-**计算平移后的新坐标：**
+**计算平移后的新坐标：** 新旧坐标横向距离差记为 `dx`， 新旧坐标纵向距离差记为 `dy`
 
 $$
 x' = x + dx \\
 y' = y + dy
 $$
 
-**计算缩放后的新坐标：**
+**计算缩放后的新坐标：** 横向缩放倍数记为 `sx`， 纵向缩放倍数记为 `sy`
 
 $$
 x' = x * sx \\
@@ -272,15 +273,118 @@ x' = x * cos(angle) - y * sin(angle) \\
 y' = y * cos(angle) + x * sin(angle)
 $$
 
+`transform/setTransform` 两个方法的参数是相同的，分别来自下面坐标的计算公式，从上面的几个基本计算公式可得到如下坐标变换通用计算公式，`a ~ f` 分别表示方法中的 6 个参数：
 
+- `transform(a, b, c, d, e, f, g)` 
+- `setTransform(a, b, c, d, e, f, g)` 
+
+**变换矩阵：**
+
+$$
+\left[
+\begin{array}{ccc}
+a & c & e \\ 
+b & d & f \\ 
+0 & 0 & 1 \\
+\end{array} 
+\right]
+$$
+
+
+**坐标变换通用计算公式：**
+
+$$
+x' = ax + cy + e \\
+y' = bx + dy + f
+$$
+
+- `a` x 轴水平缩放
+- `b` y 轴垂直倾斜
+- `c` x 轴水平倾斜
+- `d` y 轴垂直缩放
+- `e` x 轴水平偏移
+- `f` y 轴垂直偏移
+
+
+这样一个公式就可以同时设置平移、缩放、旋转了，当然也可以通过这个公式设置其中一种变换。
+
+甚至可以利用 `b` `c` 参数设置不同方向上的偏移，达到错切效果，这种效果是三个基础方法不能实现的。
+
+**根据通用公式平移坐标**，可以设置： `a = 1` `b = 0` `c = 0` `d = 1` `e` 为 x 轴偏移，`f` 为 y 轴偏移，带入公式得到：
+
+$$
+\begin{align}
+x' &= 1x + 0y + e \\
+   &= x + e \\
+y' &= 0x + 1y + f \\
+   &= y + f \\
+\end{align}
+$$
+
+**根据通用公式缩放坐标**，`a` 为 x 轴缩放倍数，`d` 为 y 轴缩放倍数，其他参数置位 0 带入公式得：
+
+$$
+\begin{align}
+x' &= ax + 0y + 0 \\
+   &= ax \\
+y' &= 0x + dy + 0 \\
+   &= dy \\
+\end{align}
+$$
+
+**根据通用公式旋转坐标**，讲坐标系绕原点旋转旋转一定弧度，`a = cos(angle)` `b = sin(angle)` `c = -sin(angle)` `d = cos(angle)` `e = 0` `f = 0` 带入公式得：
+
+$$
+\begin{align}
+x' &= \cos(angle)x - \sin(angle)y + 0 \\
+y' &= \sin(angle)x + \cos(angle)y + 0 \\
+\end{align}
+$$
+
+如下代码使用 `transform()`方法实现将坐标系旋转 45 度，`45° = π/4 弧度`，这样画来的矩形就顺时针旋转了 45 度。
+
+``` js 
+// 将坐标系旋转 45 度
+// ctx.rotate(Math.PI / 4); 等同于
+ctx.transform(
+  Math.cos(Math.PI / 4), 
+  Math.sin(Math.PI / 4), 
+  -Math.sin(Math.PI / 4), 
+  Math.cos(Math.PI / 4),
+  0,
+  0
+);
+ctx.fillRect(0,0,200,100);
+```
+
+
+----
+
+
+<!-- 
 公式测试：
 
 $$
-\begin{split}
+\begin{align}
+
+(\vec{a} + \vec{b}) \cdot \vec{c} 
+&= |\vec{c}|Prj_{\vec{c}}(\vec{a} + \vec{b}) \\
+&= |\vec{c}|(Prj_{\vec{c}}\vec{a} 
++ Prj_{\vec{c}}\vec{b}) \\
+
+&= |\vec{c}|Prj_{\vec{c}}\vec{a} 
+ + |\vec{c}|Prj_{\vec{c}}\vec{b} \\
+&= \vec{a} \cdot \vec{c} + \vec{b} \cdot \vec{c} 
+
+\end{align}
+$$
+
+$$
+\begin{align}
 \vec{a} = \{a_1, b_1, c_1\} 
 \\
 \vec{b} = \{b_1, b_2, b_3\}
-\end{split}
+\end{align}
 $$
 
 
@@ -299,4 +403,4 @@ $$
 = \frac{a_1b_1 + a_2b_2 + a_3b_3}
        {\sqrt{a_1^2+a_2^2+a_3^2}
         \sqrt{b_1^2+b_2^2+b_3^2}}
-$$
+$$ -->
