@@ -44,17 +44,17 @@ document.body.insertBefore(canvas, document.body.firstChild);
 
 **注意的地方：**
 
-`<canvas>` 元素就是一个普通的 HTML 元素，和其他 HTML 标签一样，但是不一样的是 `<canvas>` 元素提供了绘制 2D/3D 图形的接口，也就是提供的绘制 2D/3D 图形的绘图上下文。`<canvas>` 元素默认初始化宽度为 300 像素，高度为 150 像素。元素可以使用 CSS 来定义大小，但在绘制时图像会伸缩以适应它的框架尺寸：如果 CSS 的尺寸与初始画布尺寸的比例不一致，画出的图形就会出现扭曲。
+`<canvas>` 元素就是一个普通的 HTML 元素，和其他 HTML 标签一样，但是不一样的是 `<canvas>` 元素提供了绘制 2D/3D 图形的接口，也就是提供了绘制 2D/3D 图形的绘图上下文。`<canvas>` 元素默认初始化宽度为 300 像素，高度为 150 像素。元素可以使用 CSS 来定义大小，但在绘制时图像会伸缩以适应它的框架尺寸：如果 CSS 的尺寸与初始画布尺寸的比例不一致，画出的图形就会出现扭曲。
 
 虽然支持 `<canvas>` 元素的浏览器普遍都允许在设置 `<canvas>` 元素的 `width` 和 `height` 属性时使用 `px` 作为后缀，但是并不是 `<canvas>` 规范所接受的。
 
 `<canvas>` 元素实际上有两套尺寸，一个是元素本身的大小，一个是元素绘图表面的大小。当设置元素的 `width`、`height` 属性时，实际上同时修改了该元素本身的大小与绘图表面大小；如果使用 CSS 来设置元素大小，那么只会改变元素本身大小，不会改变绘图表面大小。若这两个尺寸大小不一样，即使比例一致，绘制出来的图像也可能会模糊。还有在高清屏下不做处理绘制出来的图形也会模糊。
 
 - `<canvas> 元素` 默认的大小为`300x150` 个屏幕像素。
-- 通常使用`width`和`height` 属性为`<canvas>` 元素明确规定宽高
-- 设置`<canvas>` 元素的`width`和`height` 属性时，不要使用`px` 作为后缀，
-- 使用 CSS 设置`<canvas>` 元素的大小与通过`<canvas>` 元素属性的`width`/`height` 设置大小并不一样
-- 若使用 CSS 指定了宽高，要让`width`、`height` 属性 与 CSS指定的`width`、`height` 比例一致
+- 通常使用 `width` 和 `height` 属性为 `<canvas>` 元素明确规定宽高
+- 设置`<canvas>` 元素的 `width` 和 `height` 属性时，不要使用 `px` 作为后缀，
+- 使用 CSS 设置 `<canvas>` 元素的大小与通过 `<canvas>` 元素属性的 `width` / `height` 设置大小并不一样
+- 若使用 CSS 指定了宽高，要让 `width`、`height` 属性 与 CSS指定的 `width`、`height` 比例一致
 
 ### 渲染上下文
 
@@ -78,7 +78,7 @@ const context = canvas.getContext('2d');
 
 这里主要记录 2D 绘制，关于 WebGL 3D 的概念就不再展开。
 
-## 绘制
+## 绘制要点
 
 ### 状态的保存和恢复
 
@@ -142,7 +142,8 @@ context.restore();
 - [hidpi-canvas-polyfill](https://github.com/jondavidjohn/hidpi-canvas-polyfill)
 - [高清屏中绘制模糊](https://www.html.cn/demo/canvas_retina/index.html)
 
-**主要代码：**
+
+**适配高清屏主要代码：**
 
 ```js
 // 适配高清屏 主要代码
@@ -345,7 +346,7 @@ $$
 
 ``` js 
 // 将坐标系旋转 45 度
-// ctx.rotate(Math.PI / 4); 等同于
+// ctx.rotate(Math.PI / 4); 等同于如下
 ctx.transform(
   Math.cos(Math.PI / 4), 
   Math.sin(Math.PI / 4), 

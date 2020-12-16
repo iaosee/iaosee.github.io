@@ -74,6 +74,7 @@ social:
   # instagram: https://www.instagram.com/izhaoo/ || iconinstagram || '#DA2E76'
   github: https://github.com/iaosee || icongithub-fill || '#9f7be1'
   email: mailto:iaosee@outlook.com || iconmail
+  # weibo: https://www.weibo.com/u/5118348162 || iconweibo || '#DA2E76'
 
 # Override Scrollbar
 scrollbar:
