@@ -1,5 +1,5 @@
 ---
-title:  Canvas 核心：基础概念 — 基础、绘制、坐标
+title:  Canvas 基础概念 — 基础、绘制、坐标
 subTitle: canvas-core-01-concept-of-summary
 mathjax: true
 
@@ -357,6 +357,7 @@ ctx.transform(
 );
 ctx.fillRect(0,0,200,100);
 ```
+
 
 
 ----
