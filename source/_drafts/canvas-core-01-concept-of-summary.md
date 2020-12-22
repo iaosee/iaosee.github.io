@@ -1,14 +1,15 @@
 ---
 title:  Canvas 基础概念 — 基础、绘制、坐标
-subTitle: canvas-core-01-concept-of-summary
-mathjax: true
+name: canvas-core-01-concept-of-summary
+keywords: Canvas, 2D 图形, Canvas 绘制, Canvas 概念
 
-tags: 
-  - Canvas
-  - 2D
-  - 图形开发
+mathjax: true
 categories:
   - Canvas
+tags: 
+  - 2D
+  - Canvas
+  - 图形开发
 ---
 
 ## 基本概念介绍
@@ -256,22 +257,28 @@ Canvas 2D API 提供了两个可以直接操作变换矩阵的方法：
 **计算平移后的新坐标：** 新旧坐标横向距离差记为 `dx`， 新旧坐标纵向距离差记为 `dy`
 
 $$
+\begin{align}
 x' = x + dx \\
 y' = y + dy
+\end{align}
 $$
 
 **计算缩放后的新坐标：** 横向缩放倍数记为 `sx`， 纵向缩放倍数记为 `sy`
 
 $$
+\begin{align}
 x' = x * sx \\
 y' = y * sy
+\end{align}
 $$
 
 **计算旋转后的新坐标：**
 
 $$
+\begin{align}
 x' = x * cos(angle) - y * sin(angle) \\
 y' = y * cos(angle) + x * sin(angle)
+\end{align}
 $$
 
 `transform/setTransform` 两个方法的参数是相同的，分别来自下面坐标的计算公式，从上面的几个基本计算公式可得到如下坐标变换通用计算公式，`a ~ f` 分别表示方法中的 6 个参数：
@@ -295,8 +302,10 @@ $$
 **坐标变换通用计算公式：**
 
 $$
+\begin{align}
 x' = ax + cy + e \\
 y' = bx + dy + f
+\end{align}
 $$
 
 - `a` x 轴水平缩放

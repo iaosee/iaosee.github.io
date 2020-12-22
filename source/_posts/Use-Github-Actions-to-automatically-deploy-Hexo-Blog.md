@@ -1,12 +1,14 @@
 ---
 title: 使用 Github Actions 自动构建部署 Hexo 博客
+name: Use-Github-Actions-to-automatically-deploy-Hexo-Blog
 keywords: Github Actions, Hexo 自动部署, Hexo CI/CD
+
 date: 2020-11-02 21:36:50
+categories:
+  - CI/CD
 tags: 
   - CI/CD
   - GitHub Actions
-categories:
-  - CI/CD
 ---
 
 ## 介绍
@@ -124,7 +126,7 @@ jobs:
 ### 运行脚本
 
 
-现在，只要仓库的 `source` 分支有代码推送，GitHub 就会创建一个容器来运行这里配置的任务，解放双手，Enjoy It。
+现在，只要仓库的 `source` 分支有代码推送，GitHub 就会创建一个容器来运行这里配置的任务，解放双手，Enjoy It 😃。
 
 ![Actions 脚本运行结果](/images/article/2020-11-02/2020-11-02-201302.png)
 

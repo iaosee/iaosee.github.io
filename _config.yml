@@ -86,8 +86,8 @@ pagination_dir: page
 
 mathjax:
   disable: false
-  inlineQuote: $  # or `[$, $]`
-  blockQuote: $$  # or `[$$, $$]`
+  inlineQuote: $ # or `[$, $]`
+  blockQuote: $$ # or `[$$, $$]`
 
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder

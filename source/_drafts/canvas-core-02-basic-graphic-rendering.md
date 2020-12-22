@@ -1,13 +1,14 @@
 ---
 title: Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形
-subTitle: canvas-core-02-basic-graphic-rendering
+name: canvas-core-02-basic-graphic-rendering
+keywords: Canvas, 2D 图形, Canvas 绘制基本图形
 
-tags: 
-  - Canvas
-  - 2D
-  - 图形开发
 categories:
   - Canvas
+tags: 
+  - 2D
+  - Canvas
+  - 图形开发
 ---
 
 
