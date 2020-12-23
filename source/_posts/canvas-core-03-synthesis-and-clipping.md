@@ -81,9 +81,9 @@ tags:
 
 `fillRule` 取值为 `evenodd` | `nonzero`，`nonzero` 为非零环绕原则，默认原则，`evenodd`: 奇偶环绕原则，`path` 为需要剪切的 Path2D 路径。
 
-如下 Demo 所示：在调用 `clearRect()` 清除整个画布之前调用了 `clip()` 方法，会将之前调用 `arc()` 创建的路径作为裁剪路径，那后续调用 `clearRect()` 只会作用在该裁剪路径里面，所以只清除了中心圆形那块区域。
-
 ### 简单裁剪示例
+
+如下 Demo 所示：在调用 `clearRect()` 清除整个画布之前调用了 `clip()` 方法，会将之前调用 `arc()` 创建的路径作为裁剪路径，那后续调用 `clearRect()` 只会作用在该裁剪路径里面，所以只清除了中心圆形那块区域。
 
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
