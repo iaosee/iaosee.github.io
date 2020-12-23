@@ -3,6 +3,7 @@ title: Canvas 图像合成与剪辑区域
 name: canvas-core-03-synthesis-and-clipping
 keywords: 'Canvas, 2D 图形, 图像合成, 剪辑区域'
 
+image: https://s3.ax1x.com/2020/12/23/r6GktI.png
 date: 2020-12-23 15:46:59
 categories:
   - Canvas
