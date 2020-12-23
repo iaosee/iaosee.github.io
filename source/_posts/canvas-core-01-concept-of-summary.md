@@ -1,16 +1,18 @@
 ---
-title:  Canvas 基础概念 — 基础、绘制、坐标
+title: Canvas 基础概念 — 基础、绘制、坐标
 name: canvas-core-01-concept-of-summary
-keywords: Canvas, 2D 图形, Canvas 绘制, Canvas 概念
+keywords: 'Canvas, 2D 图形, Canvas 绘制, Canvas 概念'
 
-mathjax: true
+date: 2020-11-22 20:46:40
 categories:
   - Canvas
-tags: 
+tags:
   - 2D
   - Canvas
   - 图形开发
+mathjax: true
 ---
+
 
 ## 基本概念介绍
 

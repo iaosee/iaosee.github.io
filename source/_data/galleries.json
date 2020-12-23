@@ -10,14 +10,14 @@
     },
     {
         "name": "时光碎片",
-        "cover": "http://qlqrgrwxj.hn-bkt.clouddn.com/photography/HMOS3289.JPEG",
+        "cover": "http://qlqrgrwxj.hn-bkt.clouddn.com/photograph/HMOS3289.JPEG",
         "description": "测试一下",
         "photos": [
-          "http://qlqrgrwxj.hn-bkt.clouddn.com/photography/HMOS3289.JPEG",
-          "http://qlqrgrwxj.hn-bkt.clouddn.com/photography/ESOV0683.JPEG",
-            "http://qlqrgrwxj.hn-bkt.clouddn.com/photography/CGMR2467.JPEG",
-            "http://qlqrgrwxj.hn-bkt.clouddn.com/photography/EGWR4532.JPEG",
-            "http://qlqrgrwxj.hn-bkt.clouddn.com/photography/HBMR4271.JPEG"
-        ]
+          "http://qlqrgrwxj.hn-bkt.clouddn.com/photograph/HMOS3289.JPEG",
+          "http://qlqrgrwxj.hn-bkt.clouddn.com/photograph/ESOV0683.JPEG",
+          "http://qlqrgrwxj.hn-bkt.clouddn.com/photograph/CGMR2467.JPEG",
+          "http://qlqrgrwxj.hn-bkt.clouddn.com/photograph/EGWR4532.JPEG",
+          "http://qlqrgrwxj.hn-bkt.clouddn.com/photograph/HBMR4271.JPEG"
+      ]
     }
 ]

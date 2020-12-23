@@ -1,15 +1,17 @@
 ---
 title: Canvas 图像合成与剪辑区域
 name: canvas-core-03-synthesis-and-clipping
-keywords: Canvas, 2D 图形, 图像合成, 剪辑区域
+keywords: 'Canvas, 2D 图形, 图像合成, 剪辑区域'
 
+date: 2020-12-23 15:46:59
 categories:
   - Canvas
-tags: 
+tags:
   - 2D
   - Canvas
   - 图形开发
 ---
+
 
 ## 图像合成
 
@@ -63,13 +65,34 @@ tags:
   src="https://html5-canvas-core.vercel.app/#/Demo.28">
 </iframe>
 
-完整 Demo 效果: [https://html5-canvas-core.vercel.app/#/Demo.28](https://html5-canvas-core.vercel.app/#/Demo.28)
+[查看完整 Demo 效果](https://html5-canvas-core.vercel.app/#/Demo.28)
 
 
 
 ## 剪辑区域
 
-剪辑区域：剪辑区域，是一个非常有用的功能，也可以叫做裁剪区域，是指绘制路径所定义的一块区域，定义了该区域，后续的所有绘图操作都被限制在该区域中执行。在默认情况下，裁剪区域与 Canvas 画布大小一致，可以自行定义裁剪区域，自定义裁剪区域就是创建创一段自定义路径（路径组成的区域），并调用绘图环境上的 `clip()` 方法，一旦设置了剪辑区域后，那么在 Canvas 上绘制的所有内容都会被限制在该区域内，在剪辑区域外部绘制没有效果。比如利用裁剪区域可以实现橡皮檫效果。
+剪辑区域：剪辑区域，是一个非常有用的功能，也可以叫做裁剪区域，是指绘制路径所定义的一块区域，定义了该区域，后续的所有绘图操作都被限制在该区域中执行。在默认情况下，裁剪区域与 Canvas 画布大小一致，可以自行定义裁剪区域，自定义裁剪区域就是创建创一段自定义路径（路径组成的区域），并调用绘图环境上的 `clip()` 方法，一旦设置了剪辑区域后，那么在 Canvas 上绘制的所有内容都会被限制在该区域内，在剪辑区域外部绘制没有效果。
+
+[`clip()`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/clip) 将当前创建的路径设置为当前剪切路径，`clip()`具有多种形式，方法的重载形式如下。
+
+- `clip(fillRule?: CanvasFillRule): void`
+- `clip(path: Path2D, fillRule?: CanvasFillRule): void`
+
+`fillRule` 取值为 `evenodd` | `nonzero`，`nonzero` 为非零环绕原则，默认原则，`evenodd`: 奇偶环绕原则，`path` 为需要剪切的 Path2D 路径。
+
+如下 Demo 所示：在调用 `clearRect()` 清除整个画布之前调用了 `clip()` 方法，会将之前调用 `arc()` 创建的路径作为裁剪路径，那后续调用 `clearRect()` 只会作用在该裁剪路径里面，所以只清除了中心圆形那块区域。
+
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+
+
+比如利用裁剪区域可以实现橡皮檫效果，橡皮檫实现原理：在拖动橡皮檫时，将剪辑区域设置为橡皮擦图形的区域，然后调用 `clearRect(0, 0, canvas.width, canvas.height)` 将整个画布擦除，因为在调用 `clearRect()` 方法之前，设置了剪辑区域为橡皮擦区域，调用 `clearRect()` 方法只会在剪辑区域生效，所以只擦除了剪辑区域（橡皮檫区域）的图形。
 
 <iframe 
   class="live-sample-frame sample-code-frame" 
@@ -82,3 +105,5 @@ tags:
   allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
   src="https://html5-canvas-core.vercel.app/#/Demo.29">
 </iframe>
+
+[查看完整 Demo 效果](https://html5-canvas-core.vercel.app/#/Demo.29)
