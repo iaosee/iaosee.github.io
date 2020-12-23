@@ -83,6 +83,8 @@ tags:
 
 如下 Demo 所示：在调用 `clearRect()` 清除整个画布之前调用了 `clip()` 方法，会将之前调用 `arc()` 创建的路径作为裁剪路径，那后续调用 `clearRect()` 只会作用在该裁剪路径里面，所以只清除了中心圆形那块区域。
 
+### 简单裁剪示例
+
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
@@ -91,7 +93,7 @@ tags:
 ></iframe>
 
 
-
+### 利用裁剪实现橡皮檫
 
 比如利用裁剪区域可以实现橡皮檫效果，橡皮檫实现原理：在拖动橡皮檫时，将剪辑区域设置为橡皮擦图形的区域，然后调用 `clearRect(0, 0, canvas.width, canvas.height)` 将整个画布擦除，因为在调用 `clearRect()` 方法之前，设置了剪辑区域为橡皮擦区域，调用 `clearRect()` 方法只会在剪辑区域生效，所以只擦除了剪辑区域（橡皮檫区域）的图形。
 
@@ -108,3 +110,4 @@ tags:
 </iframe>
 
 [查看完整 Demo 效果](https://html5-canvas-core.vercel.app/#/Demo.29)
+
