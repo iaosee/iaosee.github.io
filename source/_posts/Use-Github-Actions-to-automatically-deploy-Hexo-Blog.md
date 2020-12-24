@@ -27,6 +27,13 @@ GitHub Actions 中的常见术语:
 - `step` 一个 job 由一个或多个 step 组成，按顺序依次执行
 - `action` 每个 step 由一个或多个 action 组成，按顺序依次执行
 
+<br />
+
+**官方文档：**
+
+- [https://help.github.com/en/actions](https://help.github.com/en/actions) (English)
+- [https://help.github.com/cn/actions](https://help.github.com/cn/actions) (中文)
+
 
 ## 准备
 
