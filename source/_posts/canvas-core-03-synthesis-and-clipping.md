@@ -48,7 +48,9 @@ tags:
 
 ### MDN 官方文档示例
 
-<iframe class="live-sample-frame sample-code-frame" frameborder="0" height="800" width="100%" loading="lazy"  id="frame_合成示例" allow="fullscreen" src="https://mdn.mozillademos.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing/Example$samples/%E5%90%88%E6%88%90%E7%A4%BA%E4%BE%8B?revision=1623719"></iframe>
+<iframe class="live-sample-frame sample-code-frame" frameborder="0" height="600" width="100%" loading="lazy"  id="frame_合成示例" allow="fullscreen" src="https://yari-demos.prod.mdn.mozit.cloud/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing/Example/_samples_/Compositing_example"></iframe>
+
+[示例来自 MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation)
 
 
 ### 图像合成示例 Demo
@@ -85,7 +87,7 @@ tags:
 
 如下 Demo 所示：在调用 `clearRect()` 清除整个画布之前调用了 `clip()` 方法，会将之前调用 `arc()` 创建的路径作为裁剪路径，那后续调用 `clearRect()` 只会作用在该裁剪路径里面，所以只清除了中心圆形那块区域。
 
-<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.10&module=%2Fsrc%2Fdemo%2FDemo.10.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
