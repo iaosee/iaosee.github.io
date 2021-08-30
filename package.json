@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "preview": "cross-env copy ./_config.theme.zhaoo.yml ./themes/zhaoo/_config.yml && npm run server",
+    "preview": "cross-env cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml && npm run server",
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",

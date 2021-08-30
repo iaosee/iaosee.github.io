@@ -44,25 +44,36 @@ font:
 background_image:
 
 # Loading
-loading: /images/theme/loading.gif
+loading:
+  light: /images/theme/loading.gif
+  dark: /images/theme/loading.gif
 
 # Preview
 preview:
   enable: true
-  model: wave  # cloud
+  type: wave  # wave | cloud
   background:
-    default: /images/theme/welcome-background.jpg
-    api: # https://source.unsplash.com/random/1920x1080
+    type: image # image video
+    default_image:
+      light: /images/theme/welcome-background.jpg
+      dark: /images/theme/welcome-background.jpg
+    video:
+    api: https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts
     size: cover # css: background-size
     position: center # css: background-position
   motto:
-    color: '#000555'
     default: 菡萏香销翠叶残，西风愁起绿波间。
+    color: '#ffffff'
+    typing: true
     api: https://v2.jinrishici.com/one.json
     data_contents: ['data', 'content']
     # ex.one  =>  apl: https://v1.hitokoto.cn/?encode=text&c=i  data_contents:
     # ex.two  =>  api: https://v2.jinrishici.com/one.json  data_contents: ['data', 'content']
 
+# Navbar
+navbar:
+  enable: true
+  back_home: true
 
 # Copyright
 copyright: <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p>
@@ -84,6 +95,10 @@ scrollbar:
 fab:
   enable: true
   always_show: false
+
+# Search
+search:
+  enable: false
 
 # QR Code
 qrcode:
@@ -152,6 +167,8 @@ galleries:
   enable: true
   title: 相册
   subtitle: Photography
+  type: waterfall # waterfall | grid
+  columns: 3
 
 # --------------------------------------------------
 # Comment Settings
@@ -159,7 +176,7 @@ galleries:
 
 comments:
   enable: true
-  type: valine
+  type: valine # gitalk | valine | changyan
   button: true
 
 # Gitalk
@@ -182,7 +199,7 @@ valine:
 # ChangYan
 changyan:
   appId:
-  appKey:
+  conf:
 
 # --------------------------------------------------
 # Plugin settings
@@ -216,7 +233,9 @@ leancloud:
 lazyload:
   enable: true
   only_post: false
-  loading: /images/theme/loading.gif
+  loading:
+    light: /images/theme/loading.gif
+    dark: /images/theme/loading.gif
 
 # FancyBox
 fancybox: true
