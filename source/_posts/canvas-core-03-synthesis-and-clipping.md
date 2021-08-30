@@ -48,7 +48,7 @@ tags:
 
 ### MDN 官方文档示例
 
-<iframe class="live-sample-frame sample-code-frame" frameborder="0" height="600" width="100%" loading="lazy"  id="frame_合成示例" allow="fullscreen" src="https://yari-demos.prod.mdn.mozit.cloud/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing/Example/_samples_/Compositing_example"></iframe>
+<iframe class="live-sample-frame sample-code-frame" frameborder="0" height="600" width="100%" loading="lazy"  id="frame_合成示例" allow="fullscreen" src="https://yari-demos.prod.mdn.mozit.cloud/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing/Example/_sample_.Compositing_example.html"></iframe>
 
 [示例来自 MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation)
 
