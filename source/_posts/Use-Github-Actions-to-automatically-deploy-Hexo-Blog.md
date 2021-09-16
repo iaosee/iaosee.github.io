@@ -2,7 +2,7 @@
 title: 使用 Github Actions 自动构建部署 Hexo 博客
 name: Use-Github-Actions-to-automatically-deploy-Hexo-Blog
 keywords: Github Actions, Hexo 自动部署, Hexo CI/CD
-image: https://s3.ax1x.com/2020/12/24/rc4UoQ.png
+image: https://z3.ax1x.com/2020/12/24/rc4UoQ.png
 
 date: 2020-11-02 21:36:50
 categories:
@@ -49,11 +49,11 @@ ssh-keygen -f github-deploy-key
 
 将创建好的 `github-deploy-key.pub` 文件中的内容复制添加到对应仓库的 Deploy keys 中， **Settings** / **Deploy keys** / **Add deploy key**， 取名为 `HEXO_DEPLOY_KEY_PUB`。
 
-![HEXO_DEPLOY_KEY_PUB](https://s3.ax1x.com/2020/12/24/rc4kxx.png)
+![HEXO_DEPLOY_KEY_PUB](https://z3.ax1x.com/2020/12/24/rc4kxx.png)
 
 将创建好的 `github-deploy-key` 文件中的内容复制添加到对应仓库的 Secrets 中， **Settings** / **Secrets** / **New Secret**，取名为 `HEXO_DEPLOY_KEY_PRI`。
 
-![HEXO_DEPLOY_KEY_PRI](https://s3.ax1x.com/2020/12/24/rc4Mid.png)
+![HEXO_DEPLOY_KEY_PRI](https://z3.ax1x.com/2020/12/24/rc4Mid.png)
 
 
 需要注意的是，这里取的名字在 Actions 脚本中通过 `${{secrets.HEXO_DEPLOY_KEY_PRI}}` 获取时需要一致。
@@ -136,5 +136,5 @@ jobs:
 
 现在，只要仓库的 `source` 分支有代码推送，GitHub 就会创建一个容器来运行这里配置的任务，解放双手，Enjoy It 😃。
 
-![Actions 脚本运行结果](https://s3.ax1x.com/2020/12/24/rc4UoQ.png)
+![Actions 脚本运行结果](https://z3.ax1x.com/2020/12/24/rc4UoQ.png)
 
