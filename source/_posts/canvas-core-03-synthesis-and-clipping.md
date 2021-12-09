@@ -1,5 +1,5 @@
 ---
-title: Canvas 图像合成与剪辑区域
+title: Canvas 图像合成与剪辑区域 - 橡皮擦实现
 name: canvas-core-03-synthesis-and-clipping
 keywords: 'Canvas, 2D 图形, 图像合成, 剪辑区域'
 

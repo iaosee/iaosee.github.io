@@ -1,5 +1,5 @@
 ---
-title: Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形
+title: Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形、背景填充
 name: canvas-core-02-basic-graphic-rendering
 keywords: 'Canvas, 2D 图形, Canvas 绘制基本图形'
 
@@ -12,6 +12,36 @@ tags:
   - Canvas
   - 图形开发
 ---
+
+在 Canvas 中绘制形状大致分为两个步骤，先是 **创建路径**，然后为创建的路径 **填充颜色**。填充颜色可以选择**描边**或者**填充**，或者两者同时应用。
+
+`CanvasRenderingContext2D` 中路径相关的 API：只通过这些基础的路径 API 就可以创建任何想要的形状了。
+
+```ts
+interface CanvasPath {
+  arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
+  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+  bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+  closePath(): void;
+  ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
+  lineTo(x: number, y: number): void;
+  moveTo(x: number, y: number): void;
+  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+  rect(x: number, y: number, w: number, h: number): void;
+}
+```
+
+创建路径之后，通过 `fillStyle` / `strokeStyle` 设置填充样式或者轮廓样式，使用 `fill()` 或者 `stroke()` 进行填充颜色或者只上轮廓色。
+
+- `fillStyle` 对应 `fill()` 填充的样式
+- `strokeStyle` 对应 `stroke()` 轮廓的样式
+
+
+fillStyle / strokeStyle 接收的值可以是 *CSS 颜色字符串* 或者一个 `CanvasGradient` / `CanvasPattern`
+
+- `fillStyle: string | CanvasGradient | CanvasPattern;`
+- `strokeStyle: string | CanvasGradient | CanvasPattern;`
+
 
 ## 画线与文本
 
