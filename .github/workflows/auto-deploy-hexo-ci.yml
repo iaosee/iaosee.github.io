@@ -34,6 +34,13 @@ jobs:
           ref: ${{ env.THEME_BRANCH }}
           path: themes/zhaoo
 
+      # 使用已部署文件初始化目标
+      - name: Checkout - Get publish history
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          path: .deploy_git
+
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
@@ -51,27 +58,6 @@ jobs:
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
           cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml
-
-      # 使用已部署文件初始化目标
-      # - name: Get publish history
-      #   run: |
-      #     git clone --depth 1 --branch=master https://github.com/iaosee/iaosee.github.io.git .deploy_git
-      #     cd .deploy_git
-      #     find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
-      #     cd ../
-      - name: Checkout - Get publish history
-        uses: actions/checkout@v2
-        with:
-          ref: master
-          path: .deploy_git
-
-      # - name: Set repo history
-      #   run: |
-      #     cd .deploy_git
-      #     ls -l
-      #     find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
-      #     ls -l
-      #     cd ../
 
       - name: Install dependencies
         run: |
