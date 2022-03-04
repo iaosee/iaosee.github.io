@@ -68,7 +68,9 @@ jobs:
       - name: Set repo history
         run: |
           cd .deploy_git
+          ls -l
           find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
+          ls -l
           cd ../
 
       - name: Install dependencies
