@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形 - iaosee</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="iaosee, iaosee's blog, Web, Front-end, JavaScript, TypeScript, Graphics, 2D/3D, Canvas, WebGL, Canvas, 2D 图形, Canvas 绘制基本图形">
+  <meta name="description" content="路径绘制在 Canvas 中绘制形状大致分为两个步骤，...">
+  <meta name="author" content="iaosee">
+  <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/github.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/an-old-hope.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: 'https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts'
+        },
+        motto: {
+          default: '菡萏香销翠叶残，西风愁起绿波间。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: ''
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+    <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/23/r6DKk8.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 10, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/12/10/canvas-core-02-basic-graphic-rendering/" class="leancloud-counter" data-flag-title="Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2020/12/10/canvas-core-02-basic-graphic-rendering/" class="leancloud-like" data-flag-title="Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4480</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h2 id="路径绘制"><a href="#路径绘制" class="headerlink" title="路径绘制"></a>路径绘制</h2><p>在 Canvas 中绘制形状大致分为两个步骤，先是 <strong>创建路径</strong>，然后为创建的路径 <strong>填充颜色</strong>。填充颜色可以选择<strong>描边</strong>或者<strong>填充</strong>，或者两者同时应用。</p>
+<p><code>CanvasRenderingContext2D</code> 中路径相关的 API：只通过这些基础的路径 API 就可以创建任何想要的形状了。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">CanvasPath</span> &#123;<br>  <span class="hljs-title function_">arc</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">radius</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">startAngle</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">endAngle</span>: <span class="hljs-built_in">number</span>, counterclockwise?: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">arcTo</span>(<span class="hljs-attr">x1</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y1</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">x2</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y2</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">radius</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">bezierCurveTo</span>(<span class="hljs-attr">cp1x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">cp1y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">cp2x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">cp2y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">closePath</span>(): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">ellipse</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">radiusX</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">radiusY</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">rotation</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">startAngle</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">endAngle</span>: <span class="hljs-built_in">number</span>, counterclockwise?: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">lineTo</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">moveTo</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">quadraticCurveTo</span>(<span class="hljs-attr">cpx</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">cpy</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-title function_">rect</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">w</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">h</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>创建路径之后，通过 <code>fillStyle</code> &#x2F; <code>strokeStyle</code> 设置填充样式或者轮廓样式，使用 <code>fill()</code> 或者 <code>stroke()</code> 进行填充颜色或者只上轮廓色。</p>
+<ul>
+<li><code>fillStyle</code> 对应 <code>fill()</code> 填充的样式</li>
+<li><code>strokeStyle</code> 对应 <code>stroke()</code> 轮廓的样式</li>
+</ul>
+<p><code>fillStyle</code> &#x2F; <code>strokeStyle</code> 接收的值可以是 <em>CSS 颜色字符串</em> 或者一个 <code>CanvasGradient</code> &#x2F; <code>CanvasPattern</code> 。</p>
+<p>对于一些复杂的图像，都是基于路径绘制的。基于路径绘图，首先需要调用 <code>beginPath()</code> 方法来开启一段新路径，调用各个路径方法用于创建不同的路径。然后调用 <code>stroke()</code> &#x2F; <code>fill()</code> 进行描边和填充。想要关闭某段路径，则需要调用 <code>closePath()</code> 方法，描边与填充的效果取决于当前绘图属性。</p>
+<p>填充路径时使用 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113411760"><code>非零环绕规则</code></a>，用来判断哪块区域是里面，哪块区域是外面，从而在填充不规则复杂图形时表示那块区域要填充或不填充。—— 对于路径中的任意给定区域，从该区域内部画一条足够长的线段，使此线段的终点完全落在路径范围之外。然后将计数器初始化为零，如果与路径的顺时针方向相交，计数器加 1， 与路径的逆时针方向，计数器减 1，若最后计数器的结果不为零，那么此区域就在路径里面，在调用 <code>fill()</code> 方法时，就会进行填充。</p>
+<h2 id="画线与文本"><a href="#画线与文本" class="headerlink" title="画线与文本"></a>画线与文本</h2><p>若在像素边界处绘制 1 像素宽的线，那么该线会占据 2 个像素宽度，线相关的 API：</p>
+<ul>
+<li><code>moveTo(x, y)</code> 向当前路径中增加一条子路径</li>
+<li><code>lineTo(x, y)</code> 如果当前路径中没有子路径，它的行为就和 <code>moveTo()</code> 方法行为一样，若当前存在子路径，会将制定的点添加到子路径中。</li>
+<li><code>setLineDash([10, 20])</code>  绘制虚线，设置虚线间断</li>
+</ul>
+<p>文本绘制相关 API ：</p>
+<ul>
+<li><p><code>font</code> 指定字体样式&#x2F;大小，一个 CSS3 属性字符串，顺序为 <code>font-style font-variant font-weight font-size font-height font-family</code></p>
+</li>
+<li><p><code>textAlign</code> 指定对齐方式，取值 <code>start|center|end|left|right</code></p>
+</li>
+<li><p><code>textBaseline</code> 指定文本基线对齐方式，取值 <code>top|bottom|middle|alphabetic|ideographic|hanging</code> </p>
+</li>
+<li><p><code>strokeText(text, x, y)</code>  文本描边</p>
+</li>
+<li><p><code>fillText(text, x, y)</code>  文本填充</p>
+</li>
+<li><p><code>measureText(text)</code>  测量文本 在当前上下文状态中的信息 返回 <code>TextMetrics</code> 类型的值</p>
+</li>
+</ul>
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.01&module=%2Fsrc%2Fdemo%2FDemo.01.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+<h2 id="矩形填充与描边"><a href="#矩形填充与描边" class="headerlink" title="矩形填充与描边"></a>矩形填充与描边</h2><p>绘制矩形的 API:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">CanvasRect</span> &#123;<br>    <span class="hljs-title function_">clearRect</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">w</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">h</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>    <span class="hljs-title function_">fillRect</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">w</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">h</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>    <span class="hljs-title function_">strokeRect</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">w</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">h</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>简单矩形绘制，矩形描边：</p>
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.02&module=%2Fsrc%2Fdemo%2FDemo.02.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+<h2 id="圆形与椭圆"><a href="#圆形与椭圆" class="headerlink" title="圆形与椭圆"></a>圆形与椭圆</h2><iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.03&module=%2Fsrc%2Fdemo%2FDemo.03.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+<h2 id="内容填充"><a href="#内容填充" class="headerlink" title="内容填充"></a>内容填充</h2><p>可以给绘制的图形填充一些东西，包括颜色，渐变，图案，通过设置 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/fillStyle"><code>fillStyle</code></a> 属性来指定填充样式，<code>fillStyle</code> 属性接收的值有三种类型，分别是：<code>string | CanvasGradient | CanvasPattern</code>。填充图形通常的步骤是：<strong>设置填充样式 -&gt; 创建路径 -&gt; 调用 <code>fill()</code> 方法填充</strong>。</p>
+<ul>
+<li><code>string</code> 一个 CSS 颜色字符串</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasGradient"><code>CanvasGradient</code></a> 通过 <code>createLinearGradient()</code> 或 <code>createRadialGradient()</code> 方法创建的渐变</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasPattern"><code>CanvasPattern</code></a> 通过 <code>createPattern()</code> 方法创建的模式</li>
+</ul>
+<p>Canvas 中渐变填充支持 <code>线性渐变(linear)</code> 和 <code>径向渐变(radial)</code> 。</p>
+<h3 id="线性渐变填充"><a href="#线性渐变填充" class="headerlink" title="线性渐变填充"></a>线性渐变填充</h3><p>线性渐变需要两个点的坐标，Canvas 会根据两点之间的连线来建立渐变效果。</p>
+<p>使用 <code>createLinearGradient(x0, y0, x1, y1)</code> 方法创建渐变，返回一个 <code>CanvasGradient</code> 实例，通过它的 <code>addColorStop(percentage, color)</code> 方法添加 <code>颜色停止点</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> gradient = context.<span class="hljs-title function_">createLinearGradient</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">centerX</span>, <span class="hljs-number">0</span>);<br>gradient.<span class="hljs-title function_">addColorStop</span>(<span class="hljs-number">0.00</span>, <span class="hljs-string">&#x27;blue&#x27;</span>);<br>gradient.<span class="hljs-title function_">addColorStop</span>(<span class="hljs-number">0.50</span>, <span class="hljs-string">&#x27;red&#x27;</span>);<br>gradient.<span class="hljs-title function_">addColorStop</span>(<span class="hljs-number">1.00</span>, <span class="hljs-string">&#x27;yellow&#x27;</span>);<br>context.<span class="hljs-property">fillStyle</span> = gradient;<br>context.<span class="hljs-title function_">fillRect</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.<span class="hljs-property">width</span> / <span class="hljs-number">2</span>,  canvas.<span class="hljs-property">height</span> / <span class="hljs-number">2</span>);<br></code></pre></td></tr></table></figure>
+
+
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.04&module=%2Fsrc%2Fdemo%2FDemo.04.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+<h3 id="径向渐变填充"><a href="#径向渐变填充" class="headerlink" title="径向渐变填充"></a>径向渐变填充</h3><p>径向渐变需要两个圆形，canvas 会根据两个圆之间的范围来建立渐变效果。<br>使用 <code>createRadialGradient(x0, y0, r0, x1, y1, r1)</code> 方法创建渐变实例，返回一个 <code>CanvasGradient</code> 实例</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> gradient = context.<span class="hljs-title function_">createRadialGradient</span>(<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">centerX</span> / <span class="hljs-number">2</span>, canvas.<span class="hljs-property">height</span> / <span class="hljs-number">2</span> * <span class="hljs-number">1.5</span>, <span class="hljs-number">20</span>,<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">centerX</span> / <span class="hljs-number">2</span>, canvas.<span class="hljs-property">height</span> / <span class="hljs-number">2</span> * <span class="hljs-number">1.5</span>, <span class="hljs-number">200</span><br>);<br>gradient.<span class="hljs-title function_">addColorStop</span>(<span class="hljs-number">0.0</span>, <span class="hljs-string">&#x27;blue&#x27;</span>);<br>gradient.<span class="hljs-title function_">addColorStop</span>(<span class="hljs-number">0.5</span>, <span class="hljs-string">&#x27;yellow&#x27;</span>);<br>gradient.<span class="hljs-title function_">addColorStop</span>(<span class="hljs-number">1.0</span>, <span class="hljs-string">&#x27;white&#x27;</span>);<br>context.<span class="hljs-property">fillStyle</span> = gradient;<br>context.<span class="hljs-title function_">fillRect</span>(<span class="hljs-number">0</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">centerY</span>, canvas.<span class="hljs-property">width</span> / <span class="hljs-number">2</span>, canvas.<span class="hljs-property">height</span> / <span class="hljs-number">2</span>);<br></code></pre></td></tr></table></figure>
+
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.05&module=%2Fsrc%2Fdemo%2FDemo.05.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+<h3 id="图案填充"><a href="#图案填充" class="headerlink" title="图案填充"></a>图案填充</h3><p>使用 <code>createPattern(image: CanvasImageSource, repetition: string)</code> 方法创建图案，返回一个 <code>CanvasPattern</code> 实例。 Canvas 允许使用图案来对图形和文本进行填充和描边，图案又可分为这些类型：</p>
+<ul>
+<li><code>Image</code> 图像元素 可以是 <code>HTMLImageElement | SVGImageElement ｜ ImageBitmap</code></li>
+<li><code>Canvas</code> Canvas 画布元素</li>
+<li><code>Video</code> 视频元素</li>
+</ul>
+<p>参数介绍：</p>
+<ul>
+<li><code>image</code> - <code>HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap</code></li>
+<li><code>repetition</code> - <code>repeat | repeat-x | repeat-y | no-repeat</code></li>
+</ul>
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.06&module=%2Fsrc%2Fdemo%2FDemo.06.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+<h2 id="阴影效果"><a href="#阴影效果" class="headerlink" title="阴影效果"></a>阴影效果</h2><p>可以通过下列 4 个属性值来指定 图形、图像、文本 阴影效果，设置阴影的属性：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">CanvasShadowStyles</span> &#123;<br>  <span class="hljs-attr">shadowBlur</span>: <span class="hljs-built_in">number</span>;<br>  <span class="hljs-attr">shadowColor</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-attr">shadowOffsetX</span>: <span class="hljs-built_in">number</span>;<br>  <span class="hljs-attr">shadowOffsetY</span>: <span class="hljs-built_in">number</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>shadowColor</code> CSS3 格式支持的颜色值</p>
+</li>
+<li><p><code>shadowOffsetX</code> 阴影的水平像素偏移，像素为单位，默认 0</p>
+</li>
+<li><p><code>shadowOffsetY</code> 阴影的垂直像素偏移，像素为单位，默认 0</p>
+</li>
+<li><p><code>shadowBlur</code> 阴影模糊值，默认 0</p>
+</li>
+<li><p>将 <code>shadowColor</code> 设置为 <code>underfined</code> 可以禁用阴影效果。</p>
+</li>
+<li><p>将 <code>shadowOffsetX</code> 和 <code>shadowOffsetY</code> 可以为负值，以显示内阴影效果。</p>
+</li>
+</ul>
+<p>阴影效果的绘制可能会比较耗时，特别是动画时候运用阴影效果，需要考虑性能问题。</p>
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.07&module=%2Fsrc%2Fdemo%2FDemo.07.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+<h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+<h2 id="任意多边形"><a href="#任意多边形" class="headerlink" title="任意多边形"></a>任意多边形</h2><iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.09&module=%2Fsrc%2Fdemo%2FDemo.09.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>iaosee</li>
+    <li><strong>本文链接：</strong><a href="http://iaosee.com/2020/12/10/canvas-core-02-basic-graphic-rendering/index.html" title="http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;12&#x2F;10&#x2F;canvas-core-02-basic-graphic-rendering&#x2F;index.html">http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;12&#x2F;10&#x2F;canvas-core-02-basic-graphic-rendering&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2D/" rel="tag">2D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%BD%A2%E5%BC%80%E5%8F%91/" rel="tag">图形开发</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/12/23/canvas-core-03-synthesis-and-clipping/"><i class="iconfont iconleft"></i>Canvas 图像合成与剪辑区域</a>
+    <a href="/2020/11/22/canvas-core-01-concept-of-summary/">Canvas 基础概念 — 基础、绘制、坐标<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz",
+        app_key: "1ygwFPYG8IbvlgnrnNXrNeNe",
+        placeholder: "踩个脚印",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E7%BB%98%E5%88%B6"><span class="toc-text">路径绘制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E7%BA%BF%E4%B8%8E%E6%96%87%E6%9C%AC"><span class="toc-text">画线与文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E5%BD%A2%E5%A1%AB%E5%85%85%E4%B8%8E%E6%8F%8F%E8%BE%B9"><span class="toc-text">矩形填充与描边</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%86%E5%BD%A2%E4%B8%8E%E6%A4%AD%E5%9C%86"><span class="toc-text">圆形与椭圆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%A1%AB%E5%85%85"><span class="toc-text">内容填充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%B8%90%E5%8F%98%E5%A1%AB%E5%85%85"><span class="toc-text">线性渐变填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%84%E5%90%91%E6%B8%90%E5%8F%98%E5%A1%AB%E5%85%85"><span class="toc-text">径向渐变填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E6%A1%88%E5%A1%AB%E5%85%85"><span class="toc-text">图案填充</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B4%E5%BD%B1%E6%95%88%E6%9E%9C"><span class="toc-text">阴影效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="toc-text">贝塞尔曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E5%A4%9A%E8%BE%B9%E5%BD%A2"><span class="toc-text">任意多边形</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/iaosee "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:iaosee@outlook.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
+  
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
+      appKey: '1ygwFPYG8IbvlgnrnNXrNeNe',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://iaosee.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://iaosee.com';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "fb486b7c"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

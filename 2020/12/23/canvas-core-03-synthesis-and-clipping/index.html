@@ -1,0 +1,567 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas 图像合成与剪辑区域 - iaosee</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="iaosee, iaosee's blog, Web, Front-end, JavaScript, TypeScript, Graphics, 2D/3D, Canvas, WebGL, Canvas, 2D 图形, 图像合成, 剪辑区域">
+  <meta name="description" content="图像合成图像合成就是在画布上将某一个物体（源物体）绘制...">
+  <meta name="author" content="iaosee">
+  <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/github.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/an-old-hope.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: 'https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts'
+        },
+        motto: {
+          default: '菡萏香销翠叶残，西风愁起绿波间。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: ''
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+    <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Canvas 图像合成与剪辑区域</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/23/r6GktI.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Canvas 图像合成与剪辑区域</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 23, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-counter" data-flag-title="Canvas 图像合成与剪辑区域"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-like" data-flag-title="Canvas 图像合成与剪辑区域"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2210</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h2 id="图像合成"><a href="#图像合成" class="headerlink" title="图像合成"></a>图像合成</h2><p>图像合成就是在画布上将某一个物体（源物体）绘制到另一个物体（目标物体）之上，绘制图形的叠加显示，默认情况下，浏览器会简单的将源物体叠放在目标物体上面。但是可以通过设置绘图环境对象的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation"><code>globalCompositeOperation</code></a> 属性来改变图像合成的行为，该属性可以取得如下列出的任意一个值，这些值叫做 <strong>Portor-Duff</strong> 操作符，它的详细描述在一篇由 LucasFilm Ltd —— 卢卡斯影视有限公司（著名星球大战系列影片）的 Thomas Porter 和 Tom Duff 所发表的文章中 —— <a target="_blank" rel="noopener" href="https://keithp.com/~keithp/porterduff/p253-porter.pdf">https://keithp.com/~keithp&#x2F;porterduff&#x2F;p253-porter.pdf</a>。</p>
+<ul>
+<li><code>source-over</code> 默认，在现有画布上下文之上绘制新图形。</li>
+<li><code>source-in</code> 新图形只在新图形和目标画布重叠的地方绘制，其他的都是透明的。</li>
+<li><code>source-out</code>  在不与现有画布内容重叠的地方绘制新图形。</li>
+<li><code>source-atop</code> 新图形只在与现有画布内容重叠的地方绘制。</li>
+<li><code>destination-over</code>  在现有的画布内容后面绘制新的图形。</li>
+<li><code>destination-in</code>  现有的画布内容保持在新图形和现有画布内容重叠的位置，其他的都是透明的。</li>
+<li><code>destination-out</code> 只有源图像外的目标图像部分会被显示，现有内容保持在新图形不重叠的地方。</li>
+<li><code>destination-atop</code>  现有的画布只保留与新图形重叠的部分，新的图形是在画布内容后面绘制的。</li>
+<li><code>lighter</code> 显示源图像 + 目标图像，两个重叠图形的颜色是通过颜色值相加来确定的。。</li>
+<li><code>copy</code>  显示源图像，忽略目标图像，只显示新图形。</li>
+<li><code>xor</code> 那些重叠和正常绘制之外的其他地方是透明的。</li>
+<li><code>multiply</code> 将顶层像素与底层相应像素相乘，结果是一幅更黑暗的图片。</li>
+<li><code>screen</code> 像素被倒转，相乘，再倒转，结果是一幅更明亮的图片。</li>
+<li><code>overlay</code> multiply 和 screen 的结合，原本暗的地方更暗，原本亮的地方更亮。</li>
+<li><code>darken</code> 保留两个图层中最暗的像素。</li>
+<li><code>lighten</code> 保留两个图层中最亮的像素。</li>
+<li><code>color-dodge</code> 将底层除以顶层的反置。</li>
+<li><code>color-burn</code> 将反置的底层除以顶层，然后将结果反过来。</li>
+<li><code>hard-light</code> 屏幕相乘（A combination of multiply and screen）类似于叠加，但上下图层互换了。</li>
+<li><code>soft-light</code> 用顶层减去底层或者相反来得到一个正值。</li>
+<li><code>difference</code> 一个柔和版本的强光（hard-light）。纯黑或纯白不会导致纯黑或纯白。</li>
+<li><code>exclusion</code> 和 difference 相似，但对比度较低。</li>
+<li><code>hue</code> 保留了底层的亮度（luma）和色度（chroma），同时采用了顶层的色调（hue）。</li>
+<li><code>saturation</code> 保留了底层的亮度（luma）和色调（hue），同时采用顶层的色度（chroma）。</li>
+<li><code>color</code> 保留了底层的亮度（luma），同时采用了顶层的色调(hue)和色度(chroma)。</li>
+<li><code>luminosity</code> 保持底层的色调（hue）和色度（chroma），同时采用顶层的亮度（luma）。</li>
+</ul>
+<h3 id="MDN-官方文档示例"><a href="#MDN-官方文档示例" class="headerlink" title="MDN 官方文档示例"></a>MDN 官方文档示例</h3><iframe class="live-sample-frame sample-code-frame" frameborder="0" height="600" width="100%" loading="lazy"  id="frame_合成示例" allow="fullscreen" src="https://yari-demos.prod.mdn.mozit.cloud/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing/Example/_sample_.Compositing_example.html"></iframe>
+
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation">示例来自 MDN</a></p>
+<h3 id="图像合成示例-Demo"><a href="#图像合成示例-Demo" class="headerlink" title="图像合成示例 Demo"></a>图像合成示例 Demo</h3><iframe 
+  class="live-sample-frame sample-code-frame" 
+  frameborder="0" 
+  height="600" 
+  width="100%" 
+  loading="lazy"      
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
+  src="https://html5-canvas-core.vercel.app/#/Demo.28">
+</iframe>
+
+<p><a target="_blank" rel="noopener" href="https://html5-canvas-core.vercel.app/#/Demo.28">查看完整 Demo 效果</a></p>
+<h2 id="剪辑区域"><a href="#剪辑区域" class="headerlink" title="剪辑区域"></a>剪辑区域</h2><p>剪辑区域：剪辑区域，是一个非常有用的功能，也可以叫做裁剪区域，是指绘制路径所定义的一块区域，定义了该区域，后续的所有绘图操作都被限制在该区域中执行。在默认情况下，裁剪区域与 Canvas 画布大小一致，可以自行定义裁剪区域，自定义裁剪区域就是创建创一段自定义路径（路径组成的区域），并调用绘图环境上的 <code>clip()</code> 方法，一旦设置了剪辑区域后，那么在 Canvas 上绘制的所有内容都会被限制在该区域内，在剪辑区域外部绘制没有效果。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/clip"><code>clip()</code></a> 将当前创建的路径设置为当前剪切路径，<code>clip()</code>具有多种形式，方法的重载形式如下。</p>
+<ul>
+<li><code>clip(fillRule?: CanvasFillRule): void</code></li>
+<li><code>clip(path: Path2D, fillRule?: CanvasFillRule): void</code></li>
+</ul>
+<p><code>fillRule</code> 取值为 <code>evenodd</code> | <code>nonzero</code>，<code>nonzero</code> 为非零环绕原则，默认原则，<code>evenodd</code>: 奇偶环绕原则，<code>path</code> 为需要剪切的 Path2D 路径。</p>
+<h3 id="简单裁剪示例"><a href="#简单裁剪示例" class="headerlink" title="简单裁剪示例"></a>简单裁剪示例</h3><p>如下 Demo 所示：在调用 <code>clearRect()</code> 清除整个画布之前调用了 <code>clip()</code> 方法，会将之前调用 <code>arc()</code> 创建的路径作为裁剪路径，那后续调用 <code>clearRect()</code> 只会作用在该裁剪路径里面，所以只清除了中心圆形那块区域。</p>
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.10&module=%2Fsrc%2Fdemo%2FDemo.10.ts&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+
+<h3 id="利用裁剪实现橡皮檫"><a href="#利用裁剪实现橡皮檫" class="headerlink" title="利用裁剪实现橡皮檫"></a>利用裁剪实现橡皮檫</h3><p>比如利用裁剪区域可以实现橡皮檫效果，橡皮檫实现原理：在拖动橡皮檫时，将剪辑区域设置为橡皮擦图形的区域，然后调用 <code>clearRect(0, 0, canvas.width, canvas.height)</code> 将整个画布擦除，因为在调用 <code>clearRect()</code> 方法之前，设置了剪辑区域为橡皮擦区域，调用 <code>clearRect()</code> 方法只会在剪辑区域生效，所以只擦除了剪辑区域（橡皮檫区域）的图形。</p>
+<iframe 
+  class="live-sample-frame sample-code-frame" 
+  frameborder="0" 
+  height="600" 
+  width="100%" 
+  loading="lazy"      
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
+  src="https://html5-canvas-core.vercel.app/#/Demo.29">
+</iframe>
+
+<p><a target="_blank" rel="noopener" href="https://html5-canvas-core.vercel.app/#/Demo.29">查看完整 Demo 效果</a></p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>iaosee</li>
+    <li><strong>本文链接：</strong><a href="http://iaosee.com/2020/12/23/canvas-core-03-synthesis-and-clipping/index.html" title="http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;12&#x2F;23&#x2F;canvas-core-03-synthesis-and-clipping&#x2F;index.html">http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;12&#x2F;23&#x2F;canvas-core-03-synthesis-and-clipping&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2D/" rel="tag">2D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%BD%A2%E5%BC%80%E5%8F%91/" rel="tag">图形开发</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2020/12/10/canvas-core-02-basic-graphic-rendering/">Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz",
+        app_key: "1ygwFPYG8IbvlgnrnNXrNeNe",
+        placeholder: "踩个脚印",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%90%88%E6%88%90"><span class="toc-text">图像合成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MDN-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%A4%BA%E4%BE%8B"><span class="toc-text">MDN 官方文档示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%90%88%E6%88%90%E7%A4%BA%E4%BE%8B-Demo"><span class="toc-text">图像合成示例 Demo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E8%BE%91%E5%8C%BA%E5%9F%9F"><span class="toc-text">剪辑区域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E8%A3%81%E5%89%AA%E7%A4%BA%E4%BE%8B"><span class="toc-text">简单裁剪示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%A3%81%E5%89%AA%E5%AE%9E%E7%8E%B0%E6%A9%A1%E7%9A%AE%E6%AA%AB"><span class="toc-text">利用裁剪实现橡皮檫</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/iaosee "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:iaosee@outlook.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
+  
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
+      appKey: '1ygwFPYG8IbvlgnrnNXrNeNe',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://iaosee.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://iaosee.com';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "fb486b7c"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
+
+
+
+
+
+
+
+
+
+
+
+</html>
