@@ -19,16 +19,16 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [16.x]
+        node_version: [20.x]
 
     steps:
       - name: Checkout blog repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: source
 
       - name: Checkout theme repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.THEME_REPO }}
           ref: ${{ env.THEME_BRANCH }}
@@ -36,13 +36,13 @@ jobs:
 
       # 使用已部署文件初始化目标
       - name: Checkout - Get publish history
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: master
           path: .deploy_git
 
       - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
 
