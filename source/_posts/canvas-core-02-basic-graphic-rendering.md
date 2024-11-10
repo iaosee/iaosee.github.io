@@ -13,6 +13,9 @@ tags:
   - 图形开发
 ---
 
+## 路径绘制
+
+
 在 Canvas 中绘制形状大致分为两个步骤，先是 **创建路径**，然后为创建的路径 **填充颜色**。填充颜色可以选择**描边**或者**填充**，或者两者同时应用。
 
 `CanvasRenderingContext2D` 中路径相关的 API：只通过这些基础的路径 API 就可以创建任何想要的形状了。
@@ -37,13 +40,35 @@ interface CanvasPath {
 - `strokeStyle` 对应 `stroke()` 轮廓的样式
 
 
-fillStyle / strokeStyle 接收的值可以是 *CSS 颜色字符串* 或者一个 `CanvasGradient` / `CanvasPattern`
+`fillStyle` / `strokeStyle` 接收的值可以是 *CSS 颜色字符串* 或者一个 `CanvasGradient` / `CanvasPattern` 。
 
-- `fillStyle: string | CanvasGradient | CanvasPattern;`
-- `strokeStyle: string | CanvasGradient | CanvasPattern;`
+
+对于一些复杂的图像，都是基于路径绘制的。基于路径绘图，首先需要调用 `beginPath()` 方法来开启一段新路径，调用各个路径方法用于创建不同的路径。然后调用 `stroke()` / `fill()` 进行描边和填充。想要关闭某段路径，则需要调用 `closePath()` 方法，描边与填充的效果取决于当前绘图属性。
+
+
+填充路径时使用 [`非零环绕规则`](https://zhuanlan.zhihu.com/p/113411760)，用来判断哪块区域是里面，哪块区域是外面，从而在填充不规则复杂图形时表示那块区域要填充或不填充。—— 对于路径中的任意给定区域，从该区域内部画一条足够长的线段，使此线段的终点完全落在路径范围之外。然后将计数器初始化为零，如果与路径的顺时针方向相交，计数器加 1， 与路径的逆时针方向，计数器减 1，若最后计数器的结果不为零，那么此区域就在路径里面，在调用 `fill()` 方法时，就会进行填充。
+
 
 
 ## 画线与文本
+
+若在像素边界处绘制 1 像素宽的线，那么该线会占据 2 个像素宽度，线相关的 API：
+
+- `moveTo(x, y)` 向当前路径中增加一条子路径
+- `lineTo(x, y)` 如果当前路径中没有子路径，它的行为就和 `moveTo()` 方法行为一样，若当前存在子路径，会将制定的点添加到子路径中。
+- `setLineDash([10, 20])`  绘制虚线，设置虚线间断
+
+
+文本绘制相关 API ：
+
+- `font` 指定字体样式/大小，一个 CSS3 属性字符串，顺序为 `font-style font-variant font-weight font-size font-height font-family`
+- `textAlign` 指定对齐方式，取值 `start|center|end|left|right`
+- `textBaseline` 指定文本基线对齐方式，取值 `top|bottom|middle|alphabetic|ideographic|hanging` 
+
+- `strokeText(text, x, y)`  文本描边
+- `fillText(text, x, y)`  文本填充
+- `measureText(text)`  测量文本 在当前上下文状态中的信息 返回 `TextMetrics` 类型的值
+
 
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.01&module=%2Fsrc%2Fdemo%2FDemo.01.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
@@ -91,7 +116,27 @@ interface CanvasRect {
 - [`CanvasGradient`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasGradient) 通过 `createLinearGradient()` 或 `createRadialGradient()` 方法创建的渐变
 - [`CanvasPattern`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasPattern) 通过 `createPattern()` 方法创建的模式
 
+
+Canvas 中渐变填充支持 `线性渐变(linear)` 和 `径向渐变(radial)` 。
+
+
 ### 线性渐变填充
+
+
+线性渐变需要两个点的坐标，Canvas 会根据两点之间的连线来建立渐变效果。
+
+使用 `createLinearGradient(x0, y0, x1, y1)` 方法创建渐变，返回一个 `CanvasGradient` 实例，通过它的 `addColorStop(percentage, color)` 方法添加 `颜色停止点`。
+
+
+``` ts
+const gradient = context.createLinearGradient(0, 0, this.centerX, 0);
+gradient.addColorStop(0.00, 'blue');
+gradient.addColorStop(0.50, 'red');
+gradient.addColorStop(1.00, 'yellow');
+context.fillStyle = gradient;
+context.fillRect(0, 0, canvas.width / 2,  canvas.height / 2);
+```
+
 
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.04&module=%2Fsrc%2Fdemo%2FDemo.04.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
@@ -101,6 +146,21 @@ interface CanvasRect {
 ></iframe>
 
 ### 径向渐变填充
+
+径向渐变需要两个圆形，canvas 会根据两个圆之间的范围来建立渐变效果。
+使用 `createRadialGradient(x0, y0, r0, x1, y1, r1)` 方法创建渐变实例，返回一个 `CanvasGradient` 实例
+
+``` ts
+const gradient = context.createRadialGradient(
+  this.centerX / 2, canvas.height / 2 * 1.5, 20,
+  this.centerX / 2, canvas.height / 2 * 1.5, 200
+);
+gradient.addColorStop(0.0, 'blue');
+gradient.addColorStop(0.5, 'yellow');
+gradient.addColorStop(1.0, 'white');
+context.fillStyle = gradient;
+context.fillRect(0, this.centerY, canvas.width / 2, canvas.height / 2);
+```
 
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.05&module=%2Fsrc%2Fdemo%2FDemo.05.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
@@ -112,6 +172,19 @@ interface CanvasRect {
 
 ### 图案填充
 
+使用 `createPattern(image: CanvasImageSource, repetition: string)` 方法创建图案，返回一个 `CanvasPattern` 实例。 Canvas 允许使用图案来对图形和文本进行填充和描边，图案又可分为这些类型：
+
+- `Image` 图像元素 可以是 `HTMLImageElement | SVGImageElement ｜ ImageBitmap`
+- `Canvas` Canvas 画布元素
+- `Video` 视频元素
+
+参数介绍：
+
+- `image` - `HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap`
+- `repetition` - `repeat | repeat-x | repeat-y | no-repeat`
+
+
+
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.06&module=%2Fsrc%2Fdemo%2FDemo.06.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
@@ -122,7 +195,7 @@ interface CanvasRect {
 
 ## 阴影效果
 
-设置阴影的属性：
+可以通过下列 4 个属性值来指定 图形、图像、文本 阴影效果，设置阴影的属性：
 
 ``` ts
 interface CanvasShadowStyles {
@@ -132,6 +205,18 @@ interface CanvasShadowStyles {
   shadowOffsetY: number;
 }
 ```
+
+- `shadowColor` CSS3 格式支持的颜色值
+- `shadowOffsetX` 阴影的水平像素偏移，像素为单位，默认 0
+- `shadowOffsetY` 阴影的垂直像素偏移，像素为单位，默认 0
+- `shadowBlur` 阴影模糊值，默认 0
+
+- 将 `shadowColor` 设置为 `underfined` 可以禁用阴影效果。
+- 将 `shadowOffsetX` 和 `shadowOffsetY` 可以为负值，以显示内阴影效果。
+
+
+阴影效果的绘制可能会比较耗时，特别是动画时候运用阴影效果，需要考虑性能问题。
+
 
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.07&module=%2Fsrc%2Fdemo%2FDemo.07.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
