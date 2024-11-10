@@ -286,8 +286,8 @@ $$
 
 `transform/setTransform` 两个方法的参数是相同的，分别来自下面坐标的计算公式，从上面的几个基本计算公式可得到如下坐标变换通用计算公式，`a ~ f` 分别表示方法中的 6 个参数：
 
-- `transform(a, b, c, d, e, f, g)` 
-- `setTransform(a, b, c, d, e, f, g)` 
+- `transform(a, b, c, d, e, f)` 
+- `setTransform(a, b, c, d, e, f)` 
 
 **变换矩阵：**
 
