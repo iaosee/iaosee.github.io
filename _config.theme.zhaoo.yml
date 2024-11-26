@@ -233,7 +233,7 @@ notification:
 
 # Daovoice
 daovoice:
-  enable: true
+  enable: false
   appId: fb486b7c  # app_id
 
 # Tencent Chao
