@@ -56,8 +56,8 @@ preview:
   background:
     type: image # image video
     default_image:
-      light: /images/theme/welcome-background.jpg
-      dark: /images/theme/welcome-background.jpg
+      light: # /images/theme/welcome-background.jpg
+      dark: # /images/theme/welcome-background.jpg
     video:
     api: https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts
     return_type: json
