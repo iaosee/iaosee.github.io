@@ -412,9 +412,10 @@ $$
 
 
 $$
-\cos\varphi = 
-\frac{\vec{a} \cdot \vec{b}}{|\vec{a}||\vec{b}|}
+\cos\varphi 
+= \frac{\vec{a} \cdot \vec{b}}{|\vec{a}||\vec{b}|}
 = \frac{a_1b_1 + a_2b_2 + a_3b_3}
-       {\sqrt{a_1^2+a_2^2+a_3^2}
+       {\sqrt{a_1^2+a_2^2+a_3^2} \cdot
         \sqrt{b_1^2+b_2^2+b_3^2}}
 $$ -->
+
