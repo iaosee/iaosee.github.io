@@ -301,7 +301,7 @@ vendors:
 
 # Custom
 custom:
-  head: <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
+  head: # <script src="https://cdn.jsdelivr.net/npm/mathjs@14.0.0/lib/browser/math.min.js"></script>
   foot: # <script src="//code.tidio.co/0lsap9qzw3koor7fwowzwupvksb0tosb.js" async></script>
   css:
   js:
