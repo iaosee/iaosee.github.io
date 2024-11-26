@@ -66,10 +66,10 @@ tags:
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
   allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
-  src="https://iaosee.github.io/html5-canvas-core/#/Demo.28">
+  src="https://iaosee.com/html5-canvas-core/#/Demo.28">
 </iframe>
 
-[查看完整 Demo 效果](https://iaosee.github.io/html5-canvas-core/#/Demo.28)
+[查看完整 Demo 效果](https://iaosee.com/html5-canvas-core/#/Demo.28)
 
 
 
@@ -109,8 +109,8 @@ tags:
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
   allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
-  src="https://iaosee.github.io/html5-canvas-core/#/Demo.29">
+  src="https://iaosee.com/html5-canvas-core/#/Demo.29">
 </iframe>
 
-[查看完整 Demo 效果](https://iaosee.github.io/html5-canvas-core/#/Demo.29)
+[查看完整 Demo 效果](https://iaosee.com/html5-canvas-core/#/Demo.29)
 
