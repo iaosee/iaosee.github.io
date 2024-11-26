@@ -286,6 +286,7 @@ analytics:
 # --------------------------------------------------
 
 # CDN
+# - https://unpkg.zhihu.com/
 # - https://github.com/54ayao/JSDMirror
 # - https://iui.su/3635/
 vendors:
