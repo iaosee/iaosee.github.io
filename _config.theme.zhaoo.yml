@@ -213,8 +213,8 @@ giscus:
   repo: iaosee/iaosee.github.io
   repoId: MDEwOlJlcG9zaXRvcnk4ODczNjY2Ng==
   mapping: pathname
-  category:
-  categoryId:
+  category: Announcements
+  categoryId: DIC_kwDOBUoDms4CQP9t
   inputPosition: top
   reactionsEnabled: 1
   emitMetadata:
