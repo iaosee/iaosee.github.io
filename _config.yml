@@ -128,7 +128,7 @@ restful:
   pages: false             # 额外的 Hexo 页面数据, 如 About
 
 # Deployment
-## Docs: https://hexo.io/docs/deployment.html
+## Docs: https://hexo.io/docs/github-pages
 deploy:
   type: git
   repo: git@github.com:iaosee/iaosee.github.io.git

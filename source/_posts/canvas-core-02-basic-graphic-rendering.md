@@ -230,6 +230,8 @@ interface CanvasShadowStyles {
 
 ## 贝塞尔曲线
 
+- `quadraticCurveTo(cpx: number, cpy: number, x: number, y: number)` 创建一条表示二次贝塞尔曲线的路径，前两个参数控制点坐标，后两个是锚点坐标。
+- `bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number)` 创建一条表示三次贝塞尔曲线的路径，参数为三个点坐标，前两个点为曲线控制点，最后一个为锚点。
 
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
@@ -241,6 +243,31 @@ interface CanvasShadowStyles {
 
 ## 任意多边形
 
+Canvas 接口本身未提供直接绘制多边形的接口，需要自己实现。
+
+```ts
+function getPolygonPoints(center: Point, radius: number, sides: number, startAngle: number = 0) {
+  const points: Point[] = [];
+  for (let i = 0; i < sides; i++) {
+    points.push({
+      x: center.x + Math.sin(startAngle) * radius,
+      y: center.y - Math.cos(startAngle) * radius
+    });
+    startAngle += (2 * Math.PI) / sides;
+  }
+  return points;
+}
+
+function drawPolygonPath(center: Point, radius: number, sides: number, startAngle: number = 0) {
+  const points = getPolygonPoints(center, radius, sides, startAngle);
+  context.beginPath();
+  context.moveTo(points[0].x, points[0].y);
+  for (let i = 1; i < sides; ++i) {
+    context.lineTo(points[i].x, points[i].y);
+  }
+  context.closePath();
+}
+```
 
 <iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.09&module=%2Fsrc%2Fdemo%2FDemo.09.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
