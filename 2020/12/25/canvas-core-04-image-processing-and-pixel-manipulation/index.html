@@ -202,7 +202,7 @@ drawImag...">
           <i class="iconfont iconheart"></i><span id="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="leancloud-like" data-flag-title="Canvas 图像处理 - 像素操作和滤镜实现"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4965</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5232</span>
     </div>
   </div>
 </section>
@@ -268,6 +268,16 @@ drawImag...">
 
 <p><a href="https://iaosee.com/html5-canvas-core/#/Demo.40">查看完整 Demo 效果</a></p>
 <h2 id="像素处理性能优化"><a href="#像素处理性能优化" class="headerlink" title="像素处理性能优化"></a>像素处理性能优化</h2><p>在处理大图像数据时，很容易遇到性能瓶颈，可以考虑将图像处理的任务交给工作线程 —— <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API">Web Worker</a> 来处理，这样将耗时的数据处理代码放在主线程之外执行。</p>
+<p>Canvas 图像操作中注意事项：</p>
+<p>图像绘制安全问题： 出于安全考虑，HTML5 Canvas 规范虽允许绘制其他域中的图片，但是默认不能通过 Canvas API 保存和修改其他域中的图片，同时也不能保存和修改用户文件系统中图形。</p>
+<ul>
+<li><code>drawImage()</code> 优于 <code>putImageData()</code></li>
+<li>将 Canvas 绘制到自身很耗时</li>
+<li>绘制 Canvas 时对其缩放也很耗时</li>
+<li>避免在循环体内直接访问对象属性，应将其保存到局部变量</li>
+<li>应使用循环计步器遍历一个完整像素，而非像素分量</li>
+<li>避免频繁调用 <code>getImageData()</code> 获取少量数据</li>
+</ul>
 <h3 id="离屏-Canvas"><a href="#离屏-Canvas" class="headerlink" title="离屏 Canvas"></a>离屏 Canvas</h3><p>在大量的像素操作的情况下，对于 Canvas 来说是很消耗性能的，这时候可以使用离屏 Canvas 来优化性能。离屏 Canvas 对性能优化非常有用，可以提高绘制效率。</p>
 <p>在较新的浏览器中，新增了脱离屏幕渲染的 Canvas 对象。 <code>OffscreenCanvas</code> 对象，可以使用 <code>new OffscreenCanvas(width, height)</code> 创建一个离屏 Canvas  <code>OffscreenCanvas</code> 对象, 使用 <code>getContext(&#39;2d&#39;)</code> 获得一个 <code>OffscreenCanvasRenderingContext2D</code> 上下文，使用方式与 <code>CanvasRenderingContext2D</code> 方式基本一致，离屏 Cavnas 优先使用 <code>OffscreenCanvas</code>。</p>
 <p>另一种使用 OffscreenCanvas API 的方式，是在一个 <code>&lt;canvas&gt;</code> 元素上调用 <code>transferControlToOffscreen()</code> 方法会返回一个 <code>OffscreenCanvas</code></p>
