@@ -1,5 +1,5 @@
 ---
-title: Canvas 图像处理 - 像素操作和滤镜实现
+title: Canvas 图像/视频处理 - 像素操作和滤镜实现
 name: canvas-core-04-image-processing-and-pixel-manipulation
 date: 2020-12-25 20:32:16
 
@@ -32,6 +32,9 @@ interface CanvasDrawImage {
     drawImage(image: CanvasImageSource, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void;
 }
 ```
+
+`drawImage()` 方法接收一个 `CanvasImageSource` 类型的数据，这些 `HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas | VideoFrame` 都可以往 Canvas 画布上绘制。
+
 
 ## 操作图形像素
 
@@ -195,6 +198,66 @@ for (let i = 0; i < length - 4; i++) {
 
 [查看完整 Demo 效果](https://iaosee.com/html5-canvas-core/#/Demo.40)
 
+
+## 视频渲染
+
+`drawImage()` 方法不仅可以绘制图片资源，还支持 HTMLVideoElement、 VideoFrame 用于绘制视频中的数据，视频其实是多个图像序列，视频的每一帧就是一个静态图像，通过 Canvas 上不断绘制视频的每一帧实现视频播放。当调用 `drawImage(video, 0, 0)` 时，会将该 HTMLVideoElement 中视频文件的某一帧绘制到画面上，这样我们就可以结合 video 与 canvas 来做实时视频处理了。
+
+```ts
+const video = document.createElement('video');
+video.src = 'video_url'
+
+function playVideo() {
+  if (!video.paused) {
+    return;
+  }
+
+  const nextVideoFrame = () => {
+    context.drawImage(video, 0, 0);
+    requestAnimationFrame(nextVideoFrame);
+  };
+
+  video.play();
+  requestAnimationFrame(nextVideoFrame);
+}
+
+function pauseVideo() {
+  this.video.pause();
+}
+```
+
+我们还可以将用户媒体数据绘制到画布上去。
+
+```ts
+const userMedia = await navigator.mediaDevices.getUserMedia({
+  video: true,
+  audio: false
+});
+
+const userCapture = new ImageCapture(userMedia.getVideoTracks()[0]);
+const render = async () => {
+  const userImageBitMap = await userCapture.grabFrame();
+  context.drawImage(userImageBitMap, 0, 0);
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
+```
+
+### 视频绘制例子
+
+<iframe 
+  class="live-sample-frame sample-code-frame" 
+  frameborder="0" 
+  height="600" 
+  width="100%" 
+  loading="lazy"      
+  style="width:100%; height:600px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
+  src="https://iaosee.com/html5-canvas-core/#/Demo.45">
+</iframe>
+
+[查看完整 Demo 效果](https://iaosee.com/html5-canvas-core/#/Demo.45)
 
 ## 像素处理性能优化 
 
