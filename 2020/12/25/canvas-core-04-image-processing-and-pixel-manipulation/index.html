@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Canvas 图像处理 - 像素操作和滤镜实现 - iaosee</title>
+  <title>Canvas 图像/视频处理 - 像素操作和滤镜实现 - iaosee</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
@@ -151,7 +151,7 @@ drawImag...">
       
       
     </div>
-    <div class="center">Canvas 图像处理 - 像素操作和滤镜实现</div>
+    <div class="center">Canvas 图像/视频处理 - 像素操作和滤镜实现</div>
     <div class="right">
       <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
@@ -191,18 +191,18 @@ drawImag...">
     <section class="head">
   <img   class="lazyload" data-original="/images/article/2020-11-02/2020-12-25-201402.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
-    <h1 class="head-title">Canvas 图像处理 - 像素操作和滤镜实现</h1>
+    <h1 class="head-title">Canvas 图像/视频处理 - 像素操作和滤镜实现</h1>
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 25, 2020</span>
       
         <span class="post-info-item">
-          <i class="iconfont iconeye"></i><span id="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="leancloud-counter" data-flag-title="Canvas 图像处理 - 像素操作和滤镜实现"></span>
+          <i class="iconfont iconeye"></i><span id="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="leancloud-counter" data-flag-title="Canvas 图像/视频处理 - 像素操作和滤镜实现"></span>
         </span>
         <span class="post-info-item">
-          <i class="iconfont iconheart"></i><span id="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="leancloud-like" data-flag-title="Canvas 图像处理 - 像素操作和滤镜实现"></span>
+          <i class="iconfont iconheart"></i><span id="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="leancloud-like" data-flag-title="Canvas 图像/视频处理 - 像素操作和滤镜实现"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5232</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6503</span>
     </div>
   </div>
 </section>
@@ -219,6 +219,7 @@ drawImag...">
 <p>Canvas 2D API 的 <code>drawImage()</code> 有三个重载方法提供了多种在画布（Canvas）上绘制图像的方式。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">CanvasDrawImage</span> &#123;<br>    <span class="hljs-comment">/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/drawImage) */</span><br>    <span class="hljs-title function_">drawImage</span>(<span class="hljs-attr">image</span>: <span class="hljs-title class_">CanvasImageSource</span>, <span class="hljs-attr">dx</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dy</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>    <span class="hljs-title function_">drawImage</span>(<span class="hljs-attr">image</span>: <span class="hljs-title class_">CanvasImageSource</span>, <span class="hljs-attr">dx</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dy</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dw</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dh</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>    <span class="hljs-title function_">drawImage</span>(<span class="hljs-attr">image</span>: <span class="hljs-title class_">CanvasImageSource</span>, <span class="hljs-attr">sx</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">sy</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">sw</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">sh</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dx</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dy</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dw</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">dh</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p><code>drawImage()</code> 方法接收一个 <code>CanvasImageSource</code> 类型的数据，这些 <code>HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas | VideoFrame</code> 都可以往 Canvas 画布上绘制。</p>
 <h2 id="操作图形像素"><a href="#操作图形像素" class="headerlink" title="操作图形像素"></a>操作图形像素</h2><h3 id="ImageData-介绍"><a href="#ImageData-介绍" class="headerlink" title="ImageData 介绍"></a>ImageData 介绍</h3><p>ImageData 接口描述 <code>&lt;canvas&gt;</code> 元素的一个隐含像素数据的区域。使用 ImageData() 构造函数创建，或者使用 CanvasRenderingContext2D 对象上的 创建方法 <code>context.createImageData()</code> 和 获取方法 <code>context.getImageData()</code>。也可以使用 <code>context.putImageData()</code> 设置 canvas 的一部分区域。</p>
 <p><code>getImageData()</code> &#x2F; <code>putImageData()</code> 两个方法分别用于获取像素和填充像素，同时也可以修改像素中的值以达到预期效果。getImageData() 方法返回一个 ImageData 类型对象，包含三个属性:</p>
 <ul>
@@ -267,6 +268,25 @@ drawImag...">
 </iframe>
 
 <p><a href="https://iaosee.com/html5-canvas-core/#/Demo.40">查看完整 Demo 效果</a></p>
+<h2 id="视频渲染"><a href="#视频渲染" class="headerlink" title="视频渲染"></a>视频渲染</h2><p><code>drawImage()</code> 方法不仅可以绘制图片资源，还支持 HTMLVideoElement、 VideoFrame 用于绘制视频中的数据，视频其实是多个图像序列，视频的每一帧就是一个静态图像，通过 Canvas 上不断绘制视频的每一帧实现视频播放。当调用 <code>drawImage(video, 0, 0)</code> 时，会将该 HTMLVideoElement 中视频文件的某一帧绘制到画面上，这样我们就可以结合 video 与 canvas 来做实时视频处理了。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> video = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;video&#x27;</span>);<br>video.<span class="hljs-property">src</span> = <span class="hljs-string">&#x27;video_url&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">playVideo</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">if</span> (!video.<span class="hljs-property">paused</span>) &#123;<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">nextVideoFrame</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    context.<span class="hljs-title function_">drawImage</span>(video, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>    <span class="hljs-title function_">requestAnimationFrame</span>(nextVideoFrame);<br>  &#125;;<br><br>  video.<span class="hljs-title function_">play</span>();<br>  <span class="hljs-title function_">requestAnimationFrame</span>(nextVideoFrame);<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">pauseVideo</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">video</span>.<span class="hljs-title function_">pause</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们还可以将用户媒体数据绘制到画布上去。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> userMedia = <span class="hljs-keyword">await</span> navigator.<span class="hljs-property">mediaDevices</span>.<span class="hljs-title function_">getUserMedia</span>(&#123;<br>  <span class="hljs-attr">video</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">audio</span>: <span class="hljs-literal">false</span><br>&#125;);<br><br><span class="hljs-keyword">const</span> userCapture = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImageCapture</span>(userMedia.<span class="hljs-title function_">getVideoTracks</span>()[<span class="hljs-number">0</span>]);<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">render</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> userImageBitMap = <span class="hljs-keyword">await</span> userCapture.<span class="hljs-title function_">grabFrame</span>();<br>  context.<span class="hljs-title function_">drawImage</span>(userImageBitMap, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>  <span class="hljs-title function_">requestAnimationFrame</span>(render);<br>&#125;<br><span class="hljs-title function_">requestAnimationFrame</span>(render);<br></code></pre></td></tr></table></figure>
+
+<h3 id="视频绘制例子"><a href="#视频绘制例子" class="headerlink" title="视频绘制例子"></a>视频绘制例子</h3><iframe 
+  class="live-sample-frame sample-code-frame" 
+  frameborder="0" 
+  height="600" 
+  width="100%" 
+  loading="lazy"      
+  style="width:100%; height:600px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
+  src="https://iaosee.com/html5-canvas-core/#/Demo.45">
+</iframe>
+
+<p><a href="https://iaosee.com/html5-canvas-core/#/Demo.45">查看完整 Demo 效果</a></p>
 <h2 id="像素处理性能优化"><a href="#像素处理性能优化" class="headerlink" title="像素处理性能优化"></a>像素处理性能优化</h2><p>在处理大图像数据时，很容易遇到性能瓶颈，可以考虑将图像处理的任务交给工作线程 —— <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API">Web Worker</a> 来处理，这样将耗时的数据处理代码放在主线程之外执行。</p>
 <p>Canvas 图像操作中注意事项：</p>
 <p>图像绘制安全问题： 出于安全考虑，HTML5 Canvas 规范虽允许绘制其他域中的图片，但是默认不能通过 Canvas API 保存和修改其他域中的图片，同时也不能保存和修改用户文件系统中图形。</p>
@@ -394,7 +414,7 @@ window.onload = function() {
           
   <aside class="toc-wrap">
     <h3 class="toc-title">文章目录：</h3>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%93%8D%E4%BD%9C-API"><span class="toc-text">图像操作 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%9B%BE%E5%BD%A2%E5%83%8F%E7%B4%A0"><span class="toc-text">操作图形像素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ImageData-%E4%BB%8B%E7%BB%8D"><span class="toc-text">ImageData 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%9B%BE%E5%83%8F%E5%83%8F%E7%B4%A0%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F"><span class="toc-text">常见图像像素遍历方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%BB%A4%E9%95%9C%E5%AE%9E%E7%8E%B0"><span class="toc-text">图像滤镜实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%9B%BE%E5%83%8F%E6%BB%A4%E9%95%9C"><span class="toc-text">常见图像滤镜</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E6%BB%A4%E9%95%9C%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="toc-text">各种滤镜实现效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%83%8F%E7%B4%A0%E5%A4%84%E7%90%86%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">像素处理性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%BB%E5%B1%8F-Canvas"><span class="toc-text">离屏 Canvas</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%93%8D%E4%BD%9C-API"><span class="toc-text">图像操作 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%9B%BE%E5%BD%A2%E5%83%8F%E7%B4%A0"><span class="toc-text">操作图形像素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ImageData-%E4%BB%8B%E7%BB%8D"><span class="toc-text">ImageData 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%9B%BE%E5%83%8F%E5%83%8F%E7%B4%A0%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F"><span class="toc-text">常见图像像素遍历方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%BB%A4%E9%95%9C%E5%AE%9E%E7%8E%B0"><span class="toc-text">图像滤镜实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%9B%BE%E5%83%8F%E6%BB%A4%E9%95%9C"><span class="toc-text">常见图像滤镜</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E6%BB%A4%E9%95%9C%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="toc-text">各种滤镜实现效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E6%B8%B2%E6%9F%93"><span class="toc-text">视频渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E7%BB%98%E5%88%B6%E4%BE%8B%E5%AD%90"><span class="toc-text">视频绘制例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%83%8F%E7%B4%A0%E5%A4%84%E7%90%86%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">像素处理性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%BB%E5%B1%8F-Canvas"><span class="toc-text">离屏 Canvas</span></a></li></ol></li></ol>
   </aside>
 
         
