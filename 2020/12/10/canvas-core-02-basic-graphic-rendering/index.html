@@ -25,13 +25,13 @@
 
   
     
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
 
   
 
@@ -40,12 +40,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/github.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/an-old-hope.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -85,12 +85,14 @@
         enable: true
       },
       daovoice: {
-        enable: true
+        enable: false
       },
       preview: {
         background: {
           default: '',
-          api: 'https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts'
+          api: 'https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts',
+          return_type: 'json',
+          data_contents: '["urls","regular"]'
         },
         motto: {
           default: '菡萏香销翠叶残，西风愁起绿波间。',
@@ -125,12 +127,10 @@
   </script>
 
   
-    <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
-  
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="lock-screen">
   <div class="loading" id="loading"></div>
@@ -183,8 +183,8 @@
   <main id="main">
   <div class="article-wrap">
     <div class="row container">
-      <div class="col-xl-3"></div>
-      <div class="col-xl-6"><article class="article">
+      <div class="col-xl-1"></div>
+      <div class="col-xl-8"><article class="article">
   <div class="wrap">
     <section class="head">
   <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/23/r6DKk8.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
@@ -200,7 +200,7 @@
           <i class="iconfont iconheart"></i><span id="/2020/12/10/canvas-core-02-basic-graphic-rendering/" class="leancloud-like" data-flag-title="Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4480</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5527</span>
     </div>
   </div>
 </section>
@@ -342,7 +342,11 @@
 ></iframe>
 
 
-<h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
+<h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><ul>
+<li><code>quadraticCurveTo(cpx: number, cpy: number, x: number, y: number)</code> 创建一条表示二次贝塞尔曲线的路径，前两个参数控制点坐标，后两个是锚点坐标。</li>
+<li><code>bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number)</code> 创建一条表示三次贝塞尔曲线的路径，参数为三个点坐标，前两个点为曲线控制点，最后一个为锚点。</li>
+</ul>
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.08&module=%2Fsrc%2Fdemo%2FDemo.08.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
@@ -350,7 +354,10 @@
 ></iframe>
 
 
-<h2 id="任意多边形"><a href="#任意多边形" class="headerlink" title="任意多边形"></a>任意多边形</h2><iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.09&module=%2Fsrc%2Fdemo%2FDemo.09.ts&theme=dark&view=preview"
+<h2 id="任意多边形"><a href="#任意多边形" class="headerlink" title="任意多边形"></a>任意多边形</h2><p>Canvas 接口本身未提供直接绘制多边形的接口，需要自己实现。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">getPolygonPoints</span>(<span class="hljs-params"><span class="hljs-attr">center</span>: <span class="hljs-title class_">Point</span>, <span class="hljs-attr">radius</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">sides</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">startAngle</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span></span>) &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-attr">points</span>: <span class="hljs-title class_">Point</span>[] = [];<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; sides; i++) &#123;<br>    points.<span class="hljs-title function_">push</span>(&#123;<br>      <span class="hljs-attr">x</span>: center.<span class="hljs-property">x</span> + <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">sin</span>(startAngle) * radius,<br>      <span class="hljs-attr">y</span>: center.<span class="hljs-property">y</span> - <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">cos</span>(startAngle) * radius<br>    &#125;);<br>    startAngle += (<span class="hljs-number">2</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>) / sides;<br>  &#125;<br>  <span class="hljs-keyword">return</span> points;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">drawPolygonPath</span>(<span class="hljs-params"><span class="hljs-attr">center</span>: <span class="hljs-title class_">Point</span>, <span class="hljs-attr">radius</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">sides</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">startAngle</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span></span>) &#123;<br>  <span class="hljs-keyword">const</span> points = <span class="hljs-title function_">getPolygonPoints</span>(center, radius, sides, startAngle);<br>  context.<span class="hljs-title function_">beginPath</span>();<br>  context.<span class="hljs-title function_">moveTo</span>(points[<span class="hljs-number">0</span>].<span class="hljs-property">x</span>, points[<span class="hljs-number">0</span>].<span class="hljs-property">y</span>);<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; sides; ++i) &#123;<br>    context.<span class="hljs-title function_">lineTo</span>(points[i].<span class="hljs-property">x</span>, points[i].<span class="hljs-property">y</span>);<br>  &#125;<br>  context.<span class="hljs-title function_">closePath</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<iframe src="https://codesandbox.io/embed/canvas-test-demo-koccm?fontsize=14&hidenavigation=1&initialpath=%2F%23%2FDemo.09&module=%2Fsrc%2Fdemo%2FDemo.09.ts&theme=dark&view=preview"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
@@ -375,7 +382,7 @@
 
         
   <nav class="nav">
-    <a href="/2020/12/23/canvas-core-03-synthesis-and-clipping/"><i class="iconfont iconleft"></i>Canvas 图像合成与剪辑区域</a>
+    <a href="/2020/12/23/canvas-core-03-synthesis-and-clipping/"><i class="iconfont iconleft"></i>Canvas 图像合成与剪辑区域 - 橡皮擦实现</a>
     <a href="/2020/11/22/canvas-core-01-concept-of-summary/">Canvas 基础概念 — 基础、绘制、坐标<i class="iconfont iconright"></i></a>
   </nav>
 
@@ -383,34 +390,74 @@
       
         <section class="comments">
   
-    <div class="btn" id="comments-btn">查看评论</div>
   
-  
-<div id="valine"></div>
-<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="giscus" class="giscus"></div>
 <script>
-  window.onload = function () {
-    var loadValine = function () {
-      new Valine({
-        el: '#valine',
-        app_id: "QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz",
-        app_key: "1ygwFPYG8IbvlgnrnNXrNeNe",
-        placeholder: "踩个脚印",
-        avatar: "mp",
-        pageSize: "10",
-        lang: "zh-CN",
+window.onload = function() {
+
+  function loadGiscus() {
+    var script = document.createElement("script");
+    script.src = 'https://giscus.app/client.js';
+    script.type = 'text/javascript';
+    script.crossorigin = 'anonymous';
+    script.async = true;
+    script.dataset.loading = 'lazy';
+    script.dataset.repo = 'iaosee/iaosee.github.io';
+    script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnk4ODczNjY2Ng==';
+    script.dataset.mapping = 'pathname';
+    script.dataset.category = '';
+    script.dataset.categoryId = '';
+    script.dataset.inputPosition = 'top';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '';
+    script.dataset.lang = 'zh-CN';
+    script.dataset.theme = localStorage.getItem('color-mode') || 'preferred_color_scheme';
+    document.getElementById('giscus').parentElement.appendChild(script);
+  }
+
+  function sendGiscusMessage(message) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    var msgData = { giscus: message };
+    // console.log('send message -- ', msgData);
+    iframe.contentWindow.postMessage(msgData, 'https://giscus.app');
+  }
+  // window.sendGiscusMessage = sendGiscusMessage;
+
+  function handleMessage(event) {
+    if (event.origin !== 'https://giscus.app') return;
+    if (!(typeof event.data === 'object' && event.data.giscus)) return;
+    const giscusData = event.data.giscus;
+    // console.log('recived giscus message -- ', giscusData)
+  }
+  window.addEventListener('message', handleMessage);
+  window.addEventListener('beforeunload', function() {
+    window.removeEventListener('message', handleMessage);
+  });
+
+  var toggleElement = document.getElementById('color-toggle');
+  if (toggleElement) {
+    toggleElement.addEventListener('click', function () {
+      const mode = localStorage.getItem('color-mode');
+      sendGiscusMessage({
+        setConfig: {
+          theme: mode,
+        }
       });
-    }
-    if ( true ) {
-      $("#comments-btn").on("click", function () {
-        $(this).hide();
-        loadValine();
-      });
-    } else {
-      loadValine();
-    }
-  };
+    });
+  }
+
+  if ( false ) {
+    $("#comments-btn").on("click", function (e) {
+      $(this).hide();
+      loadGiscus();
+    });
+  } else {
+    loadGiscus();
+  }
+}
 </script>
+
 
 </section>
       
@@ -430,6 +477,7 @@
     </div>
   </div>
 </main>
+
   
 
 <footer class="footer">
@@ -462,10 +510,6 @@
     </div>
   
   
-    <div class="fab fab-daovoice">
-      <i class="iconfont iconcomment"></i>
-    </div>
-  
   
   <div class="fab fab-up">
     <i class="iconfont iconcaret-up"></i>
@@ -480,20 +524,20 @@
   
 </body>
 
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
 
 
   
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 
 
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
 
 
@@ -508,7 +552,7 @@
 
 
   <script>
-  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
 
     AV.init({
       appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
@@ -585,29 +629,6 @@
 
 
 
-  
-
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i["DaoVoiceObject"] = r;
-    i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    a.charset = "utf-8";
-    m.parentNode.insertBefore(a, m)
-  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
-  daovoice('init', {
-    app_id: "fb486b7c"
-  }, {
-    launcher: {
-      disableLauncherIcon: true,
-    },
-  });
-  daovoice('update');
-</script>
 
 
 
@@ -628,7 +649,6 @@
 
 
   <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
-
 
 
 

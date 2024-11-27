@@ -25,13 +25,13 @@
 
   
     
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
 
   
 
@@ -40,12 +40,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/github.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/an-old-hope.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -85,12 +85,14 @@
         enable: true
       },
       daovoice: {
-        enable: true
+        enable: false
       },
       preview: {
         background: {
           default: '',
-          api: 'https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts'
+          api: 'https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts',
+          return_type: 'json',
+          data_contents: '["urls","regular"]'
         },
         motto: {
           default: '菡萏香销翠叶残，西风愁起绿波间。',
@@ -125,12 +127,10 @@
   </script>
 
   
-    <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
-  
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="lock-screen">
   <div class="loading" id="loading"></div>
@@ -225,12 +225,46 @@
 <div class="col-lg-4 col-md-6 col-sm-12 post-item">
   <div class="post-wrap">
     
+    <a href="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="post-image">
+      <img   class="lazyload" data-original="/images/article/2020-11-02/2020-12-25-201402.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" title="Canvas 图像处理 - 像素操作和滤镜实现" >Canvas 图像处理 - 像素操作和滤镜实现</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">图像操作 API图像操作相关接口：
+
+drawImage() 绘制图像到 Canvas 画布，该方法有三个重载方式。 文档
+getImageData() 返回一个 ImageData 对象，用于...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 25, 2020</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="leancloud-counter" data-flag-title="Canvas 图像处理 - 像素操作和滤镜实现"></span>
+          </span>
+          <span class="post-info-item">
+            <i class="iconfont iconheart"></i><span id="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/" class="leancloud-like" data-flag-title="Canvas 图像处理 - 像素操作和滤镜实现"></span>
+          </span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
     <a href="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="post-image">
       <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/23/r6GktI.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
     </a>
     <div class="post-content">
       <div class="post-content-wrap">
-        <h3 class="post-title"><a href="/2020/12/23/canvas-core-03-synthesis-and-clipping/" title="Canvas 图像合成与剪辑区域" >Canvas 图像合成与剪辑区域</a></h3>
+        <h3 class="post-title"><a href="/2020/12/23/canvas-core-03-synthesis-and-clipping/" title="Canvas 图像合成与剪辑区域 - 橡皮擦实现" >Canvas 图像合成与剪辑区域 - 橡皮擦实现</a></h3>
         <div class="post-excerpt">
           <p class="substr-3">图像合成图像合成就是在画布上将某一个物体（源物体）绘制到另一个物体（目标物体）之上，绘制图形的叠加显示，默认情况下，浏览器会简单的将源物体叠放在目标物体上面。但是可以通过设置绘图环境对象的 gl...</p>
         </div>
@@ -239,10 +273,10 @@
         <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 23, 2020</span>
         
           <span class="post-info-item">
-            <i class="iconfont iconeye"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-counter" data-flag-title="Canvas 图像合成与剪辑区域"></span>
+            <i class="iconfont iconeye"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-counter" data-flag-title="Canvas 图像合成与剪辑区域 - 橡皮擦实现"></span>
           </span>
           <span class="post-info-item">
-            <i class="iconfont iconheart"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-like" data-flag-title="Canvas 图像合成与剪辑区域"></span>
+            <i class="iconfont iconheart"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-like" data-flag-title="Canvas 图像合成与剪辑区域 - 橡皮擦实现"></span>
           </span>
         
       </div>
@@ -382,10 +416,6 @@ GitHub Actions 是类似于 Travi...</p>
   </div>
   
   
-    <div class="fab fab-daovoice">
-      <i class="iconfont iconcomment"></i>
-    </div>
-  
   
   <div class="fab fab-up">
     <i class="iconfont iconcaret-up"></i>
@@ -400,20 +430,20 @@ GitHub Actions 是类似于 Travi...</p>
   
 </body>
 
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
 
 
   
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 
 
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
 
 
@@ -428,7 +458,7 @@ GitHub Actions 是类似于 Travi...</p>
 
 
   <script>
-  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
 
     AV.init({
       appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
@@ -505,29 +535,6 @@ GitHub Actions 是类似于 Travi...</p>
 
 
 
-  
-
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i["DaoVoiceObject"] = r;
-    i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    a.charset = "utf-8";
-    m.parentNode.insertBefore(a, m)
-  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
-  daovoice('init', {
-    app_id: "fb486b7c"
-  }, {
-    launcher: {
-      disableLauncherIcon: true,
-    },
-  });
-  daovoice('update');
-</script>
 
 
 
@@ -548,7 +555,6 @@ GitHub Actions 是类似于 Travi...</p>
 
 
   <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
-
 
 
 

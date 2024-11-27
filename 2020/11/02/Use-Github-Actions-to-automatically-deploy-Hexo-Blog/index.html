@@ -25,13 +25,13 @@
 
   
     
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
 
   
 
@@ -40,12 +40,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/github.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/an-old-hope.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -85,12 +85,14 @@
         enable: true
       },
       daovoice: {
-        enable: true
+        enable: false
       },
       preview: {
         background: {
           default: '',
-          api: 'https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts'
+          api: 'https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts',
+          return_type: 'json',
+          data_contents: '["urls","regular"]'
         },
         motto: {
           default: '菡萏香销翠叶残，西风愁起绿波间。',
@@ -125,12 +127,10 @@
   </script>
 
   
-    <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
-  
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="lock-screen">
   <div class="loading" id="loading"></div>
@@ -183,8 +183,8 @@
   <main id="main">
   <div class="article-wrap">
     <div class="row container">
-      <div class="col-xl-3"></div>
-      <div class="col-xl-6"><article class="article">
+      <div class="col-xl-1"></div>
+      <div class="col-xl-8"><article class="article">
   <div class="wrap">
     <section class="head">
   <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4UoQ.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
@@ -200,15 +200,15 @@
           <i class="iconfont iconheart"></i><span id="/2020/11/02/Use-Github-Actions-to-automatically-deploy-Hexo-Blog/" class="leancloud-like" data-flag-title="使用 Github Actions 自动构建部署 Hexo 博客"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2974</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3086</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         
-        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>这篇文章记录一下使用 GitHub Actions 一步一步实现 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo Blog</a> 自动化构建部署到 GitHub Pages 的流程。</p>
-<p><a href="https://docs.github.com/cn/free-pro-team@latest/actions" target="_blank" rel="noopener">GitHub Actions</a> 是类似于 <a href="https://travis-ci.org/" target="_blank" rel="noopener">Travis CI</a> 、 <a href="https://circleci.com/" target="_blank" rel="noopener">Circle CI</a> 这样的持续集成服务， 是由 GitHub 官方推出的持续集成服务，可以帮助我们完成一些自动化测试、打包、部署等操作。</p>
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>这篇文章记录一下使用 GitHub Actions 一步一步实现 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Blog</a> 自动化构建部署到 GitHub Pages 的流程。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/cn/free-pro-team@latest/actions">GitHub Actions</a> 是类似于 <a target="_blank" rel="noopener" href="https://travis-ci.org/">Travis CI</a> 、 <a target="_blank" rel="noopener" href="https://circleci.com/">Circle CI</a> 这样的持续集成服务， 是由 GitHub 官方推出的持续集成服务，可以帮助我们完成一些自动化测试、打包、部署等操作。</p>
 <p>GitHub Actions 中的常见术语:</p>
 <ul>
 <li><code>workflow</code> 表示一次持续集成的过程</li>
@@ -220,21 +220,21 @@
 
 <p><strong>官方文档：</strong></p>
 <ul>
-<li><a href="https://help.github.com/en/actions" target="_blank" rel="noopener">https://help.github.com/en/actions</a> (English)</li>
-<li><a href="https://help.github.com/cn/actions" target="_blank" rel="noopener">https://help.github.com/cn/actions</a> (中文)</li>
+<li><a target="_blank" rel="noopener" href="https://help.github.com/en/actions">https://help.github.com/en/actions</a> (English)</li>
+<li><a target="_blank" rel="noopener" href="https://help.github.com/cn/actions">https://help.github.com/cn/actions</a> (中文)</li>
 </ul>
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>创建一个 <code>username.github.io</code> 的仓库， <code>username</code> 为自己 GitHub 的用户名，在这个仓库中采用的一个仓库多分支的方式，一个分支存放博客源码，主分支用来存放生成的网站静态资源。</p>
 <h3 id="GitHub-秘钥配置"><a href="#GitHub-秘钥配置" class="headerlink" title="GitHub 秘钥配置"></a>GitHub 秘钥配置</h3><p>使用命令生成秘钥：该命令会在当前目录下生成两个文件， 分别为公钥 <code>github-deploy-key.pub</code> 和私钥 <code>github-deploy-key</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -f github-deploy-key<br></code></pre></td></tr></table></figure>
 
-<p>将创建好的 <code>github-deploy-key.pub</code> 文件中的内容复制添加到对应仓库的 Deploy keys 中， <strong>Settings</strong> / <strong>Deploy keys</strong> / <strong>Add deploy key</strong>， 取名为 <code>HEXO_DEPLOY_KEY_PUB</code>。</p>
-<p><img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4kxx.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="HEXO_DEPLOY_KEY_PUB"></p>
-<p>将创建好的 <code>github-deploy-key</code> 文件中的内容复制添加到对应仓库的 Secrets 中， <strong>Settings</strong> / <strong>Secrets</strong> / <strong>New Secret</strong>，取名为 <code>HEXO_DEPLOY_KEY_PRI</code>。</p>
-<p><img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4Mid.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="HEXO_DEPLOY_KEY_PRI"></p>
-<p>需要注意的是，这里取的名字在 Actions 脚本中通过 <code>${{secrets.HEXO_DEPLOY_KEY_PRI}}</code> 获取时需要一致。</p>
+<p>将创建好的 <code>github-deploy-key.pub</code> 文件中的内容复制添加到对应仓库的 Deploy keys 中， <strong>Settings</strong> &#x2F; <strong>Deploy keys</strong> &#x2F; <strong>Add deploy key</strong>， 取名为 <code>HEXO_DEPLOY_KEY_PUB</code>。</p>
+<p><img    class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4kxx.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">HEXO_DEPLOY_KEY_PUB</span></p>
+<p>将创建好的 <code>github-deploy-key</code> 文件中的内容复制添加到对应仓库的 Secrets 中， <strong>Settings</strong> &#x2F; <strong>Secrets</strong> &#x2F; <strong>New Secret</strong>，取名为 <code>HEXO_DEPLOY_KEY_PRI</code>。</p>
+<p><img    class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4Mid.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">HEXO_DEPLOY_KEY_PRI</span></p>
+<p>需要注意的是，这里取的名字在 Actions 脚本中通过 <code>$&#123;&#123;secrets.HEXO_DEPLOY_KEY_PRI&#125;&#125;</code> 获取时需要一致。</p>
 <h2 id="Github-Actions-脚本编写"><a href="#Github-Actions-脚本编写" class="headerlink" title="Github Actions 脚本编写"></a>Github Actions 脚本编写</h2><p>在仓库的 <code>.github/workflows/</code> 目录下创建一个 <code>hexo-auto-deploy-ci.yml</code> 文件，这个文件名字可以是随意取得。</p>
 <p>我的 Actions 脚本配置如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">name:</span> <span class="hljs-string">Hexo</span> <span class="hljs-string">Auto</span> <span class="hljs-string">Deploy</span> <span class="hljs-string">CI</span><br><br><span class="hljs-attr">on:</span><br>  <span class="hljs-attr">push:</span><br>    <span class="hljs-attr">branches:</span> <span class="hljs-string">[source]</span><br>  <span class="hljs-attr">pull_request:</span><br>    <span class="hljs-attr">branches:</span> <span class="hljs-string">[source]</span><br><br><span class="hljs-attr">env:</span><br>  <span class="hljs-attr">GIT_USER:</span> <span class="hljs-string">iaosee</span><br>  <span class="hljs-attr">GIT_EMAIL:</span> <span class="hljs-string">iaosee@outlook.com</span><br>  <span class="hljs-attr">THEME_REPO:</span> <span class="hljs-string">iaosee/hexo-theme-zhaoo</span><br>  <span class="hljs-attr">THEME_BRANCH:</span> <span class="hljs-string">master</span><br><br><span class="hljs-attr">jobs:</span><br>  <span class="hljs-attr">build:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">on</span> <span class="hljs-string">node</span> <span class="hljs-string"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="24.564ex" height="2.509ex" style="vertical-align: -0.671ex;" viewBox="0 -791.3 10576 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">name:</span> <span class="hljs-string">Hexo</span> <span class="hljs-string">Auto</span> <span class="hljs-string">Deploy</span> <span class="hljs-string">CI</span><br><br><span class="hljs-attr">on:</span><br>  <span class="hljs-attr">push:</span><br>    <span class="hljs-attr">branches:</span> [<span class="hljs-string">source</span>]<br>  <span class="hljs-attr">pull_request:</span><br>    <span class="hljs-attr">branches:</span> [<span class="hljs-string">source</span>]<br><br><span class="hljs-attr">env:</span><br>  <span class="hljs-attr">GIT_USER:</span> <span class="hljs-string">iaosee</span><br>  <span class="hljs-attr">GIT_EMAIL:</span> <span class="hljs-string">iaosee@outlook.com</span><br>  <span class="hljs-attr">THEME_REPO:</span> <span class="hljs-string">iaosee/hexo-theme-zhaoo</span><br>  <span class="hljs-attr">THEME_BRANCH:</span> <span class="hljs-string">master</span><br><br><span class="hljs-attr">jobs:</span><br>  <span class="hljs-attr">build:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">on</span> <span class="hljs-string">node</span> <span class="hljs-string"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="24.564ex" height="2.509ex" style="vertical-align: -0.671ex;" viewBox="0 -791.3 10576 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
 <title id="MathJax-SVG-1-Title">{{ matrix.node_version }} and </title>
 <defs aria-hidden="true">
 <path stroke-width="1" id="E1-MJMATHI-6D" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path>
@@ -276,11 +276,11 @@
  <use xlink:href="#E1-MJMATHI-6E" x="9451" y="0"></use>
  <use xlink:href="#E1-MJMATHI-64" x="10052" y="0"></use>
 </g>
-</svg>&#123;&#123;</span> <span class="hljs-string">matrix.os</span> <span class="hljs-string">&#125;&#125;</span><br>    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span><br>    <span class="hljs-attr">strategy:</span><br>      <span class="hljs-attr">matrix:</span><br>        <span class="hljs-attr">os:</span> <span class="hljs-string">[ubuntu-latest]</span><br>        <span class="hljs-attr">node_version:</span> <span class="hljs-string">[12.x]</span><br><br>    <span class="hljs-attr">steps:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Checkout</span> <span class="hljs-string">blog</span> <span class="hljs-string">repo</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">ref:</span> <span class="hljs-string">source</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Checkout</span> <span class="hljs-string">theme</span> <span class="hljs-string">repo</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">repository:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">env.THEME_REPO</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">ref:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">env.THEME_BRANCH</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">themes/zhaoo</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Use</span> <span class="hljs-string">Node.js</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">matrix.node_version</span> <span class="hljs-string">&#125;&#125;</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/setup-node@v1</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">node-version:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">matrix.node_version</span> <span class="hljs-string">&#125;&#125;</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Configuration</span> <span class="hljs-string">environment</span><br>        <span class="hljs-attr">env:</span><br>          <span class="hljs-attr">HEXO_DEPLOY_KEY_PRI:</span> <span class="hljs-string">$&#123;&#123;secrets.HEXO_DEPLOY_KEY_PRI&#125;&#125;</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br>          <span class="hljs-string">sudo</span> <span class="hljs-string">timedatectl</span> <span class="hljs-string">set-timezone</span> <span class="hljs-string">"Asia/Shanghai"</span><br>          <span class="hljs-string">mkdir</span> <span class="hljs-string">-p</span> <span class="hljs-string">~/.ssh/</span><br>          <span class="hljs-string">echo</span> <span class="hljs-string">"$HEXO_DEPLOY_KEY_PRI"</span> <span class="hljs-string">&gt;</span> <span class="hljs-string">~/.ssh/id_rsa</span><br>          <span class="hljs-string">chmod</span> <span class="hljs-number">600</span> <span class="hljs-string">~/.ssh/id_rsa</span><br>          <span class="hljs-string">ssh-keyscan</span> <span class="hljs-string">github.com</span> <span class="hljs-string">&gt;&gt;</span> <span class="hljs-string">~/.ssh/known_hosts</span><br>          <span class="hljs-string">git</span> <span class="hljs-string">config</span> <span class="hljs-string">--global</span> <span class="hljs-string">user.name</span> <span class="hljs-string">$GIT_USER</span><br>          <span class="hljs-string">git</span> <span class="hljs-string">config</span> <span class="hljs-string">--global</span> <span class="hljs-string">user.email</span> <span class="hljs-string">$GIT_EMAIL</span><br>          <span class="hljs-string">cp</span> <span class="hljs-string">_config.theme.zhaoo.yml</span> <span class="hljs-string">themes/zhaoo/_config.yml</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">dependencies</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br>          <span class="hljs-string">npm</span> <span class="hljs-string">i</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Deploy</span> <span class="hljs-string">blog</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br>          <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">clean</span><br>          <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">deploy</span><br></code></pre></td></tr></table></figure>
+</svg>&#123;&#123;</span> <span class="hljs-string">matrix.os</span> <span class="hljs-string">&#125;&#125;</span><br>    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span><br>    <span class="hljs-attr">strategy:</span><br>      <span class="hljs-attr">matrix:</span><br>        <span class="hljs-attr">os:</span> [<span class="hljs-string">ubuntu-latest</span>]<br>        <span class="hljs-attr">node_version:</span> [<span class="hljs-number">12.</span><span class="hljs-string">x</span>]<br><br>    <span class="hljs-attr">steps:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Checkout</span> <span class="hljs-string">blog</span> <span class="hljs-string">repo</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">ref:</span> <span class="hljs-string">source</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Checkout</span> <span class="hljs-string">theme</span> <span class="hljs-string">repo</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">repository:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">env.THEME_REPO</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">ref:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">env.THEME_BRANCH</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">themes/zhaoo</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Use</span> <span class="hljs-string">Node.js</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">matrix.node_version</span> <span class="hljs-string">&#125;&#125;</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/setup-node@v1</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">node-version:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">matrix.node_version</span> <span class="hljs-string">&#125;&#125;</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Configuration</span> <span class="hljs-string">environment</span><br>        <span class="hljs-attr">env:</span><br>          <span class="hljs-attr">HEXO_DEPLOY_KEY_PRI:</span> <span class="hljs-string">$&#123;&#123;secrets.HEXO_DEPLOY_KEY_PRI&#125;&#125;</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br><span class="hljs-string">          sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;</span><br><span class="hljs-string">          mkdir -p ~/.ssh/</span><br><span class="hljs-string">          echo &quot;$HEXO_DEPLOY_KEY_PRI&quot; &gt; ~/.ssh/id_rsa</span><br><span class="hljs-string">          chmod 600 ~/.ssh/id_rsa</span><br><span class="hljs-string">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="hljs-string">          git config --global user.name $GIT_USER</span><br><span class="hljs-string">          git config --global user.email $GIT_EMAIL</span><br><span class="hljs-string">          cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml</span><br><span class="hljs-string"></span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">dependencies</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br><span class="hljs-string">          npm i</span><br><span class="hljs-string"></span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Deploy</span> <span class="hljs-string">blog</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br><span class="hljs-string">          npm run clean</span><br><span class="hljs-string">          npm run deploy</span><br></code></pre></td></tr></table></figure>
 
 
 <h3 id="运行脚本"><a href="#运行脚本" class="headerlink" title="运行脚本"></a>运行脚本</h3><p>现在，只要仓库的 <code>source</code> 分支有代码推送，GitHub 就会创建一个容器来运行这里配置的任务，解放双手，Enjoy It 😃。</p>
-<p><img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4UoQ.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="Actions 脚本运行结果"></p>
+<p><img    class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4UoQ.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">Actions 脚本运行结果</span></p>
 
       </section>
       <section class="extra">
@@ -307,34 +307,74 @@
       
         <section class="comments">
   
-    <div class="btn" id="comments-btn">查看评论</div>
   
-  
-<div id="valine"></div>
-<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="giscus" class="giscus"></div>
 <script>
-  window.onload = function () {
-    var loadValine = function () {
-      new Valine({
-        el: '#valine',
-        app_id: "QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz",
-        app_key: "1ygwFPYG8IbvlgnrnNXrNeNe",
-        placeholder: "踩个脚印",
-        avatar: "mp",
-        pageSize: "10",
-        lang: "zh-CN",
+window.onload = function() {
+
+  function loadGiscus() {
+    var script = document.createElement("script");
+    script.src = 'https://giscus.app/client.js';
+    script.type = 'text/javascript';
+    script.crossorigin = 'anonymous';
+    script.async = true;
+    script.dataset.loading = 'lazy';
+    script.dataset.repo = 'iaosee/iaosee.github.io';
+    script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnk4ODczNjY2Ng==';
+    script.dataset.mapping = 'pathname';
+    script.dataset.category = '';
+    script.dataset.categoryId = '';
+    script.dataset.inputPosition = 'top';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '';
+    script.dataset.lang = 'zh-CN';
+    script.dataset.theme = localStorage.getItem('color-mode') || 'preferred_color_scheme';
+    document.getElementById('giscus').parentElement.appendChild(script);
+  }
+
+  function sendGiscusMessage(message) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    var msgData = { giscus: message };
+    // console.log('send message -- ', msgData);
+    iframe.contentWindow.postMessage(msgData, 'https://giscus.app');
+  }
+  // window.sendGiscusMessage = sendGiscusMessage;
+
+  function handleMessage(event) {
+    if (event.origin !== 'https://giscus.app') return;
+    if (!(typeof event.data === 'object' && event.data.giscus)) return;
+    const giscusData = event.data.giscus;
+    // console.log('recived giscus message -- ', giscusData)
+  }
+  window.addEventListener('message', handleMessage);
+  window.addEventListener('beforeunload', function() {
+    window.removeEventListener('message', handleMessage);
+  });
+
+  var toggleElement = document.getElementById('color-toggle');
+  if (toggleElement) {
+    toggleElement.addEventListener('click', function () {
+      const mode = localStorage.getItem('color-mode');
+      sendGiscusMessage({
+        setConfig: {
+          theme: mode,
+        }
       });
-    }
-    if ( true ) {
-      $("#comments-btn").on("click", function () {
-        $(this).hide();
-        loadValine();
-      });
-    } else {
-      loadValine();
-    }
-  };
+    });
+  }
+
+  if ( false ) {
+    $("#comments-btn").on("click", function (e) {
+      $(this).hide();
+      loadGiscus();
+    });
+  } else {
+    loadGiscus();
+  }
+}
 </script>
+
 
 </section>
       
@@ -354,6 +394,7 @@
     </div>
   </div>
 </main>
+
   
 
 <footer class="footer">
@@ -386,10 +427,6 @@
     </div>
   
   
-    <div class="fab fab-daovoice">
-      <i class="iconfont iconcomment"></i>
-    </div>
-  
   
   <div class="fab fab-up">
     <i class="iconfont iconcaret-up"></i>
@@ -404,20 +441,20 @@
   
 </body>
 
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
 
 
   
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 
 
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
 
 
@@ -432,7 +469,7 @@
 
 
   <script>
-  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
 
     AV.init({
       appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
@@ -509,29 +546,6 @@
 
 
 
-  
-
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i["DaoVoiceObject"] = r;
-    i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    a.charset = "utf-8";
-    m.parentNode.insertBefore(a, m)
-  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
-  daovoice('init', {
-    app_id: "fb486b7c"
-  }, {
-    launcher: {
-      disableLauncherIcon: true,
-    },
-  });
-  daovoice('update');
-</script>
 
 
 
@@ -552,7 +566,6 @@
 
 
   <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
-
 
 
 

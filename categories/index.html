@@ -25,13 +25,13 @@
 
   
     
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
 
   
 
@@ -40,12 +40,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/github.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/an-old-hope.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -85,12 +85,14 @@
         enable: true
       },
       daovoice: {
-        enable: true
+        enable: false
       },
       preview: {
         background: {
           default: '',
-          api: 'https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts'
+          api: 'https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts',
+          return_type: 'json',
+          data_contents: '["urls","regular"]'
         },
         motto: {
           default: '菡萏香销翠叶残，西风愁起绿波间。',
@@ -125,12 +127,10 @@
   </script>
 
   
-    <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
-  
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="lock-screen">
   <div class="loading" id="loading"></div>
@@ -186,7 +186,7 @@
   <h1 class="header-title">分类</h1>
   <p class="header-subtitle">共: 2 个</p>
 </header>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Canvas/">Canvas</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CI-CD/">CI/CD</a><span class="category-list-count">1</span></li></ul>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Canvas/">Canvas</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CI-CD/">CI/CD</a><span class="category-list-count">1</span></li></ul>
   </section>
 </main>
   
@@ -217,10 +217,6 @@
   </div>
   
   
-    <div class="fab fab-daovoice">
-      <i class="iconfont iconcomment"></i>
-    </div>
-  
   
   <div class="fab fab-up">
     <i class="iconfont iconcaret-up"></i>
@@ -235,20 +231,20 @@
   
 </body>
 
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
 
 
   
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 
 
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
 
 
@@ -263,7 +259,7 @@
 
 
   <script>
-  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
 
     AV.init({
       appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
@@ -340,29 +336,6 @@
 
 
 
-  
-
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i["DaoVoiceObject"] = r;
-    i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    a.charset = "utf-8";
-    m.parentNode.insertBefore(a, m)
-  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
-  daovoice('init', {
-    app_id: "fb486b7c"
-  }, {
-    launcher: {
-      disableLauncherIcon: true,
-    },
-  });
-  daovoice('update');
-</script>
 
 
 
@@ -383,7 +356,6 @@
 
 
   <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
-
 
 
 

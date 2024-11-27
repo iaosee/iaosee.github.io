@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Canvas 图像合成与剪辑区域 - iaosee</title>
+  <title>Canvas 图像合成与剪辑区域 - 橡皮擦实现 - iaosee</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
@@ -25,13 +25,13 @@
 
   
     
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
 
   
 
@@ -40,12 +40,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/github.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/an-old-hope.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -85,12 +85,14 @@
         enable: true
       },
       daovoice: {
-        enable: true
+        enable: false
       },
       preview: {
         background: {
           default: '',
-          api: 'https://source.unsplash.com/featured/1920x1080/?nature,scenery,arts'
+          api: 'https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts',
+          return_type: 'json',
+          data_contents: '["urls","regular"]'
         },
         motto: {
           default: '菡萏香销翠叶残，西风愁起绿波间。',
@@ -125,12 +127,10 @@
   </script>
 
   
-    <script src="https://cdn.bootcdn.net/ajax/libs/mathjs/7.5.1/math.min.js"></script>
-  
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="lock-screen">
   <div class="loading" id="loading"></div>
@@ -149,7 +149,7 @@
       
       
     </div>
-    <div class="center">Canvas 图像合成与剪辑区域</div>
+    <div class="center">Canvas 图像合成与剪辑区域 - 橡皮擦实现</div>
     <div class="right">
       <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
@@ -183,24 +183,24 @@
   <main id="main">
   <div class="article-wrap">
     <div class="row container">
-      <div class="col-xl-3"></div>
-      <div class="col-xl-6"><article class="article">
+      <div class="col-xl-1"></div>
+      <div class="col-xl-8"><article class="article">
   <div class="wrap">
     <section class="head">
   <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/23/r6GktI.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
-    <h1 class="head-title">Canvas 图像合成与剪辑区域</h1>
+    <h1 class="head-title">Canvas 图像合成与剪辑区域 - 橡皮擦实现</h1>
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 23, 2020</span>
       
         <span class="post-info-item">
-          <i class="iconfont iconeye"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-counter" data-flag-title="Canvas 图像合成与剪辑区域"></span>
+          <i class="iconfont iconeye"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-counter" data-flag-title="Canvas 图像合成与剪辑区域 - 橡皮擦实现"></span>
         </span>
         <span class="post-info-item">
-          <i class="iconfont iconheart"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-like" data-flag-title="Canvas 图像合成与剪辑区域"></span>
+          <i class="iconfont iconheart"></i><span id="/2020/12/23/canvas-core-03-synthesis-and-clipping/" class="leancloud-like" data-flag-title="Canvas 图像合成与剪辑区域 - 橡皮擦实现"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2210</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2311</span>
     </div>
   </div>
 </section>
@@ -236,9 +236,13 @@
 <li><code>color</code> 保留了底层的亮度（luma），同时采用了顶层的色调(hue)和色度(chroma)。</li>
 <li><code>luminosity</code> 保持底层的色调（hue）和色度（chroma），同时采用顶层的亮度（luma）。</li>
 </ul>
-<h3 id="MDN-官方文档示例"><a href="#MDN-官方文档示例" class="headerlink" title="MDN 官方文档示例"></a>MDN 官方文档示例</h3><iframe class="live-sample-frame sample-code-frame" frameborder="0" height="600" width="100%" loading="lazy"  id="frame_合成示例" allow="fullscreen" src="https://yari-demos.prod.mdn.mozit.cloud/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing/Example/_sample_.Compositing_example.html"></iframe>
+<h3 id="MDN-官方文档示例"><a href="#MDN-官方文档示例" class="headerlink" title="MDN 官方文档示例"></a>MDN 官方文档示例</h3><!-- <iframe class="live-sample-frame sample-code-frame" frameborder="0" height="600" width="100%" loading="lazy"  id="frame_合成示例" allow="fullscreen" src="https://yari-demos.prod.mdn.mozit.cloud/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing/Example/_sample_.Compositing_example.html"></iframe>
 
-<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation">示例来自 MDN</a></p>
+[示例来自 MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation) -->
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation#examples">https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation#examples</a></li>
+</ul>
 <h3 id="图像合成示例-Demo"><a href="#图像合成示例-Demo" class="headerlink" title="图像合成示例 Demo"></a>图像合成示例 Demo</h3><iframe 
   class="live-sample-frame sample-code-frame" 
   frameborder="0" 
@@ -248,10 +252,10 @@
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
   allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
-  src="https://html5-canvas-core.vercel.app/#/Demo.28">
+  src="https://iaosee.com/html5-canvas-core/#/Demo.28">
 </iframe>
 
-<p><a target="_blank" rel="noopener" href="https://html5-canvas-core.vercel.app/#/Demo.28">查看完整 Demo 效果</a></p>
+<p><a href="https://iaosee.com/html5-canvas-core/#/Demo.28">查看完整 Demo 效果</a></p>
 <h2 id="剪辑区域"><a href="#剪辑区域" class="headerlink" title="剪辑区域"></a>剪辑区域</h2><p>剪辑区域：剪辑区域，是一个非常有用的功能，也可以叫做裁剪区域，是指绘制路径所定义的一块区域，定义了该区域，后续的所有绘图操作都被限制在该区域中执行。在默认情况下，裁剪区域与 Canvas 画布大小一致，可以自行定义裁剪区域，自定义裁剪区域就是创建创一段自定义路径（路径组成的区域），并调用绘图环境上的 <code>clip()</code> 方法，一旦设置了剪辑区域后，那么在 Canvas 上绘制的所有内容都会被限制在该区域内，在剪辑区域外部绘制没有效果。</p>
 <p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/clip"><code>clip()</code></a> 将当前创建的路径设置为当前剪切路径，<code>clip()</code>具有多种形式，方法的重载形式如下。</p>
 <ul>
@@ -278,10 +282,10 @@
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="canvas-test-demo"
   allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
-  src="https://html5-canvas-core.vercel.app/#/Demo.29">
+  src="https://iaosee.com/html5-canvas-core/#/Demo.29">
 </iframe>
 
-<p><a target="_blank" rel="noopener" href="https://html5-canvas-core.vercel.app/#/Demo.29">查看完整 Demo 效果</a></p>
+<p><a href="https://iaosee.com/html5-canvas-core/#/Demo.29">查看完整 Demo 效果</a></p>
 
       </section>
       <section class="extra">
@@ -300,7 +304,7 @@
 
         
   <nav class="nav">
-    <a></a>
+    <a href="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/"><i class="iconfont iconleft"></i>Canvas 图像处理 - 像素操作和滤镜实现</a>
     <a href="/2020/12/10/canvas-core-02-basic-graphic-rendering/">Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形<i class="iconfont iconright"></i></a>
   </nav>
 
@@ -308,34 +312,74 @@
       
         <section class="comments">
   
-    <div class="btn" id="comments-btn">查看评论</div>
   
-  
-<div id="valine"></div>
-<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="giscus" class="giscus"></div>
 <script>
-  window.onload = function () {
-    var loadValine = function () {
-      new Valine({
-        el: '#valine',
-        app_id: "QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz",
-        app_key: "1ygwFPYG8IbvlgnrnNXrNeNe",
-        placeholder: "踩个脚印",
-        avatar: "mp",
-        pageSize: "10",
-        lang: "zh-CN",
+window.onload = function() {
+
+  function loadGiscus() {
+    var script = document.createElement("script");
+    script.src = 'https://giscus.app/client.js';
+    script.type = 'text/javascript';
+    script.crossorigin = 'anonymous';
+    script.async = true;
+    script.dataset.loading = 'lazy';
+    script.dataset.repo = 'iaosee/iaosee.github.io';
+    script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnk4ODczNjY2Ng==';
+    script.dataset.mapping = 'pathname';
+    script.dataset.category = '';
+    script.dataset.categoryId = '';
+    script.dataset.inputPosition = 'top';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '';
+    script.dataset.lang = 'zh-CN';
+    script.dataset.theme = localStorage.getItem('color-mode') || 'preferred_color_scheme';
+    document.getElementById('giscus').parentElement.appendChild(script);
+  }
+
+  function sendGiscusMessage(message) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    var msgData = { giscus: message };
+    // console.log('send message -- ', msgData);
+    iframe.contentWindow.postMessage(msgData, 'https://giscus.app');
+  }
+  // window.sendGiscusMessage = sendGiscusMessage;
+
+  function handleMessage(event) {
+    if (event.origin !== 'https://giscus.app') return;
+    if (!(typeof event.data === 'object' && event.data.giscus)) return;
+    const giscusData = event.data.giscus;
+    // console.log('recived giscus message -- ', giscusData)
+  }
+  window.addEventListener('message', handleMessage);
+  window.addEventListener('beforeunload', function() {
+    window.removeEventListener('message', handleMessage);
+  });
+
+  var toggleElement = document.getElementById('color-toggle');
+  if (toggleElement) {
+    toggleElement.addEventListener('click', function () {
+      const mode = localStorage.getItem('color-mode');
+      sendGiscusMessage({
+        setConfig: {
+          theme: mode,
+        }
       });
-    }
-    if ( true ) {
-      $("#comments-btn").on("click", function () {
-        $(this).hide();
-        loadValine();
-      });
-    } else {
-      loadValine();
-    }
-  };
+    });
+  }
+
+  if ( false ) {
+    $("#comments-btn").on("click", function (e) {
+      $(this).hide();
+      loadGiscus();
+    });
+  } else {
+    loadGiscus();
+  }
+}
 </script>
+
 
 </section>
       
@@ -355,6 +399,7 @@
     </div>
   </div>
 </main>
+
   
 
 <footer class="footer">
@@ -387,10 +432,6 @@
     </div>
   
   
-    <div class="fab fab-daovoice">
-      <i class="iconfont iconcomment"></i>
-    </div>
-  
   
   <div class="fab fab-up">
     <i class="iconfont iconcaret-up"></i>
@@ -405,20 +446,20 @@
   
 </body>
 
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
 
 
   
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 
 
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
 
 
@@ -433,7 +474,7 @@
 
 
   <script>
-  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
 
     AV.init({
       appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
@@ -510,29 +551,6 @@
 
 
 
-  
-
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i["DaoVoiceObject"] = r;
-    i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    a.charset = "utf-8";
-    m.parentNode.insertBefore(a, m)
-  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
-  daovoice('init', {
-    app_id: "fb486b7c"
-  }, {
-    launcher: {
-      disableLauncherIcon: true,
-    },
-  });
-  daovoice('update');
-</script>
 
 
 
@@ -553,7 +571,6 @@
 
 
   <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
-
 
 
 
