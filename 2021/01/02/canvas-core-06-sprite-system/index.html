@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas 精灵 - 精灵系统实现 🧚 - iaosee</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="iaosee, iaosee's blog, Web, Front-end, JavaScript, TypeScript, Graphics, 2D/3D, Canvas, WebGL">
+  <meta name="description" content="精灵介绍精灵 是一种可以集成到动画之中图像对象，可以称...">
+  <meta name="author" content="iaosee">
+  <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: 'https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts',
+          return_type: 'json',
+          data_contents: '["urls","regular"]'
+        },
+        motto: {
+          default: '菡萏香销翠叶残，西风愁起绿波间。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: ''
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Canvas 精灵 - 精灵系统实现 🧚</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-1"></div>
+      <div class="col-xl-8"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/article/sprite-system.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Canvas 精灵 - 精灵系统实现 🧚</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 02, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/01/02/canvas-core-06-sprite-system/" class="leancloud-counter" data-flag-title="Canvas 精灵 - 精灵系统实现 🧚"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2021/01/02/canvas-core-06-sprite-system/" class="leancloud-like" data-flag-title="Canvas 精灵 - 精灵系统实现 🧚"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>7877</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h2 id="精灵介绍"><a href="#精灵介绍" class="headerlink" title="精灵介绍"></a>精灵介绍</h2><p><strong>精灵</strong> 是一种可以集成到动画之中图像对象，可以称为<strong>精灵图</strong>。<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Sprite_(computer_graphics)">精灵图</a>（英语：Sprite），又被称为拼合图，是一种图片拼合技术，它就是把多张小图合成一张大图，这张大图就叫做精灵图。在计算机图形学中，当一张二维图像集成进场景中，成为整个显示图像的一部分时，这张图就称为精灵图。因为常见碳酸饮料雪碧的英文名称也是 “Sprite”，也有人会使用雪碧图的非正式译名。</p>
+<p>在前端中最常见的是通过 CSS 使用精灵图，通过 CSS 中的 <code>background-position</code> 属性，由在定义的 X 和 Y 坐标下将小图像组合成一个大图像组成，显示精灵图中某一个小图标。</p>
+<p>这里需要在 Canvas 中通过 JS 使用精灵图，Canvas 提供了实现精灵所需的全部处理能力。</p>
+<h2 id="精灵实现"><a href="#精灵实现" class="headerlink" title="精灵实现"></a>精灵实现</h2><p>要制作一个有用的精灵对象，需要自己实现将精灵图绘制出来，并将其放置于动画中指定的位置，并能实现从一个地方移动到另一个地方。这些精灵对象还能够接受调用者的命令，来执行某些特定的动作，比如下落、弹起、飞行，以及与其他精灵的碰撞等等。</p>
+<h3 id="Sprite"><a href="#Sprite" class="headerlink" title="Sprite"></a>Sprite</h3><p>精灵对象有两个方法：<code>paint()</code> 和 <code>update()</code>。<code>update()</code> 方法用于执行每个精灵的行为，一个精灵可以有多个行为，执行的顺序就是这些行为被加入的顺序，<code>paint()</code> 方法则是将绘制操作代理给绘制器对象来执行绘制操作。</p>
+<p>精灵无需自己完成绘制操作，它的绘制操作将代理给另一个对象来做。从本质上来讲， Painter 对象就是一个可以相互交换着使用的绘制算法。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>top</td>
+<td align="left">精灵左上角 Y 坐标</td>
+</tr>
+<tr>
+<td>left</td>
+<td align="left">精灵左上角 X 坐标</td>
+</tr>
+<tr>
+<td>width</td>
+<td align="left">精灵宽度</td>
+</tr>
+<tr>
+<td>height</td>
+<td align="left">精灵高度</td>
+</tr>
+<tr>
+<td>velocityX</td>
+<td align="left">水平移动速度</td>
+</tr>
+<tr>
+<td>velocityY</td>
+<td align="left">垂直移动速度</td>
+</tr>
+<tr>
+<td>painter</td>
+<td align="left">用于绘制精灵对象的绘制器</td>
+</tr>
+<tr>
+<td>visible</td>
+<td align="left">精灵是否可见 boolean 值</td>
+</tr>
+<tr>
+<td>animating</td>
+<td align="left">精灵是否正在执行动画效果 boolean 值</td>
+</tr>
+<tr>
+<td>behaviors</td>
+<td align="left">包含精灵行为对象的数组，执行更新逻辑</td>
+</tr>
+</tbody></table>
+<p>定义公共接口:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 定义公共接口</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">IPainter</span> &#123;<br>  <span class="hljs-title function_">paint</span>(<span class="hljs-attr">sprite</span>: <span class="hljs-title class_">Sprite</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span>): <span class="hljs-built_in">void</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">IBehavior</span> &#123;<br>  <span class="hljs-title function_">execute</span>(<span class="hljs-attr">sprite</span>: <span class="hljs-title class_">Sprite</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span>, <span class="hljs-attr">time</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Sprite 对象类的实现：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// Sprite 实现</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Sprite</span>&lt;P <span class="hljs-keyword">extends</span> <span class="hljs-title class_">IPainter</span> = <span class="hljs-title class_">IPainter</span>&gt; &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-keyword">public</span> x = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> y = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> left = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> top = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> width = <span class="hljs-number">10</span>;<br>  <span class="hljs-keyword">public</span> height = <span class="hljs-number">10</span>;<br>  <span class="hljs-keyword">public</span> velocityX = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> velocityY = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> visible = <span class="hljs-literal">true</span>;<br>  <span class="hljs-keyword">public</span> animating = <span class="hljs-literal">false</span>;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">painter</span>: P = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">behaviors</span>: <span class="hljs-title class_">IBehavior</span>[] = [];<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">painter</span>: P = <span class="hljs-literal">null</span>, <span class="hljs-attr">behaviors</span>: <span class="hljs-title class_">IBehavior</span>[] = []</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">painter</span> = painter;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">behaviors</span> = behaviors;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">setX</span>(<span class="hljs-params"><span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">setY</span>(<span class="hljs-params"><span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">addBehavior</span>(<span class="hljs-params"><span class="hljs-attr">behavior</span>: <span class="hljs-title class_">IBehavior</span></span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">behaviors</span>.<span class="hljs-title function_">includes</span>(behavior)) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>    &#125;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">behaviors</span>.<span class="hljs-title function_">push</span>(behavior);<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">setPainter</span>(<span class="hljs-params"><span class="hljs-attr">painter</span>: P</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">painter</span> = painter;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">paint</span>(<span class="hljs-params"><span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span></span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">painter</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">visible</span>) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">painter</span>.<span class="hljs-title function_">paint</span>(<span class="hljs-variable language_">this</span>, context);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">update</span>(<span class="hljs-params"><span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span>, <span class="hljs-attr">time</span>: <span class="hljs-built_in">number</span></span>) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-variable language_">this</span>.<span class="hljs-property">behaviors</span>.<span class="hljs-property">length</span>; i &gt; <span class="hljs-number">0</span>; --i) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">behaviors</span>[i - <span class="hljs-number">1</span>].<span class="hljs-title function_">execute</span>(<span class="hljs-variable language_">this</span>, context, time);<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在一个简单的精灵对象就实现完成了。</p>
+<h2 id="Painter-绘制器"><a href="#Painter-绘制器" class="headerlink" title="Painter - 绘制器"></a>Painter - 绘制器</h2><p>由于精灵自身不绘制，精灵展示显示的样式，取决于绘制器如何绘制。Sprite 对象和它的绘制器之间是应该是解耦的，这样就可以在程序运行时对精灵对象动态的设置或更换绘制器，这样极大的提高了精灵对象的灵活性。</p>
+<p>Painter 对象主要需要实现 <code>paint(sprite, context)</code> 方法即可，所有的 Painter 对象都可以被归纳为三类：</p>
+<ul>
+<li>描边及填充绘制器</li>
+<li>图像绘制器</li>
+<li>精灵表绘制器</li>
+</ul>
+<p>描边及填充绘制器，根据自己想要的形状调用 Canvas 的图形 API 绘制就行了。</p>
+<h3 id="图像绘制器"><a href="#图像绘制器" class="headerlink" title="图像绘制器"></a>图像绘制器</h3><p>图像绘制器包含一个指向图像对象的引用，它会将此图像绘制到由 <code>paint()</code> 方法所传入的绘图环境对象之上。只有当图像加载完成之后，图像绘制器才会将其图像绘制出来。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImagePainter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IPainter</span> &#123;<br>  <span class="hljs-keyword">public</span> image = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">imageUrl</span>: <span class="hljs-built_in">string</span></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>.<span class="hljs-property">src</span> = imageUrl;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">paint</span>(<span class="hljs-params"><span class="hljs-attr">sprite</span>: <span class="hljs-title class_">Sprite</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span></span>) &#123;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>) &#123;<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> x = sprite.<span class="hljs-property">x</span> || sprite.<span class="hljs-property">left</span>;<br>    <span class="hljs-keyword">const</span> y = sprite.<span class="hljs-property">y</span> || sprite.<span class="hljs-property">top</span>;<br><br>    <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>.<span class="hljs-property">complete</span>) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>.<span class="hljs-property">onload</span> = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>        sprite.<span class="hljs-property">width</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>.<span class="hljs-property">width</span>;<br>        sprite.<span class="hljs-property">height</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>.<span class="hljs-property">height</span>;<br><br>        context.<span class="hljs-title function_">drawImage</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>, x, y, sprite.<span class="hljs-property">width</span>, sprite.<span class="hljs-property">height</span>);<br>      &#125;;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      context.<span class="hljs-title function_">drawImage</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">image</span>, x, y, sprite.<span class="hljs-property">width</span>, sprite.<span class="hljs-property">height</span>);<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="精灵表绘制器"><a href="#精灵表绘制器" class="headerlink" title="精灵表绘制器"></a>精灵表绘制器</h3><p>这里就是最开始讲的精灵图的绘制，精灵表绘制器会把精灵表中表示当前动画帧的那个单元格绘制出来。绘制器对象有一个数组索引，用于表示精灵表每个单元格的信息。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">SheetCell</span> &#123;<br>  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;<br>  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;<br>  <span class="hljs-attr">width</span>: <span class="hljs-built_in">number</span>;<br>  <span class="hljs-attr">height</span>: <span class="hljs-built_in">number</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpriteSheetPainter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IPainter</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">cells</span>: <span class="hljs-title class_">SheetCell</span>[] = [];<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">cellIndex</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> spriteSheet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">spriteSheetImageUrl</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">cells</span>: <span class="hljs-title class_">SheetCell</span>[] = []</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">cells</span> = cells;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">spriteSheet</span>.<span class="hljs-property">src</span> = spriteSheetImageUrl;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">advance</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">cellIndex</span> === <span class="hljs-variable language_">this</span>.<span class="hljs-property">cells</span>.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">cellIndex</span> = <span class="hljs-number">0</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">cellIndex</span>++;<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">paint</span>(<span class="hljs-params"><span class="hljs-attr">sprite</span>: <span class="hljs-title class_">Sprite</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span></span>) &#123;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">spriteSheet</span>) &#123;<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> cell = <span class="hljs-variable language_">this</span>.<span class="hljs-property">cells</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">cellIndex</span>];<br>    sprite.<span class="hljs-property">width</span> = cell.<span class="hljs-property">width</span>;<br>    sprite.<span class="hljs-property">height</span> = cell.<span class="hljs-property">height</span>;<br><br>    <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">spriteSheet</span>.<span class="hljs-property">complete</span>) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">spriteSheet</span>.<span class="hljs-property">onload</span> = <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> &#123;<br>        context.<span class="hljs-title function_">drawImage</span>(<br>          <span class="hljs-variable language_">this</span>.<span class="hljs-property">spriteSheet</span>,<br>          cell.<span class="hljs-property">x</span>,<br>          cell.<span class="hljs-property">y</span>,<br>          cell.<span class="hljs-property">width</span>,<br>          cell.<span class="hljs-property">height</span>,<br>          sprite.<span class="hljs-property">x</span>,<br>          sprite.<span class="hljs-property">y</span>,<br>          cell.<span class="hljs-property">width</span>,<br>          cell.<span class="hljs-property">height</span><br>        );<br>      &#125;;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      context.<span class="hljs-title function_">drawImage</span>(<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">spriteSheet</span>,<br>        cell.<span class="hljs-property">x</span>,<br>        cell.<span class="hljs-property">y</span>,<br>        cell.<span class="hljs-property">width</span>,<br>        cell.<span class="hljs-property">height</span>,<br>        sprite.<span class="hljs-property">x</span>,<br>        sprite.<span class="hljs-property">y</span>,<br>        cell.<span class="hljs-property">width</span>,<br>        cell.<span class="hljs-property">height</span><br>      );<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Behavior-行为"><a href="#Behavior-行为" class="headerlink" title="Behavior - 行为"></a>Behavior - 行为</h2><p>实现了各个精灵绘制器之后，继续研究如何为精灵对象添加行为，使其能够执行不同的动作。之前已经定义了 <code>IBehavior</code> 接口，只要实现了该接口定义了 <code>execute(sprite: Sprite, context: CanvasRenderingContext2D, time: number)</code> 方法的对象，都可以叫做行为，该方法用来修改精灵的属性，比如移动其位置，修改其外观。行为可以是一个简单的移动动作，也可以是一个比较复杂的操作。</p>
+<p>精灵包含一个行为对象数组，它的 <code>update()</code> 方法会遍历行为数组，使得精灵的每个行为都能够执行。</p>
+<p>实现一些精灵的行为：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description</span> 跑动行为</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RunInPlaceBehavior</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IBehavior</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">lastAdvance</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">PAGEFLIP_INTERVAL</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">100</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params">interval?: <span class="hljs-built_in">number</span></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">PAGEFLIP_INTERVAL</span> = interval || <span class="hljs-variable language_">this</span>.<span class="hljs-property">PAGEFLIP_INTERVAL</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">execute</span>(<span class="hljs-params"><span class="hljs-attr">sprite</span>: <span class="hljs-title class_">Sprite</span>&lt;<span class="hljs-title class_">SpriteSheetPainter</span>&gt;, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span>, <span class="hljs-attr">time</span>: <span class="hljs-built_in">number</span></span>) &#123;<br>    <span class="hljs-keyword">if</span> (time - <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastAdvance</span> &gt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">PAGEFLIP_INTERVAL</span>) &#123;<br>      sprite.<span class="hljs-property">painter</span>.<span class="hljs-title function_">advance</span>();<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastAdvance</span> = time;<br>    &#125;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description</span> 向右跑行为</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MoveLeftToRightBehavior</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IBehavior</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">lastMove</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> startX?: <span class="hljs-built_in">number</span>, <span class="hljs-keyword">private</span> endX?: <span class="hljs-built_in">number</span></span>) &#123;&#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">execute</span>(<span class="hljs-params"><span class="hljs-attr">sprite</span>: <span class="hljs-title class_">Sprite</span>&lt;<span class="hljs-title class_">SpriteSheetPainter</span>&gt;, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CanvasRenderingContext2D</span>, <span class="hljs-attr">time</span>: <span class="hljs-built_in">number</span></span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">lastMove</span> !== <span class="hljs-number">0</span>) &#123;<br>      sprite.<span class="hljs-property">x</span> -= sprite.<span class="hljs-property">velocityX</span> * ((time - <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastMove</span>) / <span class="hljs-number">1000</span>);<br>      <span class="hljs-keyword">const</span> startX = <span class="hljs-variable language_">this</span>.<span class="hljs-property">startX</span> || <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">const</span> endX = <span class="hljs-variable language_">this</span>.<span class="hljs-property">endX</span> || context.<span class="hljs-property">canvas</span>.<span class="hljs-property">width</span>;<br>      sprite.<span class="hljs-property">x</span> = sprite.<span class="hljs-property">x</span> &lt; startX ? endX : sprite.<span class="hljs-property">x</span>;<br>    &#125;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastMove</span> = time;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用精灵类"><a href="#使用精灵类" class="headerlink" title="使用精灵类"></a>使用精灵类</h2><p>使用精灵并指定精灵的行为：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs ts"><br><span class="hljs-keyword">const</span> <span class="hljs-attr">runnerCells</span>: <span class="hljs-title class_">SheetCell</span>[] = [<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">47</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">55</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">44</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">107</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">39</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">150</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">46</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">208</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">49</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">265</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">46</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">320</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">42</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">380</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">35</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>  &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">425</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">35</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">64</span> &#125;,<br>];<br><br><span class="hljs-keyword">const</span> sprite = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Sprite</span>(<br>  <span class="hljs-string">&#x27;Sprite&#x27;</span>, <br>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">SpriteSheetPainter</span>(running_sprite_sheet, runnerCells), <br>  [<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">RunInPlaceBehavior</span>(),<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">MoveLeftToRightBehavior</span>(),<br>  ]<br>);<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">animate</span> = (<span class="hljs-params"><span class="hljs-attr">timestamp</span>: <span class="hljs-built_in">number</span></span>) =&gt; &#123;<br><br>  <span class="hljs-comment">// Update and draw ...</span><br>  sprite.<span class="hljs-title function_">update</span>(context, timestamp);<br>  sprite.<span class="hljs-title function_">paint</span>(context);<br><br>  <span class="hljs-title function_">requestAnimationFrame</span>(animate);<br>&#125;;<br><br><span class="hljs-title function_">requestAnimationFrame</span>(animate);<br><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>精灵是制作绚丽动画的关键要素之一，文章上面介绍了如何实现封装精灵对象，精灵行为对象，以及如何讲精灵动画效果提取封装为可以复用的精灵动画制作器。并且上述对象的代码实现能够在更高的抽象层面上编程，使得精灵的各部分解耦，增强了精灵的灵活性和代码的可复用性。</p>
+<h3 id="精灵示例"><a href="#精灵示例" class="headerlink" title="精灵示例"></a>精灵示例</h3><iframe 
+  class="live-sample-frame sample-code-frame" 
+  frameborder="0" 
+  height="600" 
+  width="100%" 
+  loading="lazy"      
+  style="width:100%; height:600px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
+  src="https://iaosee.com/html5-canvas-core/#/Demo.52">
+</iframe>
+
+<p><a href="https://iaosee.com/html5-canvas-core/#/Demo.52">查看完整 Demo 效果</a></p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>iaosee</li>
+    <li><strong>本文链接：</strong><a href="http://iaosee.com/2021/01/02/canvas-core-06-sprite-system/index.html" title="http:&#x2F;&#x2F;iaosee.com&#x2F;2021&#x2F;01&#x2F;02&#x2F;canvas-core-06-sprite-system&#x2F;index.html">http:&#x2F;&#x2F;iaosee.com&#x2F;2021&#x2F;01&#x2F;02&#x2F;canvas-core-06-sprite-system&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2D/" rel="tag">2D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E7%94%BB/" rel="tag">动画</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%BD%A2%E5%BC%80%E5%8F%91/" rel="tag">图形开发</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2021/01/06/canvas-core-07-collision-detection/"><i class="iconfont iconleft"></i>Canvas 碰撞检测 — 外接图形判别/光线投射/分离轴定理</a>
+    <a href="/2020/12/28/canvas-core-05-animation-system/">Canvas 动画系统 - 动画帧速率、基于时间运动、最佳实践<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+  
+<div id="giscus" class="giscus"></div>
+<script>
+window.onload = function() {
+
+  function loadGiscus() {
+    var script = document.createElement("script");
+    script.src = 'https://giscus.app/client.js';
+    script.type = 'text/javascript';
+    script.crossorigin = 'anonymous';
+    script.async = true;
+    script.dataset.loading = 'lazy';
+    script.dataset.repo = 'iaosee/iaosee.github.io';
+    script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnk4ODczNjY2Ng==';
+    script.dataset.mapping = 'pathname';
+    script.dataset.category = 'Announcements';
+    script.dataset.categoryId = 'DIC_kwDOBUoDms4CQP9t';
+    script.dataset.inputPosition = 'top';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '';
+    script.dataset.lang = 'zh-CN';
+    script.dataset.theme = localStorage.getItem('color-mode') || 'preferred_color_scheme';
+    document.getElementById('giscus').parentElement.appendChild(script);
+  }
+
+  function sendGiscusMessage(message) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    var msgData = { giscus: message };
+    // console.log('send message -- ', msgData);
+    iframe.contentWindow.postMessage(msgData, 'https://giscus.app');
+  }
+  // window.sendGiscusMessage = sendGiscusMessage;
+
+  function handleMessage(event) {
+    if (event.origin !== 'https://giscus.app') return;
+    if (!(typeof event.data === 'object' && event.data.giscus)) return;
+    const giscusData = event.data.giscus;
+    // console.log('recived giscus message -- ', giscusData)
+  }
+  window.addEventListener('message', handleMessage);
+  window.addEventListener('beforeunload', function() {
+    window.removeEventListener('message', handleMessage);
+  });
+
+  var toggleElement = document.getElementById('color-toggle');
+  if (toggleElement) {
+    toggleElement.addEventListener('click', function () {
+      const mode = localStorage.getItem('color-mode');
+      sendGiscusMessage({
+        setConfig: {
+          theme: mode,
+        }
+      });
+    });
+  }
+
+  if ( false ) {
+    $("#comments-btn").on("click", function (e) {
+      $(this).hide();
+      loadGiscus();
+    });
+  } else {
+    loadGiscus();
+  }
+}
+</script>
+
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E4%BB%8B%E7%BB%8D"><span class="toc-text">精灵介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E5%AE%9E%E7%8E%B0"><span class="toc-text">精灵实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sprite"><span class="toc-text">Sprite</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Painter-%E7%BB%98%E5%88%B6%E5%99%A8"><span class="toc-text">Painter - 绘制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E7%BB%98%E5%88%B6%E5%99%A8"><span class="toc-text">图像绘制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E8%A1%A8%E7%BB%98%E5%88%B6%E5%99%A8"><span class="toc-text">精灵表绘制器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Behavior-%E8%A1%8C%E4%B8%BA"><span class="toc-text">Behavior - 行为</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%B2%BE%E7%81%B5%E7%B1%BB"><span class="toc-text">使用精灵类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E7%A4%BA%E4%BE%8B"><span class="toc-text">精灵示例</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/iaosee "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:iaosee@outlook.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
+
+    AV.init({
+      appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
+      appKey: '1ygwFPYG8IbvlgnrnNXrNeNe',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://iaosee.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://iaosee.com';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
+
+
+
+
+
+
+
+
+
+
+</html>

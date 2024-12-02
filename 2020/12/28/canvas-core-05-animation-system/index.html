@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas 动画系统 - 动画帧速率、基于时间运动、最佳实践 - iaosee</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="iaosee, iaosee's blog, Web, Front-end, JavaScript, TypeScript, Graphics, 2D/3D, Canvas, WebGL">
+  <meta name="description" content="动画原理动画原理 —— 持续更新并绘制，这种持续持续更...">
+  <meta name="author" content="iaosee">
+  <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: 'https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts',
+          return_type: 'json',
+          data_contents: '["urls","regular"]'
+        },
+        motto: {
+          default: '菡萏香销翠叶残，西风愁起绿波间。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: ''
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Canvas 动画系统 - 动画帧速率、基于时间运动、最佳实践</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-1"></div>
+      <div class="col-xl-8"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/article/animation-play.gif" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Canvas 动画系统 - 动画帧速率、基于时间运动、最佳实践</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 28, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/12/28/canvas-core-05-animation-system/" class="leancloud-counter" data-flag-title="Canvas 动画系统 - 动画帧速率、基于时间运动、最佳实践"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2020/12/28/canvas-core-05-animation-system/" class="leancloud-like" data-flag-title="Canvas 动画系统 - 动画帧速率、基于时间运动、最佳实践"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4468</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h2 id="动画原理"><a href="#动画原理" class="headerlink" title="动画原理"></a>动画原理</h2><p>动画原理 —— 持续更新并绘制，这种持续持续更新与重绘就叫做<strong>动画循环</strong>，是所有动画的核心逻辑。像是 GIF 动画图片，视频播放这类我们都可以理解为是一种动画播放的过程。</p>
+<p>在 Web 端实现动画的方式有很多中，更为熟悉的方法之一是使用 CSS3 动画，CSS3 支持各种动画，甚至是 3D 动画；还有就是使用 JavaScript 自己实现动画，通过 JavaScript 可以实现更加复杂的动画，这篇文章主要也是记录这一种形式。</p>
+<h3 id="动画循环"><a href="#动画循环" class="headerlink" title="动画循环"></a>动画循环</h3><p>动画循环 是一种持续不断的循环，连续不断地重复的动画帧序列，如果不手动停止，通常来说是无限循环的。动画循环最常见的用途是在游戏开发中。在游戏中，每个角色都会有一组动画循环，可以混合创建一个可控的角色。例如，步行循环可能会在特定帧与跳跃循环混合。</p>
+<p>更新数据 -&gt; 重新渲染，通常来说代码就像这样：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-built_in">void</span> <span class="hljs-title function_">animate</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 动画逻辑 —— 持续更新并绘制</span><br>  <span class="hljs-title function_">update</span>();<br>  <span class="hljs-title function_">draw</span>();<br>&#125;<br><br><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) &#123;<br>  <span class="hljs-title function_">animate</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在其他编程语言中，确确实实就是这么实现的。但是，你不能在 JavaScript 中这么做，这样会导致浏览器失去响应，因为 JavaScript 是单线程的，浏览器在主线程中执行代码，这样的死循环会导致浏览器无法响应用户操作，浏览器无法获得喘息的机会。要实现动画效果，必须让浏览器每隔一段时间有一个喘息的机会。</p>
+<p>所以，在 JavaScript 中提供了另一种方式来不断执行动作。在浏览器的执行动画，可以使用 <code>setInterval()</code> &#x2F; <code>setTimeout()</code> 来执行循环。<code>setInterval</code> 方法每隔一段时间就会调用传给它的函数，而 <code>setTimeout</code> 方法只会在到达指定的时间点调用一次传给它的函数，所以要使用 <code>setTimeout</code> 持续调用，就必须将下次执行动画循环的时间点计算出来，而 <code>setInterval</code> 只需调用一次。</p>
+<p><code>setInterval</code> &#x2F; <code>setTimeout</code> 的特点：</p>
+<ul>
+<li>这两者都是通用的方法，并不是专门为制作动画而用</li>
+<li>即使向其传递以毫秒为单位的参数值，也依然达不到毫秒级精确性</li>
+<li>没有对调用动画循环的做优化</li>
+<li>不会考虑绘制动画的最佳时机，一味的以某个大致时间间隔来调用动画</li>
+</ul>
+<p>setInterval 动画循环：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">animate</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// Update and draw ...</span><br>&#125;<br><br><span class="hljs-built_in">setInterval</span>(animate, <span class="hljs-number">1000</span> / <span class="hljs-number">60</span>);<br></code></pre></td></tr></table></figure>
+
+<p>setTimeout 实现动画循环：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">animate</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> start = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>  <span class="hljs-comment">// Update and draw ...</span><br>  <span class="hljs-keyword">const</span> finish = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>  <span class="hljs-built_in">setTimeout</span>(animate, (<span class="hljs-number">1000</span> / <span class="hljs-number">60</span>) - (finish - start));<br>&#125;<br><br><span class="hljs-built_in">setTimeout</span>(animate, <span class="hljs-number">1000</span> / <span class="hljs-number">60</span>);<br></code></pre></td></tr></table></figure>
+
+<p>然而需要注意的是，<code>setInterval</code> 和 <code>setTimeout</code> 都不是专门用来实现动画的，都不是最优的选择，最好不要使用他们。动画实现的首选方式，是 W3C 标准中 <code>requestAnimationFrame()</code> 方法，这个方法属于 HTML5 规范新添加的 API，到目前大多数主流浏览器都支持它了，这个方法的好处是浏览器自行决定帧速率，不需指定帧率。<code>cancelAnimationFrame()</code> 方法将 <code>requestAnimationFrame()</code> 方法的返回值作为参数可以取消函数的执行，结束动画。requestAnimationFrame <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame">MDN API 文档参考</a></p>
+<p>使用 <code>requestAnimationFrame</code> 优点：</p>
+<ul>
+<li>对回调函数的调用频率通常与显示器的刷新率相匹配。</li>
+<li>并根据当前系统性能情况浏览器自行决定帧速率</li>
+<li>当前网页未处于可见（激活状态）会自动暂停执行</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">animate</span>(<span class="hljs-params">timeStamp</span>) &#123;<br>  <span class="hljs-comment">// Update and draw ...</span><br>  <span class="hljs-title function_">requestAnimationFrame</span>(animate);<br>&#125;<br><br><span class="hljs-title function_">requestAnimationFrame</span>(animate);<br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>requestAnimationFrame()</code> 指定的动画循环回调函数，调用时回调函数会被传入 DOMHighResTimeStamp 参数，DOMHighResTimeStamp 指示当前被 requestAnimationFrame() 排序的回调函数被触发的时间。在同一个帧中的多个回调函数，它们每一个都会接受到一个相同的时间戳，即使在计算上一个回调函数的工作负载期间已经消耗了一些时间。该时间戳是一个十进制数，单位毫秒，最小精度为1ms(1000μs)。</p>
+<h2 id="帧速率"><a href="#帧速率" class="headerlink" title="帧速率"></a>帧速率</h2><p>动画是由一系列叫做 “帧” (frame) 的图像组成，这些图像显示的频率就叫做 —— 帧速率 (FPS)。在上方的设置的 <code>setTimeout(animate, 1000 / 60)</code> 中，意思是在理想状态下，我们希望动画的执行速率是 60 帧每秒，即 60 fps。因为 setTimeout 并不是精确的这个时间，所以是理想情况下。通过动画的帧率，我们可以得知该动画是否播放得足够流畅。</p>
+<p>帧率的计算： 根据当前帧距离上一帧的时间，计算出动画每秒中播放的帧数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> lastTime = <span class="hljs-number">0</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">animate</span> = (<span class="hljs-params"><span class="hljs-attr">timestamp</span>: <span class="hljs-built_in">number</span></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> deltaTime = timestamp - lastTime;<br>  <span class="hljs-keyword">const</span> fps = <span class="hljs-number">1000</span> / deltaTime;<br>  <span class="hljs-comment">// Update and draw ...</span><br>  lastTime = timestamp;<br>  <span class="hljs-title function_">requestAnimationFrame</span>(animate);<br>&#125;;<br><br><span class="hljs-title function_">requestAnimationFrame</span>(animate);<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="恢复动画背景"><a href="#恢复动画背景" class="headerlink" title="恢复动画背景"></a>恢复动画背景</h2><p>绘制动画时具有挑战性的环节在于如何处理背景，通常有三种方式。</p>
+<ul>
+<li>将所有内容都擦除，并重新绘制</li>
+<li>仅绘制内容发生变化的部分区域</li>
+<li>冲离屏缓冲区中将内容发生变化的那部分背景复制到屏幕 (也叫图块复制)</li>
+</ul>
+<p>将所有内容都擦除并重绘，最直接。 仅绘制变化部分也需擦除背景重绘，但擦除的范围仅限与发生变化的那块区域。</p>
+<p>有时候将每一帧内容擦除并重绘，反倒可以获得最佳性能，比如背景很简单，绘制的物体也很简单时。如果背景复杂，重绘所有就会耗时，那就要考虑利用裁剪区域将重绘限制在特定区域。</p>
+<p>利用裁剪区域恢复上一帧背景步骤：</p>
+<ul>
+<li>调用 context.save() 保存状态</li>
+<li>通过调用 beginPath() 开始一段新路径</li>
+<li>调用 arc() &#x2F; rect() 等方法设置路径</li>
+<li>调用 context.clip() 将当前路径设置为裁剪区域</li>
+<li>擦除屏幕图像，实际上是擦出了裁剪区域所在图像</li>
+<li>将背景绘制到屏幕画布，实际上只作用于裁剪区域</li>
+<li>context.restore() 恢复状态</li>
+</ul>
+<p>如果动画中物体多，这种方法会耗时。一般倩况，图块复制要比使用剪辑区域快，但需要离屏 canvas。</p>
+<h2 id="基于时间的运动"><a href="#基于时间的运动" class="headerlink" title="基于时间的运动"></a>基于时间的运动</h2><p>如果动画不做限制，在不同设备上，如果两台设备都以相同的帧率运行，物体速度相同保持不变，那么不同设备上的物体都会以相同的速度同时到达某处。但是，如果有一台设备配置要高，有 120hz 刷新率，另一台设备只有 60hz 刷新率，那么会导致配置高的设备播放动画的速度要快得多。常见的比如在多人射击游戏中有两个玩家都同时各自某条道路前行，如果保持速度不变，那么他们都会同时到达指定地方，但是由于某个玩家的电脑配置比另一个好得多，导致其电脑播放游戏动画的速度更快，那么配置高的玩家总是能提前到达，那就没有玩家和比自己电脑配置高的人玩游戏了。</p>
+<p>当然我们可以限制帧率，让物体在不同的设备上都以相同的帧率运行，比如让动画每秒播放 30 帧，但是这样物体的运动就赶不上显示器的刷新频率了，因此动画的某些帧会被省略掉，这种现象又叫做 <strong>掉帧</strong>或者<strong>丢帧</strong>，我们就会看到物体的运动从一个地方突然跳到了另一个地方，整个动画的执行不够连贯。当以每秒 30帧的速度来运行动画，不管是否使用 基于时间的运动 ，都会发生掉帧显现，动画看上去总是断断续续的。</p>
+<p>所以最好是使用利用本身的刷新率，再加上使用<strong>基于时间的运动</strong>使动画在所有情况下都能以相同的速度播放。这种情况下，我们就能让物体在不同刷新率的设备上都以相同时间到达，需要使用<strong>基于时间的运动</strong>来控制动画，让所有物体都以相同的速度来移动。</p>
+<p>基于时间的运动，就是不管帧率如何，动画都应该稳定播放。要让动画以稳定的速度运动，不受帧速率的影响，就需要根据物体的速度计算出它在两帧之间要移动的像素。</p>
+<p>计算公式：</p>
+<p><code>像素/帧 = 像素/秒 * 帧/秒</code></p>
+<p>也可以写为：</p>
+<p><code>像素/帧 = 像素/秒 * 秒/帧</code></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> lastTime = <span class="hljs-number">0</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">animate</span> = (<span class="hljs-params"><span class="hljs-attr">timestamp</span>: <span class="hljs-built_in">number</span></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> deltaTime = timestamp - lastTime;<br>  <span class="hljs-keyword">const</span> fps = <span class="hljs-number">1000</span> / deltaTime;<br><br>  <span class="hljs-comment">// Update and draw ...</span><br>  <span class="hljs-keyword">const</span> preFrame = circle.<span class="hljs-property">speed</span> / fps;<br>  <span class="hljs-comment">// const preFrame = circle.speed * deltaTime / 1000;</span><br>  circle.<span class="hljs-property">x</span> += preFrame;<br><br>  lastTime = timestamp;<br>  <span class="hljs-title function_">requestAnimationFrame</span>(animate);<br>&#125;;<br><br><span class="hljs-title function_">requestAnimationFrame</span>(animate);<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="动画制作最佳实践"><a href="#动画制作最佳实践" class="headerlink" title="动画制作最佳实践"></a>动画制作最佳实践</h2><ul>
+<li>使用 requestAnimationFrame() 或这样的 polyfill 形式保证浏览器兼容性</li>
+<li>将业务的跟新与动画绘制分开</li>
+<li>使用 “基于时间的运动” 来协调动画的播放速度</li>
+<li>使用裁剪区域或图块复制技术将复杂的背景恢复到画布上</li>
+<li>必要时可使用一个或多个离屏缓冲区以提升背景的绘制速度</li>
+<li>不要手动实现传统的双缓冲算法，浏览器会自动实现它</li>
+<li>避免使用 CSS 指定阴影及圆角效果</li>
+<li>避免在 Canvas 中绘制阴影效果</li>
+<li>避免在播放动画时分配内存</li>
+<li>使用性能调试及时间轴工具来监控并改善动画绘制效率</li>
+</ul>
+<h2 id="动画示例"><a href="#动画示例" class="headerlink" title="动画示例"></a>动画示例</h2><iframe 
+  class="live-sample-frame sample-code-frame" 
+  frameborder="0" 
+  height="600" 
+  width="100%" 
+  loading="lazy"      
+  style="width:100%; height:600px; border:0; border-radius: 4px; overflow:hidden;"
+  title="canvas-test-demo"
+  allow="fullscreen; accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" 
+  src="https://iaosee.com/html5-canvas-core/#/Demo.46">
+</iframe>
+
+<p><a href="https://iaosee.com/html5-canvas-core/#/Demo.46">查看完整 Demo 效果</a></p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>iaosee</li>
+    <li><strong>本文链接：</strong><a href="http://iaosee.com/2020/12/28/canvas-core-05-animation-system/index.html" title="http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;12&#x2F;28&#x2F;canvas-core-05-animation-system&#x2F;index.html">http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;12&#x2F;28&#x2F;canvas-core-05-animation-system&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2D/" rel="tag">2D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E7%94%BB/" rel="tag">动画</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%BD%A2%E5%BC%80%E5%8F%91/" rel="tag">图形开发</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2021/01/02/canvas-core-06-sprite-system/"><i class="iconfont iconleft"></i>Canvas 精灵 - 精灵系统实现 🧚</a>
+    <a href="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/">Canvas 图像/视频处理 - 像素操作和滤镜实现<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+  
+<div id="giscus" class="giscus"></div>
+<script>
+window.onload = function() {
+
+  function loadGiscus() {
+    var script = document.createElement("script");
+    script.src = 'https://giscus.app/client.js';
+    script.type = 'text/javascript';
+    script.crossorigin = 'anonymous';
+    script.async = true;
+    script.dataset.loading = 'lazy';
+    script.dataset.repo = 'iaosee/iaosee.github.io';
+    script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnk4ODczNjY2Ng==';
+    script.dataset.mapping = 'pathname';
+    script.dataset.category = 'Announcements';
+    script.dataset.categoryId = 'DIC_kwDOBUoDms4CQP9t';
+    script.dataset.inputPosition = 'top';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '';
+    script.dataset.lang = 'zh-CN';
+    script.dataset.theme = localStorage.getItem('color-mode') || 'preferred_color_scheme';
+    document.getElementById('giscus').parentElement.appendChild(script);
+  }
+
+  function sendGiscusMessage(message) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    var msgData = { giscus: message };
+    // console.log('send message -- ', msgData);
+    iframe.contentWindow.postMessage(msgData, 'https://giscus.app');
+  }
+  // window.sendGiscusMessage = sendGiscusMessage;
+
+  function handleMessage(event) {
+    if (event.origin !== 'https://giscus.app') return;
+    if (!(typeof event.data === 'object' && event.data.giscus)) return;
+    const giscusData = event.data.giscus;
+    // console.log('recived giscus message -- ', giscusData)
+  }
+  window.addEventListener('message', handleMessage);
+  window.addEventListener('beforeunload', function() {
+    window.removeEventListener('message', handleMessage);
+  });
+
+  var toggleElement = document.getElementById('color-toggle');
+  if (toggleElement) {
+    toggleElement.addEventListener('click', function () {
+      const mode = localStorage.getItem('color-mode');
+      sendGiscusMessage({
+        setConfig: {
+          theme: mode,
+        }
+      });
+    });
+  }
+
+  if ( false ) {
+    $("#comments-btn").on("click", function (e) {
+      $(this).hide();
+      loadGiscus();
+    });
+  } else {
+    loadGiscus();
+  }
+}
+</script>
+
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86"><span class="toc-text">动画原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E5%BE%AA%E7%8E%AF"><span class="toc-text">动画循环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%A7%E9%80%9F%E7%8E%87"><span class="toc-text">帧速率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%8A%A8%E7%94%BB%E8%83%8C%E6%99%AF"><span class="toc-text">恢复动画背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E8%BF%90%E5%8A%A8"><span class="toc-text">基于时间的运动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E5%88%B6%E4%BD%9C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">动画制作最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E7%A4%BA%E4%BE%8B"><span class="toc-text">动画示例</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/iaosee "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:iaosee@outlook.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
+
+    AV.init({
+      appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
+      appKey: '1ygwFPYG8IbvlgnrnNXrNeNe',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://iaosee.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://iaosee.com';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
+
+
+
+
+
+
+
+
+
+
+</html>

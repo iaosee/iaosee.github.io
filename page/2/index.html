@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Archive - iaosee</title>
+  <title>iaosee</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
@@ -54,7 +54,7 @@
     var CONFIG = window.CONFIG || {};
     var ZHAOO = window.ZHAOO || {};
     CONFIG = {
-      isHome: false,
+      isHome: true,
       fancybox: true,
       pjax: false,
       loading: {
@@ -141,15 +141,13 @@
   <nav class="navbar">
     <div class="left">
       
-        <i class="iconfont iconhome j-navbar-back-home"></i>
-      
       
       
         <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
       
       
     </div>
-    <div class="center">归档</div>
+    <div class="center"> </div>
     <div class="right">
       <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
@@ -169,7 +167,7 @@
       </li><li class="menu-item">
         <a href="/galleries/ " class="underline "> 相册</a>
       </li><li class="menu-item">
-        <a href="/archives/ " class="underline active"> 归档</a>
+        <a href="/archives/ " class="underline "> 归档</a>
       </li><li class="menu-item">
         <a href="/tags/ " class="underline "> 标签</a>
       </li><li class="menu-item">
@@ -181,67 +179,119 @@
   </div>
 </nav>
   <main id="main">
-  <section class="archive">
-    <div class="archive-container">
-      <div class="archive-post">
-        <h3 class="archive-total">归档: 8 篇</h3>
+  
+    <div class="preview">
+  <!-- <nav class="navbar j-navbar-menu">
+    <i class="iconfont iconmenu"></i>
+  </nav> -->
+  <div class="preview-image">
+    
         
+              <div class="preview-overlay">
+                <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                  <defs>
+                    <path id="gentle-wave"
+                      d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                  </defs>
+                  <g class="preview-parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(var(--color-background-rgb),0.7"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(var(--color-background-rgb),0.5)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(var(--color-background-rgb),0.3)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--color-background)"></use>
+                  </g>
+                </svg>
+              </div>
+              
+  </div>
+  <div class="preview-motto-wrapper">
+    <h2 class="preview-motto" id="motto">
+      
+    </h2>
+    
+      <span class="preview-cursor">_</span>
+      
+  </div>
+  <div class="preview-scroll">
+    <a href="#container" class="smooth-scroll"><i class="iconfont iconMouse"></i></a>
+  </div>
+</div>
+  
+  <div class="container" id="container">
+    <section class="row post">
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2020/11/22/canvas-core-01-concept-of-summary/" class="post-image">
+      <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/23/r63cPx.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2020/11/22/canvas-core-01-concept-of-summary/" title="Canvas 基础概念 — 基础、绘制、坐标" >Canvas 基础概念 — 基础、绘制、坐标</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">基本概念介绍Canvas 是一个 HTML5 新增的东西，MDN 的介绍如下：
+
+Canvas API 提供了一个通过 JavaScript 和 HTML 的 &lt;canvas&gt; 元素...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 22, 2020</span>
         
-          
-            <h3 class="archive-year">2021 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/01/06/canvas-core-07-collision-detection/">一月 06</a>
-            <a class="archive-title" href="/2021/01/06/canvas-core-07-collision-detection/">Canvas 碰撞检测 — 外接图形判别/光线投射/分离轴定理</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/01/02/canvas-core-06-sprite-system/">一月 02</a>
-            <a class="archive-title" href="/2021/01/02/canvas-core-06-sprite-system/">Canvas 精灵 - 精灵系统实现 🧚</a>
-          </div>
-        
-          
-            <h3 class="archive-year">2020 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/12/28/canvas-core-05-animation-system/">十二月 28</a>
-            <a class="archive-title" href="/2020/12/28/canvas-core-05-animation-system/">Canvas 动画系统 - 动画帧速率、基于时间运动、最佳实践</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/">十二月 25</a>
-            <a class="archive-title" href="/2020/12/25/canvas-core-04-image-processing-and-pixel-manipulation/">Canvas 图像/视频处理 - 像素操作和滤镜实现</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/12/23/canvas-core-03-synthesis-and-clipping/">十二月 23</a>
-            <a class="archive-title" href="/2020/12/23/canvas-core-03-synthesis-and-clipping/">Canvas 图像合成与剪辑区域 - 橡皮擦实现</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/12/10/canvas-core-02-basic-graphic-rendering/">十二月 10</a>
-            <a class="archive-title" href="/2020/12/10/canvas-core-02-basic-graphic-rendering/">Canvas 基础图形绘制 — 矩形、圆形、曲线、多边形</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/22/canvas-core-01-concept-of-summary/">十一月 22</a>
-            <a class="archive-title" href="/2020/11/22/canvas-core-01-concept-of-summary/">Canvas 基础概念 — 基础、绘制、坐标</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/02/Use-Github-Actions-to-automatically-deploy-Hexo-Blog/">十一月 02</a>
-            <a class="archive-title" href="/2020/11/02/Use-Github-Actions-to-automatically-deploy-Hexo-Blog/">使用 Github Actions 自动构建部署 Hexo 博客</a>
-          </div>
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2020/11/22/canvas-core-01-concept-of-summary/" class="leancloud-counter" data-flag-title="Canvas 基础概念 — 基础、绘制、坐标"></span>
+          </span>
+          <span class="post-info-item">
+            <i class="iconfont iconheart"></i><span id="/2020/11/22/canvas-core-01-concept-of-summary/" class="leancloud-like" data-flag-title="Canvas 基础概念 — 基础、绘制、坐标"></span>
+          </span>
         
       </div>
     </div>
-  </section>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2020/11/02/Use-Github-Actions-to-automatically-deploy-Hexo-Blog/" class="post-image">
+      <img   class="lazyload" data-original="https://z3.ax1x.com/2020/12/24/rc4UoQ.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2020/11/02/Use-Github-Actions-to-automatically-deploy-Hexo-Blog/" title="使用 Github Actions 自动构建部署 Hexo 博客" >使用 Github Actions 自动构建部署 Hexo 博客</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">介绍这篇文章记录一下使用 GitHub Actions 一步一步实现 Hexo Blog 自动化构建部署到 GitHub Pages 的流程。
+GitHub Actions 是类似于 Travi...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 02, 2020</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2020/11/02/Use-Github-Actions-to-automatically-deploy-Hexo-Blog/" class="leancloud-counter" data-flag-title="使用 Github Actions 自动构建部署 Hexo 博客"></span>
+          </span>
+          <span class="post-info-item">
+            <i class="iconfont iconheart"></i><span id="/2020/11/02/Use-Github-Actions-to-automatically-deploy-Hexo-Blog/" class="leancloud-like" data-flag-title="使用 Github Actions 自动构建部署 Hexo 博客"></span>
+          </span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+</section>
+    <section class="paginator">
+  
+    <a class="extend prev" rel="prev" href="/">&lt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  
+</section>
+  </div>
 </main>
   
 
