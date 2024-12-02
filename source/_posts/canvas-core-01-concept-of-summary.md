@@ -259,30 +259,30 @@ Canvas 2D API 提供了两个可以直接操作变换矩阵的方法：
 
 **计算平移后的新坐标：** 新旧坐标横向距离差记为 `dx`， 新旧坐标纵向距离差记为 `dy`
 
-$$
+$${{
 \begin{align}
 x' = x + dx \\
 y' = y + dy
 \end{align}
-$$
+}}$$
 
 **计算缩放后的新坐标：** 横向缩放倍数记为 `sx`， 纵向缩放倍数记为 `sy`
 
-$$
+$${{
 \begin{align}
 x' = x * sx \\
 y' = y * sy
 \end{align}
-$$
+}}$$
 
 **计算旋转后的新坐标：**
 
-$$
+$${{
 \begin{align}
 x' = x * cos(angle) - y * sin(angle) \\
 y' = y * cos(angle) + x * sin(angle)
 \end{align}
-$$
+}}$$
 
 `transform/setTransform` 两个方法的参数是相同的，分别来自下面坐标的计算公式，从上面的几个基本计算公式可得到如下坐标变换通用计算公式，`a ~ f` 分别表示方法中的 6 个参数：
 
@@ -291,7 +291,7 @@ $$
 
 **变换矩阵：**
 
-$$
+$${{
 \left[
 \begin{array}{ccc}
 a & c & e \\ 
@@ -299,19 +299,19 @@ b & d & f \\
 0 & 0 & 1 \\
 \end{array} 
 \right]
-$$
+}}$$
 
 
 **坐标变换通用计算公式：**
 
-$$
+$${{
 \begin{align}
 x' = ax + cy + e \\
 y' = bx + dy + f
 \end{align}
-$$
+}}$$
 
-- `a` x 轴水平缩放
+- `a` x 轴水平缩放 
 - `b` y 轴垂直倾斜
 - `c` x 轴水平倾斜
 - `d` y 轴垂直缩放
@@ -325,34 +325,34 @@ $$
 
 **根据通用公式平移坐标**，可以设置： `a = 1` `b = 0` `c = 0` `d = 1` `e` 为 x 轴偏移，`f` 为 y 轴偏移，带入公式得到：
 
-$$
+$${{
 \begin{align}
 x' &= 1x + 0y + e \\
    &= x + e \\
 y' &= 0x + 1y + f \\
    &= y + f \\
 \end{align}
-$$
+}}$$
 
 **根据通用公式缩放坐标**，`a` 为 x 轴缩放倍数，`d` 为 y 轴缩放倍数，其他参数置位 0 带入公式得：
 
-$$
+$${{
 \begin{align}
 x' &= ax + 0y + 0 \\
    &= ax \\
 y' &= 0x + dy + 0 \\
    &= dy \\
 \end{align}
-$$
+}}$$
 
 **根据通用公式旋转坐标**，讲坐标系绕原点旋转旋转一定弧度，`a = cos(angle)` `b = sin(angle)` `c = -sin(angle)` `d = cos(angle)` `e = 0` `f = 0` 带入公式得：
 
-$$
+$${{
 \begin{align}
 x' &= \cos(angle)x - \sin(angle)y + 0 \\
 y' &= \sin(angle)x + \cos(angle)y + 0 \\
 \end{align}
-$$
+}}$$
 
 如下代码使用 `transform()`方法实现将坐标系旋转 45 度，`45° = π/4 弧度`，这样画来的矩形就顺时针旋转了 45 度。
 
@@ -375,10 +375,11 @@ ctx.fillRect(0,0,200,100);
 ----
 
 
-<!-- 
+
+<!--
 公式测试：
 
-$$
+$${{
 \begin{align}
 
 (\vec{a} + \vec{b}) \cdot \vec{c} 
@@ -391,31 +392,32 @@ $$
 &= \vec{a} \cdot \vec{c} + \vec{b} \cdot \vec{c} 
 
 \end{align}
-$$
+}}$$
 
-$$
+$${{
 \begin{align}
 \vec{a} = \{a_1, b_1, c_1\} 
 \\
 \vec{b} = \{b_1, b_2, b_3\}
 \end{align}
-$$
+}}$$
 
 
-$$
+$${{
 \begin{split} 
 \vec{a} = a_1\vec{i} + a_2\vec{j} + a_3\vec{j} 
 \\
 \vec{b} = b_1\vec{i} + b_2\vec{j} + b_3\vec{k} 
 \end{split}
-$$
+}}$$
 
 
-$$
+$${{
 \cos\varphi 
 = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}||\vec{b}|}
 = \frac{a_1b_1 + a_2b_2 + a_3b_3}
        {\sqrt{a_1^2+a_2^2+a_3^2} \cdot
         \sqrt{b_1^2+b_2^2+b_3^2}}
-$$ -->
+}}$$
+-->
 
