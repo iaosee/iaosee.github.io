@@ -96,6 +96,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: zhaoo
+theme_config:
 
 restful:
   # site 可配置为数组选择性生成某些属性
