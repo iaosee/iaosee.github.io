@@ -142,14 +142,12 @@ function ballInBucket(ball, bucket) {
     b1 = y1 - k1 * x1,
     b2 = y3 - k2 * x3;
 
-  const intersectionPoint = {
-    x: (b2 - b1) / (k1 - k2),
-    y: k1 * this.intersectionPoint.x + b1,
-  };
+  this.intersectionPoint.x = (b2 - b1) / (k1 - k2);
+  this.intersectionPoint.y = k1 * this.intersectionPoint.x + b1;
 
   return (
-    intersectionPoint.x > x3 &&
-    intersectionPoint.x < x4 &&
+    this.intersectionPoint.x > x3 &&
+    this.intersectionPoint.x < x4 &&
     ball.x + ball.width < x4 &&
     ball.y + ball.height > y3
   );
