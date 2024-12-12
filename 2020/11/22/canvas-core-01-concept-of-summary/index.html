@@ -15,8 +15,11 @@
   <meta name="author" content="iaosee">
   <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
   
-  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
   
 
   
@@ -110,7 +113,7 @@
         enable: true
       },
       scrollbar: {
-        type: ''
+        type: 'default'
       },
       notification: {
         enable: false,
@@ -174,6 +177,8 @@
         <a href="/tags/ " class="underline "> 标签</a>
       </li><li class="menu-item">
         <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
       </li></ul>
     
       <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
@@ -919,7 +924,7 @@ window.onload = function() {
     script.dataset.categoryId = 'DIC_kwDOBUoDms4CQP9t';
     script.dataset.inputPosition = 'top';
     script.dataset.reactionsEnabled = '1';
-    script.dataset.emitMetadata = '';
+    script.dataset.emitMetadata = '0';
     script.dataset.lang = 'zh-CN';
     script.dataset.theme = localStorage.getItem('color-mode') || 'preferred_color_scheme';
     document.getElementById('giscus').parentElement.appendChild(script);
@@ -991,18 +996,25 @@ window.onload = function() {
   
 
 <footer class="footer">
-  <div class="footer-social"><a 
+  <div class="footer-social"><a
+        href="https://iaosee.com/images/resource/iaosee-wechat.jpg "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'"
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a
         href="https://github.com/iaosee "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOver="this.style.color= '#9f7be1'"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  icongithub-fill "></i>
-      </a><a 
+      </a><a
         href="mailto:iaosee@outlook.com "
         target="_blank"
         class="footer-social-item"
-        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOver="this.style.color=#FF3B00"
         onMouseOut="this.style.color='#33333D'">
           <i class="iconfont  iconmail"></i>
       </a></div>
@@ -1010,6 +1022,7 @@ window.onload = function() {
     <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
   
 </footer>
+
   
       <div class="fab fab-plus">
     <i class="iconfont iconplus"></i>
