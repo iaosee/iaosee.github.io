@@ -83,9 +83,9 @@ copyright: <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  
 
 # Social
 social:
-  # qq: tencent://message/?Menu=yes&uin=894519210 || iconQQ || '#12B7F5'
-  # wechat: javascript:; || iconwechat-fill || '#09BB07'
-  # instagram: https://www.instagram.com/izhaoo/ || iconinstagram || '#DA2E76'
+  qq: # tencent://message/?Menu=yes&uin=894519210 || iconQQ || '#12B7F5'
+  wechat: https://iaosee.com/images/resource/iaosee-wechat.jpg || iconwechat-fill || '#09BB07'
+  instagram: # https://www.instagram.com/izhaoo/ || iconinstagram || '#DA2E76'
   github: https://github.com/iaosee || icongithub-fill || '#9f7be1'
   email: mailto:iaosee@outlook.com || iconmail
   # weibo: https://www.weibo.com/u/5118348162 || iconweibo || '#DA2E76'

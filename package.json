@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "hexo server --draft --config ./_config.yml",
-    "preview": "cross-env cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml && npm run server",
+    "start": "hexo server",
+    "preview": "hexo server --draf",
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
