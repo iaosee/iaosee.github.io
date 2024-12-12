@@ -118,7 +118,6 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
-          cp _config.theme.zhaoo.yml themes/zhaoo/_config.yml
 
       - name: Install dependencies
         run: |

@@ -132,7 +132,7 @@ post_image:
 
 # Page Size
 post_page_size:
-  width: 980px
+  width: 1200px
 
 # Caption
 caption:
@@ -163,7 +163,7 @@ post_copyright:
 # Carrier（copy article with one click）
 carrier:
   enable: true
-  type: html # html markdown text
+  type: html # html | markdown | text
 
 # --------------------------------------------------
 # Page Settings
@@ -176,6 +176,7 @@ galleries:
   subtitle: Photography
   type: waterfall # waterfall | grid
   columns: 3
+
 
 # --------------------------------------------------
 # Comment Settings
@@ -217,7 +218,7 @@ giscus:
   categoryId: DIC_kwDOBUoDms4CQP9t
   inputPosition: top
   reactionsEnabled: 1
-  emitMetadata:
+  emitMetadata: 0
   lang: zh-CN
 
 # --------------------------------------------------
