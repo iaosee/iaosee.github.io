@@ -9,7 +9,7 @@ image: images/theme/welcome-background.jpg
 
 ## Me
 
- undefined
+undefined
 
 ## Contact
 
