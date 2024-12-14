@@ -49,6 +49,10 @@ loading:
   gif: /images/theme/loading.gif
   lottie:
 
+# random image api
+# - https://bing.img.run/rand.php
+# - https://api.xsot.cn/bing?jump=true
+
 # Preview
 preview:
   enable: true
@@ -59,8 +63,9 @@ preview:
       light: # /images/theme/welcome-background.jpg
       dark: # /images/theme/welcome-background.jpg
     video:
-    api: https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts
-    return_type: json
+    api: https://api.xsot.cn/bing?jump=true
+    # api: https://api.unsplash.com/photos/random?client_id=WTOQU8thNHmm9MzBYV6L5ERpE_l4yg76nYuMZYiYD5s&orientation=landscape&query=nature,scenery,arts
+    return_type: image
     data_contents: ['urls', 'regular']
     size: cover # css: background-size
     position: center # css: background-position
