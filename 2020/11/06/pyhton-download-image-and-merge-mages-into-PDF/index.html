@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Python 批量下载图片并合并为 PDF 文件 - iaosee</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="iaosee, iaosee's blog, Web, Front-end, JavaScript, TypeScript, Graphics, 2D/3D, Canvas, WebGL">
+  <meta name="description" content="Python 代码片段：下载图片文件并合并为 PDF ...">
+  <meta name="author" content="iaosee">
+  <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/styles/github-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: 'https://api.xsot.cn/bing?jump=true',
+          return_type: 'image',
+          data_contents: '["urls","regular"]'
+        },
+        motto: {
+          default: '菡萏香销翠叶残，西风愁起绿波间。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Python 批量下载图片并合并为 PDF 文件</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-1"></div>
+      <div class="col-xl-8"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/article/python-lang-logo.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Python 批量下载图片并合并为 PDF 文件</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 06, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/11/06/pyhton-download-image-and-merge-mages-into-PDF/" class="leancloud-counter" data-flag-title="Python 批量下载图片并合并为 PDF 文件"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2020/11/06/pyhton-download-image-and-merge-mages-into-PDF/" class="leancloud-like" data-flag-title="Python 批量下载图片并合并为 PDF 文件"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3402</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <p>Python 代码片段：下载图片文件并合并为 PDF 文件。</p>
+<h2 id="代码片段"><a href="#代码片段" class="headerlink" title="代码片段"></a>代码片段</h2><p>批量下载图片到指定目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> requests<br><br>start_page = <span class="hljs-number">1</span><br>end_page = <span class="hljs-number">100</span><br>source_id = <span class="hljs-string">&#x27;1384001302181&#x27;</span><br>dir_name = <span class="hljs-string">&#x27;download save path&#x27;</span><br>url_prefix = <span class="hljs-string">f&#x27;https://xxx.xxx.xxx.cn/<span class="hljs-subst">&#123;source_id&#125;</span>/files/mobile/&#x27;</span><br>image_links = [url_prefix + <span class="hljs-built_in">str</span>(i) + <span class="hljs-string">&#x27;.jpg&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(start_page, end_page + <span class="hljs-number">1</span>)]<br>save_dir = os.path.join(os.getcwd(), dir_name)<br><span class="hljs-comment"># print(image_links)</span><br><br><span class="hljs-comment"># test </span><br>img_urls = [<br>    <span class="hljs-string">&#x27;https://images.unsplash.com/photo-1719937050814-72892488f741&#x27;</span>,<br>    <span class="hljs-string">&#x27;https://images.unsplash.com/photo-1720048171527-208cb3e93192&#x27;</span>,<br>    <span class="hljs-string">&#x27;https://images.unsplash.com/photo-1734409019142-1927557a77b9&#x27;</span>,<br>    <span class="hljs-string">&#x27;https://images.unsplash.com/photo-1734108039189-f6c123288381&#x27;</span>,<br>    <span class="hljs-string">&#x27;https://images.unsplash.com/photo-1734268486202-7e85b12a7fa2&#x27;</span>,<br>]<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">download_image</span>(<span class="hljs-params">url, save_path</span>):<br>    content_type_map = &#123;<br>        <span class="hljs-string">&#x27;image/jpeg&#x27;</span>: <span class="hljs-string">&#x27;jpg&#x27;</span>,<br>        <span class="hljs-string">&#x27;image/png&#x27;</span>: <span class="hljs-string">&#x27;png&#x27;</span>,<br>        <span class="hljs-string">&#x27;image/gif&#x27;</span>: <span class="hljs-string">&#x27;gif&#x27;</span>,<br>        <span class="hljs-string">&#x27;image/webp&#x27;</span>: <span class="hljs-string">&#x27;webp&#x27;</span>,<br>        <span class="hljs-string">&#x27;image/svg+xml&#x27;</span>: <span class="hljs-string">&#x27;svg&#x27;</span>,<br>    &#125;<br>    <span class="hljs-keyword">try</span>:<br>        response = requests.get(url, stream=<span class="hljs-literal">True</span>)<br>        response.raise_for_status()  <span class="hljs-comment"># 抛出异常处理 HTTP 错误</span><br>        <span class="hljs-built_in">print</span>(response.headers)<br>        save_path = save_path.endswith(<span class="hljs-string">&#x27;.&#x27;</span>) <span class="hljs-keyword">and</span> save_path <span class="hljs-keyword">or</span> save_path + <span class="hljs-string">&#x27;.&#x27;</span> + content_type_map[response.headers[<span class="hljs-string">&#x27;Content-Type&#x27;</span>]];<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(save_path, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            <span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> response.iter_content(<span class="hljs-number">1024</span>):<br>                f.write(chunk)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Image downloaded: <span class="hljs-subst">&#123;save_path&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">except</span> requests.exceptions.RequestException <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error downloading image <span class="hljs-subst">&#123;url&#125;</span>: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> os.path.exists(save_dir)):<br>    os.makedirs(save_dir);<br><br><span class="hljs-keyword">for</span> index, url <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(image_links):<br>    file_name = url[url.rfind(<span class="hljs-string">&#x27;/&#x27;</span>) + <span class="hljs-number">1</span>:]<br>    save_path = os.path.join(os.getcwd(), dir_name, file_name)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;download: <span class="hljs-subst">&#123;url&#125;</span> to <span class="hljs-subst">&#123;dir_name&#125;</span>/<span class="hljs-subst">&#123;file_name&#125;</span>&#x27;</span>)<br>    download_image(url, save_path)<br></code></pre></td></tr></table></figure>
+
+<p>将某个目录下的图片合并为 PDF 文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> re<br><br><span class="hljs-keyword">from</span> fpdf <span class="hljs-keyword">import</span> FPDF<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>book_name = <span class="hljs-string">&quot;PDF BOOK NAME&quot;</span>;<br>book_images_dir = <span class="hljs-string">&quot;images_dir&quot;</span>;<br><br>pdf = FPDF(orientation=<span class="hljs-string">&#x27;P&#x27;</span>, unit=<span class="hljs-string">&#x27;mm&#x27;</span>, <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;A4&#x27;</span>)<br>pdf.set_auto_page_break(<span class="hljs-number">0</span>)      <span class="hljs-comment"># 自动分页设为 False</span><br>image_path = os.path.join(os.getcwd(), book_images_dir, book_name) <br>image_list = [f <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> os.listdir(image_path) <span class="hljs-keyword">if</span> f.lower().endswith((<span class="hljs-string">&#x27;.png&#x27;</span>, <span class="hljs-string">&#x27;.jpg&#x27;</span>, <span class="hljs-string">&#x27;.jpeg&#x27;</span>))]<br>image_list.sort(key=<span class="hljs-keyword">lambda</span> l: <span class="hljs-built_in">int</span>(re.findall(<span class="hljs-string">r&#x27;\d+&#x27;</span>, l)[<span class="hljs-number">0</span>]))<br><br><span class="hljs-built_in">print</span>(pdf.w, pdf.h)<br><span class="hljs-built_in">print</span>(image_path)<br><br><span class="hljs-keyword">for</span> image_name <span class="hljs-keyword">in</span> image_list:<br>    pdf.add_page()<br>    img_path = os.path.join(image_path, image_name)<br>    image = Image.<span class="hljs-built_in">open</span>(img_path)<br>    ratio = pdf.w / image.width<br>    image.thumbnail((pdf.w, image.height * ratio))<br>    img_width, img_height = image.size<br>    <span class="hljs-comment"># pdf.image(img_path, x=(pdf.w - img_width) / 2, y=(pdf.h - img_height) / 2, w=img_width, h=img_height)</span><br>    pdf.image(img_path, x=(pdf.w - img_width) / <span class="hljs-number">2</span>, y=(pdf.h - img_height) / <span class="hljs-number">2</span>, w=img_width, h=img_height)<br><br>pdf.output(os.path.join(os.getcwd(), <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;book_name&#125;</span>.pdf&quot;</span>), <span class="hljs-string">&quot;F&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>iaosee</li>
+    <li><strong>本文链接：</strong><a href="http://iaosee.com/2020/11/06/pyhton-download-image-and-merge-mages-into-PDF/index.html" title="http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;11&#x2F;06&#x2F;pyhton-download-image-and-merge-mages-into-PDF&#x2F;index.html">http:&#x2F;&#x2F;iaosee.com&#x2F;2020&#x2F;11&#x2F;06&#x2F;pyhton-download-image-and-merge-mages-into-PDF&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/11/22/canvas-core-01-concept-of-summary/"><i class="iconfont iconleft"></i>Canvas 基础概念 — 基础、绘制、坐标</a>
+    <a href="/2020/11/05/Python-Basic-Syntax-Reference/">Python 入门 - 基础语法参考<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+  
+<div id="giscus" class="giscus"></div>
+<script>
+window.onload = function() {
+
+  function loadGiscus() {
+    var script = document.createElement("script");
+    script.src = 'https://giscus.app/client.js';
+    script.type = 'text/javascript';
+    script.crossorigin = 'anonymous';
+    script.async = true;
+    script.dataset.loading = 'lazy';
+    script.dataset.repo = 'iaosee/iaosee.github.io';
+    script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnk4ODczNjY2Ng==';
+    script.dataset.mapping = 'pathname';
+    script.dataset.category = 'Announcements';
+    script.dataset.categoryId = 'DIC_kwDOBUoDms4CQP9t';
+    script.dataset.inputPosition = 'top';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '0';
+    script.dataset.lang = 'zh-CN';
+    script.dataset.theme = localStorage.getItem('color-mode') || 'preferred_color_scheme';
+    document.getElementById('giscus').parentElement.appendChild(script);
+  }
+
+  function sendGiscusMessage(message) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    var msgData = { giscus: message };
+    // console.log('send message -- ', msgData);
+    iframe.contentWindow.postMessage(msgData, 'https://giscus.app');
+  }
+  // window.sendGiscusMessage = sendGiscusMessage;
+
+  function handleMessage(event) {
+    if (event.origin !== 'https://giscus.app') return;
+    if (!(typeof event.data === 'object' && event.data.giscus)) return;
+    const giscusData = event.data.giscus;
+    // console.log('recived giscus message -- ', giscusData)
+  }
+  window.addEventListener('message', handleMessage);
+  window.addEventListener('beforeunload', function() {
+    window.removeEventListener('message', handleMessage);
+  });
+
+  var toggleElement = document.getElementById('color-toggle');
+  if (toggleElement) {
+    toggleElement.addEventListener('click', function () {
+      const mode = localStorage.getItem('color-mode');
+      sendGiscusMessage({
+        setConfig: {
+          theme: mode,
+        }
+      });
+    });
+  }
+
+  if ( false ) {
+    $("#comments-btn").on("click", function (e) {
+      $(this).hide();
+      loadGiscus();
+    });
+  } else {
+    loadGiscus();
+  }
+}
+</script>
+
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5"><span class="toc-text">代码片段</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+
+  
+
+<footer class="footer">
+  <div class="footer-social"><a
+        href="https://iaosee.com/images/resource/iaosee-wechat.jpg "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'"
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a
+        href="https://github.com/iaosee "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'"
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a
+        href="mailto:iaosee@outlook.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00"
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//fastly.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av.min.js", () => {
+
+    AV.init({
+      appId: 'QRsYxiOY3VGeVhkqx7yJiz0U-gzGzoHsz',
+      appKey: '1ygwFPYG8IbvlgnrnNXrNeNe',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://iaosee.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://iaosee.com';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?fa215b20eccf04179a4d316087693164'></script>
+
+
+
+
+
+
+
+
+
+
+</html>
