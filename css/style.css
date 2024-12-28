@@ -64,7 +64,7 @@ body {
   margin: 0;
   font-size: 16px;
   color: var(--color-text);
-  font-family: sans-serif, system-ui;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Pingfang SC", "Microsoft Yahei", sans-serif, system-ui;
   background-color: var(--color-background);
   background-repeat: no-repeat;
   background-attachment: fixed;
