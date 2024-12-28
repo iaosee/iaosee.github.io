@@ -1,14 +1,14 @@
 ---
 title: Python 入门 - 基础语法参考
+tags:
+  - Python
 name: Python Basic Syntax Reference
-date: 2020-11-05 21:22:10
-
 image: images/article/python-lang-logo.jpg
 categories:
   - Python
-tags:
-  - Python
+date: 2020-11-05 21:22:10
 ---
+
 
 我有一个需求：去批量下载某网站的图片，图片名称由一定的规则组成，将下载的图片合并组成为 PDF 文件，准备使用 Python 去操作。
 
