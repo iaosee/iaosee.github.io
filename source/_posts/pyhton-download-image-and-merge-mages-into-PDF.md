@@ -99,6 +99,6 @@ for image_name in image_list:
     # pdf.image(img_path, x=(pdf.w - img_width) / 2, y=(pdf.h - img_height) / 2, w=img_width, h=img_height)
     pdf.image(img_path, x=(pdf.w - img_width) / 2, y=(pdf.h - img_height) / 2, w=img_width, h=img_height)
 
-pdf.output(os.path.join(os.getcwd(), r"{0}.pdf".format(book_name)), "F")
+pdf.output(os.path.join(os.getcwd(), f"{book_name}.pdf"), "F")
 ```
 
