@@ -1857,7 +1857,7 @@ body input {
   z-index: 10;
   padding: 20px;
   height: calc(100vh - 140px);
-  overflow: scroll;
+  overflow-y: auto;
 }
 @media (max-width: 1200px) {
   .toc-wrap {
