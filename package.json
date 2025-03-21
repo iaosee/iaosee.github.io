@@ -8,7 +8,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server --draft"
+    "server": "hexo server --draft",
+    "init:theme": "git clone https://github.com/iaosee/hexo-theme-zhaoo.git themes/zhaoo -b iaosee/customize"
   },
   "hexo": {
     "version": "7.3.0"
